@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using SuperStarSdk;
 
 public class UIManager : MonoBehaviour
 {
@@ -73,12 +74,14 @@ public class UIManager : MonoBehaviour
         {
             AudioManager.instance.failAudio.Play(); 
             StartCoroutine(ShowGameOverIE());
+           
         }
         else
         {
             AudioManager.instance.winAudio.Play();
             GameController.instance.currentState = GameController.STATE.FINISH;
             StartCoroutine(ShowGameWinIE());
+           
         }
     }
 
@@ -88,6 +91,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         failPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
+        yield return new WaitForSeconds(1.0f);
+        SuperStarAd.Instance.ShowInterstitial();
     }
 
     IEnumerator ShowGameWinIE()
@@ -100,6 +105,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         winPanel.SetActive(true);
         gamePlayScreen.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        SuperStarAd.Instance.ShowInterstitial();
     }
 
     public void Replay()
