@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
+  isDarkBg: 0
   dogList:
   - {fileID: 4565650896679551671}
   - {fileID: 492319738774196417}
@@ -9051,8 +9052,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_Data
       value: 
-      objectReference: {fileID: -1035163811908992352, guid: 7176edf8b0389e74f89300594e73c7cb,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[3].m_Data
@@ -9063,7 +9063,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_Data
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -1035163811908992352, guid: 7176edf8b0389e74f89300594e73c7cb,
+        type: 3}
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[5].m_Data
@@ -9730,7 +9731,7 @@ PrefabInstance:
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
@@ -9740,7 +9741,7 @@ PrefabInstance:
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
@@ -11370,7 +11371,7 @@ PrefabInstance:
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_Tiles.Array.data[0].second.m_TileSpriteIndex
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340362648900, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
