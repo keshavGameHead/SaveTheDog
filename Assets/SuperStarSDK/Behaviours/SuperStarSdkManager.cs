@@ -344,6 +344,17 @@ namespace SuperStarSdk
                 }
             }
         }
+
+
+        public void MoreApps() 
+        {
+            if (!string.IsNullOrEmpty(crossPromoAssetsRoot.moreappurl)  )
+            {
+                Application.OpenURL(crossPromoAssetsRoot.moreappurl);
+            }
+
+        }
+        
         public void Rate()
         {
 
@@ -374,7 +385,7 @@ namespace SuperStarSdk
 
         public void openFile(string filepath) 
         {
-            AndroidContentOpenerWrapper.OpenContent(filepath);
+          //  AndroidContentOpenerWrapper.OpenContent(filepath);
         }
 
 
@@ -523,6 +534,7 @@ public class SSCrossPromoAssetRoot
     public int display_forceupdate = 0;
 
     [Header("App Data")]
+    public string moreappurl;
     public string PrivacyPolicy;
     public string AndroidISAppKey;
     public string AndroidAdmobAppKey;

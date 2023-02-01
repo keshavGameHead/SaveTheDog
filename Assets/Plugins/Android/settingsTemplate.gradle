@@ -1,0 +1,56 @@
+// This file contents should be placed at Assets/Plugins/Android/settingsTemplate.gradle
+// This works around Unity's 2019.3 bug where their root build.gradle is placing buildscript under allprojects
+// On it's own it doesn't create issues however doing so means including a buildscript block in any sub projects
+//   such as "unityLibrary" which is generated from the template Assets/Plugins/Android/mainTemplate.gradle does not work.
+// It results in a build error of "Configuration with name 'compileClasspath' not found." on a lint task.
+// Normally adding "lintOptions { abortOnError false }" bypasses any lint task errors however
+//   either due to a bug with the Android Gradle plugin or an order of operations this does seem to be applying in this case.
+// Until Unity fixes their root build.gradle we will need to keep using this file to enable any additional Gradle plugins.
+
+static void enableJetifier(Project project) {
+    project.ext['android.useAndroidX'] = true
+    project.ext['android.enableJetifier'] = true
+}
+
+static void addBuildscript(Project project) {
+    project.buildscript {
+        repositories {
+            maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
+        }
+        dependencies {
+            // OneSignal-Gradle-Plugin
+            classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.7, 0.99.99]'
+        }
+    }
+}
+
+static void applyPlugins(Project project) {
+    // Only apply OneSignal-Gradle-Plugin to the :app project. (Unity calls this :launcher)
+    if (project.name != 'launcher')
+        return
+
+    project.afterEvaluate {
+        it.apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+    }
+}
+
+gradle.rootProject {
+    it.afterEvaluate {
+        it.allprojects {
+            // Since Unity 2019.3 enabling Jetifier via mainTemplate.gradle is no longer working
+            // Enabling it for all gradle projects here.
+            enableJetifier(it)
+
+            addBuildscript(it)
+            applyPlugins(it)
+        }
+    }
+}
+
+
+// Per Unity's docs /*/*INCLUDES/*/* should be at the bottom.
+// https://docs.unity3d.com/Manual/android-gradle-overview.html
+
+// However it seem to have left out this include line
+include ':launcher', ':unityLibrary'
+**INCLUDES**
