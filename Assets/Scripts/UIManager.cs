@@ -8,7 +8,8 @@ using SuperStarSdk;
 public class UIManager : MonoBehaviour
 {
 
-    public GameObject clock, fail, complete, winPanel,failPanel,gamePlayScreen;
+    public static UIManager Instance;
+    public GameObject clock, fail, complete, winPanel,failPanel,gamePlayScreen,Bg;
 
     private float timer;
 
@@ -20,6 +21,10 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;    
+        }
         startClock = false;
         timer = timerMax;
     }
