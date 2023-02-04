@@ -14,7 +14,6 @@ public class AndroidAgent : IronSourceIAgent
 
 	public AndroidAgent ()
 	{
-		Debug.Log ("AndroidAgent ctr");
 		initEventsDispatcher();
 	}
 	
@@ -89,7 +88,6 @@ public class AndroidAgent : IronSourceIAgent
 
 	public int? getConversionValue()
     {
-		Debug.Log("Unsupported Platform");
 		return null;
 	}
 
@@ -317,12 +315,10 @@ public class AndroidAgent : IronSourceIAgent
 
 	public void loadConsentViewWithType(string consentViewType)
 	{
-		Debug.Log("Unsupported Platform");
 	}
 
 	public void showConsentViewWithType(string consentViewType)
 	{
-		Debug.Log("Unsupported Platform");
 	}
 
 	//******************* ILRD API *******************//

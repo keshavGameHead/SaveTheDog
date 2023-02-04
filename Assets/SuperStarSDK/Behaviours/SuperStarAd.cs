@@ -37,6 +37,8 @@ namespace SuperStarSdk
 
         private void Start()
         {
+
+         
 #if UNITY_ANDROID
             string appKey = SuperStarSdkManager.Instance.crossPromoAssetsRoot.AndroidISAppKey;
 #elif UNITY_IPHONE
@@ -51,6 +53,7 @@ namespace SuperStarSdk
 
             // SDK init
             Debug.Log("unity-script: IronSource.Agent.init");
+            Debug.Log("IS Key => "+ appKey);
             IronSource.Agent.init(appKey);
             bannerImage.SetActive(false);
             lastInterstitial = -1000f;
@@ -270,7 +273,10 @@ namespace SuperStarSdk
         {
 
             Debug.Log("Load Interstitial AD");
+            if (!IronSource.Agent.isInterstitialReady())
+            {
             IronSource.Agent.loadInterstitial();
+            }
             AdmobManager.Instance.RequestInterstitial();
             
         }
@@ -278,18 +284,21 @@ namespace SuperStarSdk
         public void ShowInterstitial() 
         {
             Debug.Log("ShowInterstitial");
+            Debug.Log("ShowInterstitial = > "+ IronSource.Agent.isInterstitialReady());
             float time = Time.time;
             if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady())
             {
-
+                Debug.Log("ready and show");
+                LoadInterstitialAd();
                 IronSource.Agent.showInterstitial();
-                AdmobManager.Instance.RequestInterstitial();
+               // AdmobManager.Instance.RequestInterstitial();
                 lastInterstitial = time;
 
             }
             else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_intrestitial == 1 && AdmobManager.Instance.interstitial != null && AdmobManager.Instance.interstitial.IsLoaded())
             {
-                IronSource.Agent.loadInterstitial();
+                Debug.Log("ready and show 2");
+                LoadInterstitialAd();
                 AdmobManager.Instance.ShowInterstrial();
                 lastInterstitial = time;
             }
@@ -316,13 +325,14 @@ namespace SuperStarSdk
             
             if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady())
             {
+                LoadInterstitialAd();
                 IronSource.Agent.showInterstitial();
-                AdmobManager.Instance.RequestInterstitial();
+                //AdmobManager.Instance.RequestInterstitial();
                 lastInterstitial = time;
             }
             else if(SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_intrestitial == 1 && AdmobManager.Instance.interstitial != null && AdmobManager.Instance.interstitial.IsLoaded())
             {
-                IronSource.Agent.loadInterstitial();
+                LoadInterstitialAd();
                 AdmobManager.Instance.ShowInterstrial();
                 lastInterstitial = time;
             }
