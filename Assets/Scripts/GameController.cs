@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SuperStarSdk;
 
 public class GameController : MonoBehaviour
 {
@@ -30,7 +31,10 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
         currentState = STATE.DRAWING;
         levelIndex = PlayerPrefs.GetInt("CurrentLevel");
         CreateLevel();
@@ -71,5 +75,6 @@ public class GameController : MonoBehaviour
 
         GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
         currentLevel = levelObj.GetComponent<Level>();
+       
     }
 }

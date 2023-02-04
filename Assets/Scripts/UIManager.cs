@@ -4,16 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using SuperStarSdk;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
 
     public static UIManager Instance;
-    public GameObject clock, fail, complete, winPanel,failPanel,gamePlayScreen,Bg;
+    public GameObject clock, fail, complete, winPanel,failPanel,gamePlayScreen,Bg,ratingPopUp;
 
     private float timer;
 
     public float timerMax;
+    public Sprite nonFillStar;
+    public Sprite fillStar;
+    public List<GameObject> Stars = new List<GameObject>();
 
     public TextMeshProUGUI clockText, levelText;
 
@@ -90,14 +94,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowRatingPopup()
+    {
+        ratingPopUp.SetActive(true);
+    }
+
+    public void CloseRatingPopup()
+    {
+        ratingPopUp.SetActive(false);
+    }
+
+   
+
     IEnumerator ShowGameOverIE()
     {
         fail.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         failPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        SuperStarAd.Instance.ShowInterstitial();
+        if (GameController.instance.levelIndex > 4)
+        {
+            SuperStarAd.Instance.ShowInterstitial();
+            SuperStarAd.Instance.ShowBannerAd();
+        }
+
     }
 
     IEnumerator ShowGameWinIE()
@@ -110,20 +130,74 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         winPanel.SetActive(true);
         gamePlayScreen.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
-        SuperStarAd.Instance.ShowInterstitial();
+        yield return new WaitForSeconds(0.5f);
+        if (GameController.instance.levelIndex == 4)
+        {
+            Debug.Log(GameController.instance.levelIndex);
+            ShowRatingPopup();
+        }
+        if (GameController.instance.levelIndex > 4)
+        {
+            SuperStarAd.Instance.ShowInterstitial();
+            SuperStarAd.Instance.ShowBannerAd();
+        }
+    }
+
+    int starIndx;
+    public IEnumerator OnClickRating()
+    {
+        yield return new WaitForSeconds(0.8f);
+        if(starIndx > 2)
+        {
+            SuperStarSdkManager.Instance.Rate();
+            ratingPopUp.SetActive(false);
+        }
+        else
+        {
+            //NextLevel();
+            ratingPopUp.SetActive(false);
+        }
+    }
+   
+    public void StarButton(int indx)
+    {
+        starIndx = indx;
+        for (int i = 0; i < Stars.Count; i++)
+        {
+            if(i <= indx)
+            {
+                Stars[i].GetComponent<Image>().sprite = fillStar;
+            }
+            else
+            {
+                Stars[i].GetComponent<Image>().sprite = nonFillStar;
+            }
+        }
+        StartCoroutine(OnClickRating());
     }
 
     public void Replay()
     {
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
         SceneManager.LoadScene("Level");
+        if(GameController.instance.levelIndex > 4)
+        {
+            SuperStarAd.Instance.ShowInterstitial();
+            SuperStarAd.Instance.ShowBannerAd();
+        }
+        
     }
 
     public void NextLevel()
     {
         GameController.instance.levelIndex++;
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
+
+        if (GameController.instance.levelIndex > 4)
+        {
+            SuperStarAd.Instance.ShowInterstitial();
+        }
+
         SceneManager.LoadScene("Level");
     }
 

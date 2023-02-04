@@ -91,16 +91,18 @@ namespace SuperStarSdk
 
         void OnApplicationPause(bool isPaused)
         {
-            Debug.Log("unity-script: OnApplicationPause = " + isPaused);
+           
             IronSource.Agent.onApplicationPause(isPaused);
 
             if (!isPaused)
             {
                 if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_appopen == 1)
                 {
-
-                    AdmobManager.Instance.RequestAppOpenAds();
-
+                    if (HomeManager.Instance.LevelIdx >= 11)
+                    {
+                        Debug.Log("unity-script: OnApplicationPause = " + isPaused);
+                        AdmobManager.Instance.RequestAppOpenAds();
+                    }
                 }
             }
         }
@@ -275,6 +277,7 @@ namespace SuperStarSdk
 
         public void ShowInterstitial() 
         {
+            Debug.Log("ShowInterstitial");
             float time = Time.time;
             if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady())
             {
@@ -419,7 +422,7 @@ namespace SuperStarSdk
 
         //private void OnApplicationPause(bool pauseStatus)
         //{
-          
+
         //}
 
 
@@ -444,6 +447,6 @@ namespace SuperStarSdk
 
 
 
-    
+
 }
             

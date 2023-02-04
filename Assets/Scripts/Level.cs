@@ -7,7 +7,7 @@ public class Level : MonoBehaviour
 {
     public int levelIndex;
     public bool isDarkBg = false;
-
+    public GameObject guide;
     public List<Transform> dogList;
 
 
@@ -27,6 +27,13 @@ public class Level : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if(GameController.instance.levelIndex == 0)
+            {
+                guide.SetActive(false);
+            }
+        }
         
     }
 

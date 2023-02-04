@@ -6,10 +6,19 @@ using UnityEngine.SceneManagement;
 public class HomeManager : MonoBehaviour
 {
     public GameObject levelPanel, settingPanel;
-    // Start is called before the first frame update
-    void Start()
+    public static HomeManager Instance;
+
+    public int LevelIdx;
+
+    public void Awake()
     {
-    } 
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
+    }
+
 
     // Update is called once per frame
     void Update()

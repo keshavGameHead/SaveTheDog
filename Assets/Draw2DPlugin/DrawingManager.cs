@@ -117,8 +117,8 @@ public class DrawingManager : MonoBehaviour
 		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("OnDraw"), LayerMask.NameToLayer("OnDraw"));
 		this.mousePointer = GameObject.Find("MousePointer");
 		DrawingManager.cloneNumber = 0;
-		this.colorStart = Color.gray;
-		this.colorEnd = Color.gray;
+		this.colorStart = Color.black;
+		this.colorEnd = Color.black;
 		this.verticesDistance = 0.1f;
 		this.lifeTime = 2f;
 		this.colliderType = ColliderTypeChoices.Polygon_Collider;
