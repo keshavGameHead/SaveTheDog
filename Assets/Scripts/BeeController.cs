@@ -23,6 +23,8 @@ public class BeeController : MonoBehaviour
 
     public AudioSource beeSound;
 
+    public SpriteRenderer Sp;
+
     private void Awake()
     {
         mRigidbody = GetComponent<Rigidbody2D>();
@@ -34,7 +36,7 @@ public class BeeController : MonoBehaviour
         int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
         target = GameController.instance.currentLevel.dogList[dogIndexRandom];
         timer = 0.0f;
-
+        Sp = GetComponentInChildren<SpriteRenderer>();
         if (AudioManager.instance.soundState == 0)
             beeSound.volume = 0.0f;
         else
@@ -58,7 +60,15 @@ public class BeeController : MonoBehaviour
                 break;
 
             case STATE.MOVE:
-                mRigidbody.AddForce(Vector3.Normalize(target.position - (transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)))) * 5);
+                Vector3 force = Vector3.Normalize(target.position - (transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)))) * 5;
+                if (force.x > 0)
+                {
+                    Sp.flipX = false;
+                }
+                else {
+                    Sp.flipX = true;
+                }
+                mRigidbody.AddForce(force);
                 break;
 
             case STATE.ATTACK:
@@ -67,7 +77,17 @@ public class BeeController : MonoBehaviour
 
                 if(timer >= charingTime)
                 {
-                    mRigidbody.AddForce(Vector3.Normalize(target.position - (transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)))) * 10);
+
+                    Vector3 force1 = Vector3.Normalize(target.position - (transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)))) * 10;
+                    if (force1.x > 0)
+                    {
+                        Sp.flipX = false;
+                    }
+                    else
+                    {
+                        Sp.flipX = true;
+                    }
+                    mRigidbody.AddForce(force1);
                 }
                 break;
         }
