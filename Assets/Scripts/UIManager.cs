@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 {
 
     public static UIManager Instance;
-    public GameObject clock, fail, complete, winPanel,failPanel,gamePlayScreen,Bg,ratingPopUp;
+    public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp;
 
     private float timer;
 
@@ -25,9 +25,9 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
-            Instance = this;    
+            Instance = this;
         }
         startClock = false;
         timer = timerMax;
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameController.instance.currentState == GameController.STATE.PLAYING)
+        if (GameController.instance.currentState == GameController.STATE.PLAYING)
         {
             gamePlayScreen.SetActive(true);
         }
@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
     {
         if (startClock)
         {
-            if(timer > 0.0f)
+            if (timer > 0.0f)
             {
                 timer -= Time.deltaTime;
                 clockText.text = Mathf.CeilToInt(timer).ToString();
@@ -79,18 +79,18 @@ public class UIManager : MonoBehaviour
 
     void ShowResult()
     {
-        if(GameController.instance.currentState == GameController.STATE.GAMEOVER)
+        if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
         {
-            AudioManager.instance.failAudio.Play(); 
+            AudioManager.instance.failAudio.Play();
             StartCoroutine(ShowGameOverIE());
-           
+
         }
         else
         {
             AudioManager.instance.winAudio.Play();
             GameController.instance.currentState = GameController.STATE.FINISH;
             StartCoroutine(ShowGameWinIE());
-           
+
         }
     }
 
@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
         ratingPopUp.SetActive(false);
     }
 
-   
+
 
     IEnumerator ShowGameOverIE()
     {
@@ -139,7 +139,7 @@ public class UIManager : MonoBehaviour
         if (GameController.instance.levelIndex > 4)
         {
             //SuperStarAd.Instance.ShowInterstitialTimer();
-           // SuperStarAd.Instance.ShowBannerAd();
+            // SuperStarAd.Instance.ShowBannerAd();
         }
     }
 
@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator OnClickRating()
     {
         yield return new WaitForSeconds(0.8f);
-        if(starIndx > 2)
+        if (starIndx > 2)
         {
             SuperStarSdkManager.Instance.Rate();
             ratingPopUp.SetActive(false);
@@ -158,13 +158,13 @@ public class UIManager : MonoBehaviour
             ratingPopUp.SetActive(false);
         }
     }
-   
+
     public void StarButton(int indx)
     {
         starIndx = indx;
         for (int i = 0; i < Stars.Count; i++)
         {
-            if(i <= indx)
+            if (i <= indx)
             {
                 Stars[i].GetComponent<Image>().sprite = fillStar;
             }
@@ -180,12 +180,12 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
         SceneManager.LoadScene("Level");
-        if(GameController.instance.levelIndex > 4)
+        if (GameController.instance.levelIndex > 4)
         {
             //SuperStarAd.Instance.ShowInterstitialTimer();
             //SuperStarAd.Instance.ShowBannerAd();
         }
-        
+
     }
 
     public void NextLevel()
@@ -195,10 +195,17 @@ public class UIManager : MonoBehaviour
 
         if (GameController.instance.levelIndex > 4)
         {
-           // SuperStarAd.Instance.ShowInterstitial();
+            SuperStarAd.Instance.ShowInterstitialTimer((O) =>
+            {
+                Debug.Log("Next Level After Ad "+ GameController.instance.levelIndex);
+                SceneManager.LoadScene("Level");
+            });
+        }
+        else
+        {
+            SceneManager.LoadScene("Level");
         }
 
-        SceneManager.LoadScene("Level");
     }
 
     public void Home()

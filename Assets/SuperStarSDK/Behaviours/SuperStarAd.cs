@@ -20,7 +20,7 @@ namespace SuperStarSdk
         private static bool triggeredAdReady;
 
         public IronSourceBannerPosition baanerPosition;
-        public Action MethodAction;
+
         public GameObject bannerImage;
 
         public int ReloadTime=40;
@@ -37,12 +37,10 @@ namespace SuperStarSdk
 
         private void Start()
         {
-
-         
 #if UNITY_ANDROID
             string appKey = SuperStarSdkManager.Instance.crossPromoAssetsRoot.AndroidISAppKey;
 #elif UNITY_IPHONE
-        string appKey = SuperStarSdkManager.Instance.crossPromoAssetsRoot.AndroidAppKey.iOSISAppKey;
+        string appKey = SuperStarSdkManager.Instance.crossPromoAssetsRoot.iOSISAppKey;
 #else
         string appKey = "unexpected_platform";
 #endif
@@ -53,12 +51,11 @@ namespace SuperStarSdk
 
             // SDK init
             Debug.Log("unity-script: IronSource.Agent.init");
-            Debug.Log("IS Key => "+ appKey);
             IronSource.Agent.init(appKey);
             bannerImage.SetActive(false);
             lastInterstitial = -1000f;
             ShowBannerAd();
-            LoadInterstitialAd();
+            LoadInterstitialAd(0);
 
         }
 
@@ -92,23 +89,21 @@ namespace SuperStarSdk
             IronSourceEvents.onBannerAdLeftApplicationEvent += BannerAdLeftApplicationEvent;
         }
 
-        void OnApplicationPause(bool isPaused)
-        {
-           
-            IronSource.Agent.onApplicationPause(isPaused);
+        //void OnApplicationPause(bool isPaused)
+        //{
+        //    Debug.Log("unity-script: OnApplicationPause = " + isPaused);
+        //    IronSource.Agent.onApplicationPause(isPaused);
 
-            if (!isPaused)
-            {
-                if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_appopen == 1)
-                {
-                    if (HomeManager.Instance.LevelIdx >= 11)
-                    {
-                        Debug.Log("unity-script: OnApplicationPause = " + isPaused);
-                        AdmobManager.Instance.RequestAppOpenAds();
-                    }
-                }
-            }
-        }
+        //    if (!isPaused)
+        //    {
+        //        if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_appopen == 1)
+        //        {
+
+        //          //  AdmobManager.Instance.RequestAppOpenAds();
+
+        //        }
+        //    }
+        //}
 
         #region RewardedAd callback handlers
         void RewardedVideoAvailabilityChangedEvent(bool canShowAd)
@@ -123,6 +118,8 @@ namespace SuperStarSdk
 
         void RewardedVideoAdRewardedEvent(IronSourcePlacement ssp)
         {
+            isRewardGiven = true;
+            isRewardShowing = false;
             Debug.Log("unity-script: I got RewardedVideoAdRewardedEvent, amount = " + ssp.getRewardAmount() + " name = " + ssp.getRewardName());
             //GiveRewardToUser();
         }
@@ -130,8 +127,27 @@ namespace SuperStarSdk
         void RewardedVideoAdClosedEvent()
         {
 
+            if (isRewardGiven)
+            {
+                if (_callback == null)
+                {
+                    return;
+                }
+                _callback.Invoke(true);
+                _callback = null;
+            }
+            else 
+            {
+                if (_callback == null)
+                {
+                    return;
+                }
+                _callback.Invoke(false);
+                _callback = null;
+            }
+            isRewardShowing = false;
             //Time.timeScale = 1;
-            GiveRewardToUser();
+            // GiveRewardToUser();
             Debug.Log("unity-script: I got RewardedVideoAdClosedEvent");
         }
 
@@ -142,13 +158,23 @@ namespace SuperStarSdk
 
         void RewardedVideoAdEndedEvent()
         {
+            isRewardShowing = false;
             Debug.Log("unity-script: I got RewardedVideoAdEndedEvent");
         }
 
         void RewardedVideoAdShowFailedEvent(IronSourceError error)
         {
-
-           // Time.timeScale = 1;
+            isRewardShowing = false;
+            if (isRewardGiven)
+            {
+                if (_callback == null)
+                {
+                    return;
+                }
+                _callback.Invoke(false);
+                _callback = null;
+            }
+            // Time.timeScale = 1;
             Debug.Log("unity-script: I got RewardedVideoAdShowFailedEvent, code :  " + error.getCode() + ", description : " + error.getDescription());
         }
 
@@ -166,9 +192,17 @@ namespace SuperStarSdk
 
         void InterstitialAdLoadFailedEvent(IronSourceError error)
         {
-          //  Time.timeScale = 1;
+            //  Time.timeScale = 1;
+            LoadInterstitialAd(5f);
+            isIntrestitiallShowing = false;
+            if (_callbackIntrestital == null)
+            {
+                return;
+            }
+            _callbackIntrestital.Invoke(false);
+            _callbackIntrestital = null;
+
             Debug.Log("unity-script: I got InterstitialAdLoadFailedEvent, code: " + error.getCode() + ", description : " + error.getDescription());
-            Invoke("LoadInterstitialAd", 1f);
         }
 
         void InterstitialAdShowSucceededEvent()
@@ -183,6 +217,13 @@ namespace SuperStarSdk
 
         void InterstitialAdShowFailedEvent(IronSourceError error)
         {
+             isIntrestitiallShowing = false;
+            if (_callbackIntrestital == null)
+            {
+                return;
+            }
+            _callbackIntrestital.Invoke(false);
+            _callbackIntrestital = null;
             //Time.timeScale = 1;
             Debug.Log("unity-script: I got InterstitialAdShowFailedEvent, code :  " + error.getCode() + ", description : " + error.getDescription());
 
@@ -201,17 +242,19 @@ namespace SuperStarSdk
 
         void InterstitialAdClosedEvent()
         {
-          //  Time.timeScale = 1;
-            Debug.Log("unity-script: I got InterstitialAdClosedEvent");
+            //  Time.timeScale = 1;
 
-            MethodAction?.Invoke();
-            // MethodAction();
-
-
+            LoadInterstitialAd(5f);
+            isIntrestitiallShowing = false;
+            if (_callbackIntrestital == null)
+            {
+                return;
+            }
+            _callbackIntrestital.Invoke(true);
+            _callbackIntrestital = null;
+          
             Debug.Log("heheheheheh");
-            //CancelInvoke("LoadInterstitialAd");
-            //Invoke("LoadInterstitialAd", 5f);
-            LoadInterstitialAd();
+           
         }
         #endregion
 
@@ -269,154 +312,257 @@ namespace SuperStarSdk
             ShowBannerAd();
         }
 
-        public void LoadInterstitialAd()
-        {
+        Coroutine CRLoadInterstitialAd;
 
-            Debug.Log("Load Interstitial AD");
+        public void LoadInterstitialAd(float delay)
+        {
             if (!IronSource.Agent.isInterstitialReady())
             {
-            IronSource.Agent.loadInterstitial();
+
+                if (CRLoadInterstitialAd==null)
+                {
+                    CRLoadInterstitialAd = StartCoroutine(IELoadInterstitialAd(delay));
+                }
             }
-            AdmobManager.Instance.RequestInterstitial();
+            Debug.Log("Load Interstitial AD");
+          
             
         }
 
+        public IEnumerator IELoadInterstitialAd(float delay) 
+        {
+            yield return new WaitForSeconds(delay);
+            //AdmobManager.Instance.RequestInterstitial();
+            IronSource.Agent.loadInterstitial();
+        }
+
+
         public void ShowInterstitial() 
         {
-            Debug.Log("ShowInterstitial");
-            Debug.Log("ShowInterstitial = > "+ IronSource.Agent.isInterstitialReady());
             float time = Time.time;
             if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady())
             {
-                Debug.Log("ready and show");
-                LoadInterstitialAd();
+
                 IronSource.Agent.showInterstitial();
-               // AdmobManager.Instance.RequestInterstitial();
                 lastInterstitial = time;
 
             }
-            else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_intrestitial == 1 && AdmobManager.Instance.interstitial != null && AdmobManager.Instance.interstitial.IsLoaded())
-            {
-                Debug.Log("ready and show 2");
-                LoadInterstitialAd();
-                AdmobManager.Instance.ShowInterstrial();
-                lastInterstitial = time;
-            }
+            //else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_intrestitial == 1 && AdmobManager.Instance.interstitial != null && AdmobManager.Instance.interstitial.IsLoaded())
+            //{
+            //    IronSource.Agent.loadInterstitial();
+            //    AdmobManager.Instance.ShowInterstrial();
+            //    lastInterstitial = time;
+            //}
             
             else
             {
-                Invoke("LoadInterstitialAd", 1f);
-               
+                LoadInterstitialAd(5f);
+
+
 
             }
         }
 
         public int InterstitialCounter = 0;
-        public void ShowInterstitialTimer()
-        {
 
+
+        public bool ISIntrestitialReadyToShow(bool ForceShow = false) 
+        {
+            if (!IronSource.Agent.isInterstitialReady())
+            {
+                IronSource.Agent.loadInterstitial();
+            }
             float time = Time.time;
-            if (time - lastInterstitial < ReloadTime)
+            bool isloadedTime = false;
+            if (time - lastInterstitial >= ReloadTime)
             {
                 //ShowInterstitial(f);
                 //lastInterstitial = time;
-                return;
+                isloadedTime = true;
             }
-            
-            if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady())
+            if (ForceShow)
             {
-                LoadInterstitialAd();
-                IronSource.Agent.showInterstitial();
-                //AdmobManager.Instance.RequestInterstitial();
-                lastInterstitial = time;
+                isloadedTime = true;
             }
-            else if(SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_intrestitial == 1 && AdmobManager.Instance.interstitial != null && AdmobManager.Instance.interstitial.IsLoaded())
+            return SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_interstitial_ads == 1 && IronSource.Agent.isInterstitialReady()&& isloadedTime;
+        }
+
+
+        public void ExampleShowIntrestitialWithCallback() 
+        {
+            ShowInterstitialTimer(TestIntrestitialWithCallback);
+        }
+
+        public void TestIntrestitialWithCallback(bool isCompleted)
+        {
+           
+            if (isCompleted)
             {
-                LoadInterstitialAd();
-                AdmobManager.Instance.ShowInterstrial();
-                lastInterstitial = time;
+                //Give reward here
+                Debug.Log("Intrestitial  completed  Do other thing");
+
             }
             else
             {
-                Invoke("LoadInterstitialAd", 1f);
+                Debug.Log("Intrestitial  has issue");
 
-
+                // do next step as reward not available
             }
         }
 
-        public void ShowInterstitial(Action act)
-        {
-            MethodAction = act;
 
-            Debug.Log("Show Intrestitial Ad");
-            if (IronSource.Agent.isInterstitialReady())
+
+        public Action<bool> _callbackIntrestital;
+        [HideInInspector]
+        public bool isIntrestitiallShowing = false;
+        public void ShowInterstitialTimer(Action<bool> onComplete)
+        {
+            Debug.Log("ShowInterstitialTimer");
+            if (isIntrestitiallShowing)
             {
+                return;
+            }
+            isIntrestitiallShowing = true;
+            _callbackIntrestital = onComplete;
+
+#if UNITY_EDITOR
+            isIntrestitiallShowing = false;
+            if (_callbackIntrestital == null)
+            {
+                return;
+            }
+            _callbackIntrestital.Invoke(true);
+            _callbackIntrestital = null;
+            return;
+#endif
+
+            if (ISIntrestitialReadyToShow())
+            {
+
                 IronSource.Agent.showInterstitial();
+                lastInterstitial = Time.time;
+
             }
             else
             {
-                Invoke("LoadInterstitialAd", 1f);
+
+                isIntrestitiallShowing = false;
+                if (_callbackIntrestital == null)
+                {
+                    return;
+                }
+                _callbackIntrestital.Invoke(false);
+                _callbackIntrestital = null;
+                LoadInterstitialAd(5f);
             }
         }
 
-        public bool ShowInterstitialIfReady(Action f)
+        public void ShowForceInterstitial(Action<bool> onComplete)
         {
-            if (!IronSource.Agent.isInterstitialReady())
+            if (isIntrestitiallShowing)
             {
-                f();
-                return false;
-            }
-            float time = Time.time;
-            if (time - lastInterstitial > ReloadTime)
-            {
-                ShowInterstitial(f);
-                lastInterstitial = time;
-                return true;
-            }
-            f();
-            return false;
-        }
-
-        public void ShowInterstitialWithFunction(Action f)
-        {
-            if (!IronSource.Agent.isInterstitialReady())
-            {
-                f();
                 return;
             }
-            ShowInterstitial(f);
-            lastInterstitial = Time.time;
-        }
+            isIntrestitiallShowing = true;
+            _callbackIntrestital = onComplete;
 
-        public void ShowTriggeredAd()
-        {
-            if (IronSource.Agent.isInterstitialReady())
+#if UNITY_EDITOR
+            isIntrestitiallShowing = false;
+            if (_callbackIntrestital == null)
             {
-                ShowInterstitial(null);
+                return;
+            }
+            _callbackIntrestital.Invoke(true);
+            _callbackIntrestital = null;
+            return;
+#endif
+            if (ISIntrestitialReadyToShow(true))
+            {
+                IronSource.Agent.showInterstitial();
+                lastInterstitial = Time.time;
+            }
+            else
+            {
+                isIntrestitiallShowing = false;
+                if (_callbackIntrestital == null)
+                {
+                    return;
+                }
+                _callbackIntrestital.Invoke(false);
+                _callbackIntrestital = null;
+                LoadInterstitialAd(5f);
             }
         }
 
+       
 
+       
+        public void ExampleShowReward()
+        {
+            ShowRewardVideo(ExampleShowRewardAssign);
+        }
 
+        public void ExampleShowRewardAssign(bool isrewarded)
+        {
+            if (isrewarded)
+            {
+                //Give reward here
+                Debug.Log("Reward Given");
+            }
+            else
+            {
+                Debug.Log("Reward Eroor Given");
+                // do next step as reward not available
+            }
+        }
+        public Action<bool> _callback;
+        [HideInInspector]
+        public bool isRewardShowing = false;
         string VideoFor = "";
-        public void ShowRewardVideo(string _rewardFor = "test")
+        [HideInInspector]
+        public bool isRewardGiven = false;
+        public void ShowRewardVideo(Action<bool> onComplete)
         {
             Debug.Log("Show Reward video Ad");
-            VideoFor = _rewardFor;
+
+            if (isRewardShowing)
+            {
+                return;
+            }
+            isRewardGiven = false;
+            isRewardShowing = true;
+            _callback = onComplete;
             //GiveRewardToUser();
-           
+#if UNITY_EDITOR
+            isRewardShowing = false;
+            if (_callback == null)
+            {
+                return;
+            }
+            _callback.Invoke(true);
+            _callback = null;
+            return;
+#endif
             if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_IS_reward_ads==1 && IronSource.Agent.isRewardedVideoAvailable())
             {
                 //SoundManager.Instance.StopAllSoundRunningVideoAd(true);
                 IronSource.Agent.showRewardedVideo();
             }
-            else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_reward == 1 && AdmobManager.Instance.rewardedAd != null && AdmobManager.Instance.rewardedAd.IsLoaded())
-            {
-                AdmobManager.Instance.ShowRewardVideo();
-            }
+            //else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_reward == 1 && AdmobManager.Instance.rewardedAd != null && AdmobManager.Instance.rewardedAd.IsLoaded())
+            //{
+            //    AdmobManager.Instance.ShowRewardVideo();
+            //}
             else
             {
                 Debug.LogError("Problem in showing video");
+                isRewardShowing = false;
+                if (_callback == null)
+                {
+                    return;
+                }
+                _callback.Invoke(false);
+                _callback = null;
+                return;
                 // NotificationHandler.Instance.ShowNotification("Reward Ad is not available!");
             }
         }
@@ -432,7 +578,7 @@ namespace SuperStarSdk
 
         //private void OnApplicationPause(bool pauseStatus)
         //{
-
+          
         //}
 
 
@@ -457,6 +603,6 @@ namespace SuperStarSdk
 
 
 
-
+    
 }
             

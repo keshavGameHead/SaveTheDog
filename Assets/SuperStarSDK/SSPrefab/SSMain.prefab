@@ -955,7 +955,6 @@ GameObject:
   - component: {fileID: 6498972087057054729}
   - component: {fileID: 6498972087057054730}
   - component: {fileID: 6498972087057054731}
-  - component: {fileID: 6498972087057054735}
   - component: {fileID: 6498972087057054740}
   - component: {fileID: 6498972087057054734}
   m_Layer: 0
@@ -1063,13 +1062,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c57b713bd4e19748bd64ed7c387bd3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastPlayedCrossPromoBoxIndex: -1
+  LastPlayedCrossPromoIntrestitialIndex: -1
   ConfigFileURL: https://goldygamestudio.com//crosspromotion/SSGameName.json
   crossPromoAssetsRoot:
     jsonversion: 0
     minversionforceupdate: 0
-    display_Admob_intrestitial: 1
-    display_Admob_reward: 1
-    display_Admob_appopen: 1
     display_IS_banner_ads: 1
     display_IS_interstitial_ads: 1
     display_IS_reward_ads: 1
@@ -1079,38 +1077,15 @@ MonoBehaviour:
     display_crosspromonativebanner_ads: 1
     display_crosspromobannercollection_ads: 1
     display_forceupdate: 0
+    feedbackmail: 
+    moreappurl: 
+    moreappurlios: 
     PrivacyPolicy: https://www.google.com/
     AndroidISAppKey: 15d76aabd
-    AndroidAdmobAppKey: ca-app-pub-2881658051602076~7146337905
     iOSISAppKey: 15d76aabd
-    iOSAdmobAppKey: ca-app-pub-2881658051602076~7146337905
     ExtraURL: https://www.google.com/
     AndroidBundleId: com.Skin.Editor.forMCPE
     iOSAppBundleId: 15d76aabd
-    AAdmobBID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    AAdmobInID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    AAdmobReID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    AAdmobOpenID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    IAdmobBID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    IAdmobInID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    IAdmobReID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
-    IAdmobOpenID:
-    - ca-app-pub-2881658051602076/5450112857
-    - ca-app-pub-2881658051602076/5450112857
     data:
     - id: 
       appname: 3D Skin Editor for Minecraft
@@ -1146,7 +1121,6 @@ MonoBehaviour:
       isVideoDownloaded: 0
   isCrossPromoDataArrived: 0
   PrivacyPolicyLink: 
-  admobManager: {fileID: 6498972087057054735}
   LastJSON: "{\r\n   \"jsonversion\":0.0,\r\n   \"minversionforceupdate\":0.0,\r\n  
     \"display_Admob_ads\":1,\r\n   \"display_direct_review\":1,\r\n   \"display_banner_ads\":1,\r\n  
     \"display_interstitial_ads\":1,\r\n   \"display_interstitial_adCounter\":1,\r\n  
@@ -1216,6 +1190,9 @@ MonoBehaviour:
   bannerImage: {fileID: 2642275616932402376}
   ReloadTime: 40
   InterstitialCounter: 0
+  isIntrestitiallShowing: 0
+  isRewardShowing: 0
+  isRewardGiven: 0
 --- !u!114 &6498972087057054731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,34 +1209,6 @@ MonoBehaviour:
   tostObject: {fileID: 5780527470281693487, guid: 89ba35fe81934ab4bb9d4e9d71444669,
     type: 3}
   tostParent: {fileID: 6498972088616078464}
---- !u!114 &6498972087057054735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498972087057054737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93ccc6f8cc773b4c969c576e45ecd4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BannerAdsIds:
-  - ca-app-pub-2881658051602076/5450112857
-  - ca-app-pub-2881658051602076/5450112857
-  IntrestitialAdsIds:
-  - ca-app-pub-2881658051602076/5450112857
-  - ca-app-pub-2881658051602076/5450112857
-  RewardAdsIds:
-  - ca-app-pub-2881658051602076/5450112857
-  - ca-app-pub-2881658051602076/5450112857
-  AppOpenAdsIds:
-  - ca-app-pub-2881658051602076/5450112857
-  - ca-app-pub-2881658051602076/5450112857
-  BannerIdIndex: 0
-  IntrestitialIdIndex: 0
-  RewardIdIndex: 0
-  AppOpenIdIndex: 0
 --- !u!114 &6498972087057054740
 MonoBehaviour:
   m_ObjectHideFlags: 0

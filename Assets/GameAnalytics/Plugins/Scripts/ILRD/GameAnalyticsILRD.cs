@@ -387,42 +387,42 @@ namespace GameAnalyticsSDK
         }
 
         // ----------------------- ADMOB AD IMPRESSIONS ---------------------- //
-#if gameanalytics_admob_enabled
-        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.BannerView bannerView)
-        {
-#if UNITY_EDITOR
-            Debug.Log("subscribeAdMobImpressions(adUnitId, bannerView)");
-#elif UNITY_IOS || UNITY_ANDROID
-            subscribeAdMobImpressions(adUnitId, bannerView);
-#endif
-        }
+//#if gameanalytics_admob_enabled
+//        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.BannerView bannerView)
+//        {
+//#if UNITY_EDITOR
+//            Debug.Log("subscribeAdMobImpressions(adUnitId, bannerView)");
+//#elif UNITY_IOS || UNITY_ANDROID
+//            subscribeAdMobImpressions(adUnitId, bannerView);
+//#endif
+//        }
 
-        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.InterstitialAd interstitialAd)
-        {
-#if UNITY_EDITOR
-            Debug.Log("subscribeAdMobImpressions(adUnitId, interstitialAd)");
-#elif UNITY_IOS || UNITY_ANDROID
-            subscribeAdMobImpressions(adUnitId, interstitialAd);
-#endif
-        }
+//        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.InterstitialAd interstitialAd)
+//        {
+//#if UNITY_EDITOR
+//            Debug.Log("subscribeAdMobImpressions(adUnitId, interstitialAd)");
+//#elif UNITY_IOS || UNITY_ANDROID
+//            subscribeAdMobImpressions(adUnitId, interstitialAd);
+//#endif
+//        }
 
-        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.RewardedAd rewardedAd)
-        {
-#if UNITY_EDITOR
-            Debug.Log("subscribeAdMobImpressions(adUnitId, rewardedAd)");
-#elif UNITY_IOS || UNITY_ANDROID
-            subscribeAdMobImpressions(adUnitId, rewardedAd);
-#endif
-        }
+//        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.RewardedAd rewardedAd)
+//        {
+//#if UNITY_EDITOR
+//            Debug.Log("subscribeAdMobImpressions(adUnitId, rewardedAd)");
+//#elif UNITY_IOS || UNITY_ANDROID
+//            subscribeAdMobImpressions(adUnitId, rewardedAd);
+//#endif
+//        }
 
-        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.RewardedInterstitialAd rewardedInterstitialAd)
-        {
-#if UNITY_EDITOR
-            Debug.Log("subscribeAdMobImpressions(adUnitId, rewardedInterstitialAd)");
-#elif UNITY_IOS || UNITY_ANDROID
-            subscribeAdMobImpressions(adUnitId, rewardedInterstitialAd);
-#endif
-        }
-#endif
+//        public static void SubscribeAdMobImpressions(string adUnitId, GoogleMobileAds.Api.RewardedInterstitialAd rewardedInterstitialAd)
+//        {
+//#if UNITY_EDITOR
+//            Debug.Log("subscribeAdMobImpressions(adUnitId, rewardedInterstitialAd)");
+//#elif UNITY_IOS || UNITY_ANDROID
+//            subscribeAdMobImpressions(adUnitId, rewardedInterstitialAd);
+//#endif
+//        }
+//#endif
     }
 }

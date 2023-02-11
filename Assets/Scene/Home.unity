@@ -11205,7 +11205,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -5, y: -10, z: 0}
@@ -11268,7 +11268,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 2, y: -10, z: 0}
@@ -11313,7 +11313,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 7, y: -10, z: 0}
@@ -11358,7 +11358,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -12088,7 +12088,6 @@ GameObject:
   - component: {fileID: 6498972087043914486}
   - component: {fileID: 6498972087043914485}
   - component: {fileID: 6498972087043914484}
-  - component: {fileID: 6498972087043914480}
   - component: {fileID: 6498972087043914475}
   - component: {fileID: 6498972087043914481}
   m_Layer: 0
@@ -12115,30 +12114,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &6498972087043914480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498972087043914478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93ccc6f8cc773b4c969c576e45ecd4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BannerAdsIds: []
-  IntrestitialAdsIds:
-  - ca-app-pub-3335029286391828/1353285557
-  - ca-app-pub-3335029286391828/7339560667
-  RewardAdsIds:
-  - ca-app-pub-3335029286391828/6956417283
-  - ca-app-pub-3335029286391828/8162236489
-  AppOpenAdsIds: []
-  BannerIdIndex: 0
-  IntrestitialIdIndex: 0
-  RewardIdIndex: 0
-  AppOpenIdIndex: 0
 --- !u!114 &6498972087043914481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12183,6 +12158,9 @@ MonoBehaviour:
   bannerImage: {fileID: 2642275616945476151}
   ReloadTime: 100
   InterstitialCounter: 0
+  isIntrestitiallShowing: 0
+  isRewardShowing: 0
+  isRewardGiven: 0
 --- !u!114 &6498972087043914486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12208,13 +12186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c57b713bd4e19748bd64ed7c387bd3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastPlayedCrossPromoBoxIndex: -1
+  LastPlayedCrossPromoIntrestitialIndex: -1
   ConfigFileURL: https://goldygamestudio.com//crosspromotion/SSS/SSSaveDog.json
   crossPromoAssetsRoot:
     jsonversion: 0
     minversionforceupdate: 0
-    display_Admob_intrestitial: 1
-    display_Admob_reward: 0
-    display_Admob_appopen: 1
     display_IS_banner_ads: 1
     display_IS_interstitial_ads: 1
     display_IS_reward_ads: 1
@@ -12224,44 +12201,29 @@ MonoBehaviour:
     display_crosspromonativebanner_ads: 0
     display_crosspromobannercollection_ads: 0
     display_forceupdate: 0
-    moreappurl: 
+    feedbackmail: keshavgamehead@gmail.com
+    moreappurl: https://goldygamestudio.com/SuperStarGames/AndroidKrushil/Moreapps/More%20apps.html
+    moreappurlios: https://goldygamestudio.com/SuperStarGames/iOS/Moreapps/More%20apps.html
     PrivacyPolicy: https://www.google.com/
     AndroidISAppKey: 1869a41b5
-    AndroidAdmobAppKey: ca-app-pub-3335029286391828~7374369627
     iOSISAppKey: 1869aee4d
-    iOSAdmobAppKey: ca-app-pub-3335029286391828~2122042946
     ExtraURL: https://www.google.com/
     AndroidBundleId: com.superstarstudio.savethedog
     iOSAppBundleId: 15d76aabd
-    AAdmobBID: []
-    AAdmobInID:
-    - ca-app-pub-3335029286391828/1353285557
-    - ca-app-pub-3335029286391828/7339560667
-    AAdmobReID:
-    - ca-app-pub-3335029286391828/6956417283
-    - ca-app-pub-3335029286391828/8162236489
-    AAdmobOpenID: []
-    IAdmobBID: []
-    IAdmobInID:
-    - ca-app-pub-3335029286391828/4031419789
-    - ca-app-pub-3335029286391828/9092174771
-    IAdmobReID:
-    - ca-app-pub-3335029286391828/4138682253
-    - ca-app-pub-3335029286391828/2526766428
-    IAdmobOpenID: []
     data: []
   isCrossPromoDataArrived: 0
   PrivacyPolicyLink: 
-  admobManager: {fileID: 6498972087043914480}
   LastJSON: "{\n  \"jsonversion\": 0,\n  \"minversionforceupdate\": 0,\n  \"display_Admob_intrestitial\":
     1,\n  \"display_Admob_reward\": 0,\n  \"display_Admob_appopen\": 1,\n  \"display_IS_banner_ads\":
     1,\n  \"display_IS_interstitial_ads\": 1,\n  \"display_IS_reward_ads\": 1,\n 
     \"display_interstitial_reloadtime\": 40,\n  \"display_direct_review\": 0,\n 
     \"display_crosspromovideoBox_ads\": 0,\n  \"display_crosspromonativebanner_ads\":
     0,\n  \"display_crosspromobannercollection_ads\": 0,\n  \"display_forceupdate\":
-    0,\n  \"PrivacyPolicy\": \"https://www.google.com/\",\n  \"AndroidISAppKey\":
-    \"1869a41b5\",\n  \"AndroidAdmobAppKey\": \"ca-app-pub-3335029286391828~7374369627\",\n 
-    \"iOSISAppKey\": \"1869aee4d\",\n  \"iOSAdmobAppKey\": \"ca-app-pub-3335029286391828~2122042946\",\n 
+    0,\n  \"feedbackmail\": \"keshavgamehead@gmail.com\",\n  \"moreappurl\": \"https://goldygamestudio.com/SuperStarGames/AndroidKrushil/Moreapps/More%20apps.html\",\n  
+    \"moreappurlios\": \"https://goldygamestudio.com/SuperStarGames/iOS/Moreapps/More%20apps.html\",\n 
+    \"PrivacyPolicy\": \"https://www.google.com/\",\n  \"AndroidISAppKey\": \"1869a41b5\",\n 
+    \"AndroidAdmobAppKey\": \"ca-app-pub-3335029286391828~7374369627\",\n  \"iOSISAppKey\":
+    \"1869aee4d\",\n  \"iOSAdmobAppKey\": \"ca-app-pub-3335029286391828~2122042946\",\n 
     \"ExtraURL\": \"https://www.google.com/\",\n  \"AndroidBundleId\": \"com.superstarstudio.savethedog\",\n 
     \"iOSAppBundleId\": \"15d76aabd\",\n  \"AAdmobBID\": [],\n  \"AAdmobInID\": [\n   
     \"ca-app-pub-3335029286391828/1353285557\",\n    \"ca-app-pub-3335029286391828/7339560667\"\n 

@@ -15,6 +15,10 @@ namespace SuperStarSdk
 {
     public class SuperStarSdkManager : MonoBehaviour
     {
+        public int LastPlayedCrossPromoBoxIndex = -1;
+        public int LastPlayedCrossPromoIntrestitialIndex = -1;
+
+
         public static SuperStarSdkManager Instance;
         //public SdkDataClass Settings;
         public string ConfigFileURL;
@@ -35,7 +39,7 @@ namespace SuperStarSdk
         private const string AppStoreUrl = "https://itunes.apple.com/app/apple-store/id{0}";
 
         public string PrivacyPolicyLink;
-        public AdmobManager admobManager;
+       // public AdmobManager admobManager;
         public string LastJSON;
         public string DefaultConfig
         {
@@ -63,6 +67,11 @@ namespace SuperStarSdk
         public GameObject GDPR;
         private void Awake()
         {
+            if (!string.IsNullOrEmpty(DefaultConfig))
+            {
+                crossPromoAssetsRoot = JsonConvert.DeserializeObject<SSCrossPromoAssetRoot>(DefaultConfig);
+            }
+
             if (Instance == null)
             {
                 Instance = this;
@@ -106,12 +115,15 @@ namespace SuperStarSdk
             Application.OpenURL(PrivacyPolicyLink);
         }
 
+
+
         private IEnumerator Start()
         {
+            
           //  Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
-            yield return new WaitForSeconds(0.2f);
-            //cross prom data 
-        
+            yield return new WaitForSeconds(1);
+          //cross prom data 
+
             StartCoroutine(IEGetCrossPromoData());
 
         }
@@ -155,8 +167,8 @@ namespace SuperStarSdk
                         OnDataArrive();
                     }
                     CheckForForceUpdate();
-                    Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
-                    LastJSON = JsonConvert.SerializeObject(crossPromoAssetsRoot);
+                   // Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
+                   // LastJSON = JsonConvert.SerializeObject(crossPromoAssetsRoot);
 
                 }
             }
@@ -196,7 +208,7 @@ namespace SuperStarSdk
                     }
                     CheckForForceUpdate();
                     Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
-                    LastJSON = JsonConvert.SerializeObject(crossPromoAssetsRoot);
+                    //LastJSON = JsonConvert.SerializeObject(crossPromoAssetsRoot);
                 }
 
 
@@ -385,7 +397,7 @@ namespace SuperStarSdk
 
         public void openFile(string filepath) 
         {
-          //  AndroidContentOpenerWrapper.OpenContent(filepath);
+           // AndroidContentOpenerWrapper.OpenContent(filepath);
         }
 
 
@@ -431,18 +443,18 @@ namespace SuperStarSdk
                 LastJSON = data;
                 crossPromoAssetsRoot = JsonConvert.DeserializeObject<SSCrossPromoAssetRoot>(data);
 
-#if UNITY_ANDROID
-                admobManager.AppOpenAdsIds = crossPromoAssetsRoot.AAdmobOpenID;
-                admobManager.BannerAdsIds = crossPromoAssetsRoot.AAdmobBID;
-                admobManager.IntrestitialAdsIds = crossPromoAssetsRoot.AAdmobInID;
-                admobManager.RewardAdsIds = crossPromoAssetsRoot.AAdmobReID;
-#else
-                admobManager.AppOpenAdsIds = crossPromoAssetsRoot.IAdmobOpenID;
-                admobManager.BannerAdsIds = crossPromoAssetsRoot.IAdmobBID;
-                admobManager.IntrestitialAdsIds = crossPromoAssetsRoot.IAdmobInID;
-                admobManager.RewardAdsIds = crossPromoAssetsRoot.IAdmobReID;
+//#if UNITY_ANDROID
+//                admobManager.AppOpenAdsIds = crossPromoAssetsRoot.AAdmobOpenID;
+//                admobManager.BannerAdsIds = crossPromoAssetsRoot.AAdmobBID;
+//                admobManager.IntrestitialAdsIds = crossPromoAssetsRoot.AAdmobInID;
+//                admobManager.RewardAdsIds = crossPromoAssetsRoot.AAdmobReID;
+//#else
+//                admobManager.AppOpenAdsIds = crossPromoAssetsRoot.IAdmobOpenID;
+//                admobManager.BannerAdsIds = crossPromoAssetsRoot.IAdmobBID;
+//                admobManager.IntrestitialAdsIds = crossPromoAssetsRoot.IAdmobInID;
+//                admobManager.RewardAdsIds = crossPromoAssetsRoot.IAdmobReID;
 
-#endif
+//#endif
               
 
             }
@@ -519,9 +531,9 @@ public class SSCrossPromoAssetRoot
     [Header("Configuration Data")]
     public float jsonversion = 0;
     public float minversionforceupdate = 0;
-    public int display_Admob_intrestitial = 1;
-    public int display_Admob_reward = 1;
-    public int display_Admob_appopen = 1;
+    //public int display_Admob_intrestitial = 1;
+    //public int display_Admob_reward = 1;
+    //public int display_Admob_appopen = 1;
     public int display_IS_banner_ads = 1;
     public int display_IS_interstitial_ads = 1;
     public int display_IS_reward_ads = 1;
@@ -534,24 +546,26 @@ public class SSCrossPromoAssetRoot
     public int display_forceupdate = 0;
 
     [Header("App Data")]
+    public string feedbackmail;
     public string moreappurl;
+    public string moreappurlios;
     public string PrivacyPolicy;
     public string AndroidISAppKey;
-    public string AndroidAdmobAppKey;
+ //   public string AndroidAdmobAppKey;
     public string iOSISAppKey;
-    public string iOSAdmobAppKey;
+ //   public string iOSAdmobAppKey;
     public string ExtraURL;
 
     [Header("Share")]
     public string AndroidBundleId;
     public string iOSAppBundleId;
-    public List<string> AAdmobBID = new List<string>();
-    public List<string> AAdmobInID = new List<string>();
-    public List<string> AAdmobReID = new List<string>();
-    public List<string> AAdmobOpenID = new List<string>();
-    public List<string> IAdmobBID = new List<string>();
-    public List<string> IAdmobInID = new List<string>();
-    public List<string> IAdmobReID = new List<string>();
-    public List<string> IAdmobOpenID = new List<string>();
+    //public List<string> AAdmobBID = new List<string>();
+    //public List<string> AAdmobInID = new List<string>();
+    //public List<string> AAdmobReID = new List<string>();
+    //public List<string> AAdmobOpenID = new List<string>();
+    //public List<string> IAdmobBID = new List<string>();
+    //public List<string> IAdmobInID = new List<string>();
+    //public List<string> IAdmobReID = new List<string>();
+    //public List<string> IAdmobOpenID = new List<string>();
     public List<SSCrossPromoAsset> data;
 }
