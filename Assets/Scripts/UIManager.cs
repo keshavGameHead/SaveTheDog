@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
 
     public void ActiveClock()
     {
-        clock.SetActive(true);
+        //clock.SetActive(true);
         startClock = true;
     }
 
@@ -114,8 +114,8 @@ public class UIManager : MonoBehaviour
         gamePlayScreen.SetActive(false);
         if (GameController.instance.levelIndex > 4)
         {
-            SuperStarAd.Instance.ShowInterstitialTimer();
-            SuperStarAd.Instance.ShowBannerAd();
+            //SuperStarAd.Instance.ShowInterstitialTimer();
+            //SuperStarAd.Instance.ShowBannerAd();
         }
 
     }
@@ -138,8 +138,8 @@ public class UIManager : MonoBehaviour
         }
         if (GameController.instance.levelIndex > 4)
         {
-            SuperStarAd.Instance.ShowInterstitialTimer();
-            SuperStarAd.Instance.ShowBannerAd();
+            //SuperStarAd.Instance.ShowInterstitialTimer();
+           // SuperStarAd.Instance.ShowBannerAd();
         }
     }
 
@@ -182,8 +182,8 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Level");
         if(GameController.instance.levelIndex > 4)
         {
-            SuperStarAd.Instance.ShowInterstitialTimer();
-            SuperStarAd.Instance.ShowBannerAd();
+            //SuperStarAd.Instance.ShowInterstitialTimer();
+            //SuperStarAd.Instance.ShowBannerAd();
         }
         
     }
@@ -195,7 +195,7 @@ public class UIManager : MonoBehaviour
 
         if (GameController.instance.levelIndex > 4)
         {
-            SuperStarAd.Instance.ShowInterstitial();
+           // SuperStarAd.Instance.ShowInterstitial();
         }
 
         SceneManager.LoadScene("Level");

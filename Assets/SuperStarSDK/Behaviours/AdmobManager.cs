@@ -155,12 +155,12 @@ public class AdmobManager : MonoBehaviour
 
     public void RequestBanner()
     {
-
+        Debug.Log("Request Banner: "+BannerIdIndex + "  " + BannerAdsIds.Count);
         if (BannerIdIndex >= BannerAdsIds.Count)
         {
             return;
         }
-        //Debug.LogError("Banner load");
+        Debug.LogError("Banner load");
         string adUnitId = BannerAdsIds[BannerIdIndex];
  
         this.bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
@@ -170,6 +170,7 @@ public class AdmobManager : MonoBehaviour
 
         // Load the banner with the request.
         this.bannerView.LoadAd(request);
+        Debug.Log("Banner Ad Loaded");
     }
 
     public void DestrotyBannerAd()
@@ -288,7 +289,8 @@ public class AdmobManager : MonoBehaviour
 
     public void RequestInterstitial()
     {
-
+        Debug.Log("interstitial " + interstitial + " interstitial is loaded :" + interstitial.IsLoaded());
+        Debug.Log("IntrestitialIdIndex: " + IntrestitialIdIndex + " " + "IntrestitialAdsIds.Count" + IntrestitialAdsIds.Count);
         if (interstitial!=null &&  interstitial.IsLoaded())
         {
             return;
@@ -319,6 +321,7 @@ public class AdmobManager : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
         // Load the interstitial with the request.
         this.interstitial.LoadAd(request);
+        Debug.Log("interstitial loaded");
     }
     #region handle events interstrial ads
     public void HandleOnAdLoaded(object sender, EventArgs args)
