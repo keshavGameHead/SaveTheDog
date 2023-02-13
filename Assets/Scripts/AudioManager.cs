@@ -18,8 +18,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource breakAudio;
 
-    [HideInInspector]
-    public int soundState,musicState;
+    //[HideInInspector]
+    public int soundState=1,musicState=1;
 
     private void Awake()
     {
