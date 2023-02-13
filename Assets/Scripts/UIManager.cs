@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 {
 
     public static UIManager Instance;
-    public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp;
+    public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp, guide;
 
     private float timer;
 
@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI clockText, levelText;
 
     private bool startClock;
+    public bool isClick = false;
 
     private void Awake()
     {
@@ -211,5 +212,11 @@ public class UIManager : MonoBehaviour
     public void Home()
     {
         SceneManager.LoadScene("Home");
+    }
+
+    public void Hint()
+    {
+        
+        guide.SetActive(true);
     }
 }

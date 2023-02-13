@@ -55,7 +55,7 @@ public class DrawingManager : MonoBehaviour
 
 	private bool mouseHit;
 
-	private bool canDraw = true;
+	public bool canDraw = true;
 
 	[Header("Line Settings")]
 	public Color colorStart;
@@ -211,6 +211,7 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchMove()
 	{
+		
 		if (!this.prepareDrawFinish)
 		{
 			this.canDraw = true;
@@ -236,6 +237,7 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchUp()
 	{
+		
 		FreezeMoving.freeze = false;
 		this.setBlockLineVisiable(false);
 		if (this.canDraw)

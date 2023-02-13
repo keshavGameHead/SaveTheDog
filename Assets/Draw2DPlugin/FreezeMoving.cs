@@ -19,6 +19,7 @@ public class FreezeMoving : MonoBehaviour
 	{
 		if (this.drawingManager == null)
 			return;
+		
 
 		if (this.drawingManager.GetComponent<DrawingManager>().freezeWhileDrawing)
 		{

@@ -14,6 +14,7 @@ public class Level : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UIManager.Instance.guide = this.guide;
         if (isDarkBg)
         {
             UIManager.Instance.Bg.GetComponent<SpriteRenderer>().color = new Color32(85, 85, 85, 255);
