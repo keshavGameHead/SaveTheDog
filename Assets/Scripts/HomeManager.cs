@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class HomeManager : MonoBehaviour
 {
     public GameObject levelPanel, settingPanel;
     public static HomeManager Instance;
+    public TextMeshProUGUI coinText;
 
     public int LevelIdx;
 
@@ -17,6 +19,8 @@ public class HomeManager : MonoBehaviour
             Instance = this;
         }
         LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
+        int coin = PlayerPrefs.GetInt("Coin", 0);
+        coinText.SetText(coin.ToString());
     }
 
 

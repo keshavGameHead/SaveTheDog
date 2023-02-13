@@ -126,6 +126,9 @@ public class UIManager : MonoBehaviour
         int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
         levelUnlock++;
         PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
+        int totalCoin = PlayerPrefs.GetInt("Coin", 0);
+        totalCoin += 10;
+        PlayerPrefs.SetInt("Coin", totalCoin);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(1.0f);
