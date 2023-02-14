@@ -327,11 +327,19 @@ public class DrawingManager : MonoBehaviour
 
 	public bool isabletodraw = false;
 
+	private bool IsPointerOverUIObject()
+	{
+		PointerEventData eventData = new PointerEventData(EventSystem.current);
+		eventData.position = Input.mousePosition;
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventData, results);
+		return results.Count > 0;
+	}
 	private void Update()
 	{
         //EventSystem current = EventSystem.current;
 
-        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
+        if (!IsPointerOverUIObject() && Input.GetMouseButtonDown(0)&& !UIManager.Instance.isAdplaying)
         {
 			isabletodraw = true;
 

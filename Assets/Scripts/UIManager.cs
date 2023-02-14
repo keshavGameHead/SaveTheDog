@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
 
     public void ActiveClock()
     {
-        //clock.SetActive(true);
+        clock.SetActive(true);
         startClock = true;
     }
 
@@ -186,14 +186,22 @@ public class UIManager : MonoBehaviour
 
     public void Replay()
     {
-        PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
-        SceneManager.LoadScene("Level");
         if (GameController.instance.levelIndex > 4)
         {
-            //SuperStarAd.Instance.ShowInterstitialTimer();
-            //SuperStarAd.Instance.ShowBannerAd();
+            SuperStarAd.Instance.ShowInterstitialTimer(ReplayLEvel);
         }
+        else 
+        {
+            PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
+            SceneManager.LoadScene("Level");
+        }
+    }
 
+
+    public void ReplayLEvel(bool isdone) {
+
+        PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
+        SceneManager.LoadScene("Level");
     }
 
     public void NextLevel()
@@ -214,6 +222,8 @@ public class UIManager : MonoBehaviour
             SceneManager.LoadScene("Level");
         }
 
+        
+
     }
 
     public void Home()
@@ -223,13 +233,14 @@ public class UIManager : MonoBehaviour
 
     public void Hint()
     {
+        isAdplaying = true;
         SuperStarAd.Instance.ShowRewardVideo(ExampleShowRewardAssign);
       //  guide.SetActive(true);
     }
 
     public Material Linemat;
     public Gradient Linecolor;
-
+    public bool isAdplaying = false;
     public void ExampleShowRewardAssign(bool isrewarded)
     {
         if (isrewarded)
@@ -239,11 +250,20 @@ public class UIManager : MonoBehaviour
             guide.GetComponent<LineRenderer>().material = Linemat;
             guide.GetComponent<LineRenderer>().colorGradient = Linecolor;
             guide.SetActive(true);
+            Invoke("InvokeIsPlaying",1f);
         }
         else
         {
             Debug.Log("Reward Eroor Given");
+            Invoke("InvokeIsPlaying", 0f);
             // do next step as reward not available
         }
+       
+    }
+
+
+    public void InvokeIsPlaying() {
+
+        isAdplaying = false;
     }
 }
