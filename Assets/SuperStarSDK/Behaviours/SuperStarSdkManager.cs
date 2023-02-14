@@ -18,7 +18,7 @@ namespace SuperStarSdk
         public int LastPlayedCrossPromoBoxIndex = -1;
         public int LastPlayedCrossPromoIntrestitialIndex = -1;
 
-
+        public bool isLogEnabled = false;
         public static SuperStarSdkManager Instance;
         //public SdkDataClass Settings;
         public string ConfigFileURL;
@@ -81,7 +81,7 @@ namespace SuperStarSdk
             {
                 Destroy(this.gameObject);
             }
-
+            Debug.unityLogger.logEnabled = isLogEnabled;
             //if (PrivacyAccepted == 0)
             //{
             //    GDPR.SetActive(true);
