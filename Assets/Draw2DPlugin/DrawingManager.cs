@@ -327,11 +327,17 @@ public class DrawingManager : MonoBehaviour
 
 	private void Update()
 	{
-		EventSystem current = EventSystem.current;
-		if (current != null && current.IsPointerOverGameObject())
+		//EventSystem current = EventSystem.current;
+
+  //      if (Input.GetMouseButtonDown(0))
+  //      {
+
+		//Debug.LogError(EventSystem.current.IsPointerOverGameObject());
+  //      }
+		if (!EventSystem.current.IsPointerOverGameObject())
 		{
-			return;
-		}
+			Debug.LogError("no return");
+			//return;
 		this.hit = Physics2D.Raycast(this.mousePointer.transform.position, Vector2.zero, float.PositiveInfinity, this.layerMask);
 		this.mouseRay = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(this.getTouchPosition()), Vector2.zero, float.PositiveInfinity, this.layerMask);
 		if (this.fixGetMouseButtonDown())
@@ -345,6 +351,7 @@ public class DrawingManager : MonoBehaviour
 		if (this.fixGetMouseButtonUp())
 		{
 			this.onTouchUp();
+		}
 		}
 	}
 

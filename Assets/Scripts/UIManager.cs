@@ -102,6 +102,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseRatingPopup()
     {
+        SuperStarSdkManager.Instance.Rate();
         ratingPopUp.SetActive(false);
     }
 
@@ -125,6 +126,9 @@ public class UIManager : MonoBehaviour
     {
         int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
         levelUnlock++;
+        int score = PlayerPrefs.GetInt("Coin", 0);
+        score += 10;
+        PlayerPrefs.SetInt("Coin", score);
         PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
@@ -134,8 +138,9 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (GameController.instance.levelIndex == 4)
         {
+            SuperStarSdkManager.Instance.Rate();
             Debug.Log(GameController.instance.levelIndex);
-            ShowRatingPopup();
+           // ShowRatingPopup();
         }
         if (GameController.instance.levelIndex > 4)
         {
