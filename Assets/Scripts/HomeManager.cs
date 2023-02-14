@@ -18,7 +18,7 @@ public class HomeManager : MonoBehaviour
         {
             Instance = this;
         }
-        scoreTxt.text = PlayerPrefs.GetInt("Coin", 0).ToString();
+        //scoreTxt.text = PlayerPrefs.GetInt("Coin", 0).ToString();
         LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
     }
 

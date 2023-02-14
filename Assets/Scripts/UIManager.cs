@@ -18,8 +18,11 @@ public class UIManager : MonoBehaviour
     public Sprite nonFillStar;
     public Sprite fillStar;
     public List<GameObject> Stars = new List<GameObject>();
-
+    public GameObject sliderObj;
+    public TextMeshProUGUI gameWinTotalScore,gameWinGameScore;
     public TextMeshProUGUI clockText, levelText;
+    public Animator coinAnimation;
+    public GameObject tapToContinue;
 
     private bool startClock;
     public bool isClick = false;
@@ -127,14 +130,16 @@ public class UIManager : MonoBehaviour
         int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
         levelUnlock++;
         int score = PlayerPrefs.GetInt("Coin", 0);
-        score += 10;
+        gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
         PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
+        gameWinGameScore.text = "x10";
+        tapToContinue.SetActive(false);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(1.0f);
         winPanel.SetActive(true);
-        gamePlayScreen.SetActive(true);
+        gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         if (GameController.instance.levelIndex == 4)
         {
@@ -147,6 +152,8 @@ public class UIManager : MonoBehaviour
             //SuperStarAd.Instance.ShowInterstitialTimer();
             // SuperStarAd.Instance.ShowBannerAd();
         }
+        yield return new WaitForSeconds(2f);
+        tapToContinue.SetActive(true);
         SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
 
     }
@@ -206,6 +213,56 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
+        SuperStarAd.Instance.ShowRewardVideo(StartNextCoroutine);
+    }
+
+    public void StartNextCoroutine(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            StartCoroutine(StopSlider());
+        }
+        else
+        {
+            TapToContinue();
+        }
+    }
+    public void TapToContinue()
+    {
+        StartCoroutine(ContinueLoadLevel());
+    }
+    IEnumerator StopSlider()
+    {
+        sliderObj.GetComponent<Animator>().enabled = false;
+        int gameScore = 10 * SliderScript.Instance.sliderInt;
+        gameWinGameScore.text = gameScore.ToString();
+        yield return new WaitForSeconds(1f);
+        coinAnimation.SetBool("Play", true);
+        yield return new WaitForSeconds(1.5f);
+        int totalScore = gameScore + PlayerPrefs.GetInt("Coin", 0);
+        gameWinTotalScore.text = totalScore.ToString();
+        PlayerPrefs.SetInt("Coin", totalScore);
+        yield return new WaitForSeconds(1f);
+        LoadNewLevel();
+    }
+
+    IEnumerator ContinueLoadLevel()
+    {
+        sliderObj.gameObject.SetActive(false);
+        int gameScore = 10;
+        gameWinGameScore.text = gameScore.ToString();
+        yield return new WaitForSeconds(1f);
+        coinAnimation.SetBool("Play", true);
+        yield return new WaitForSeconds(1.5f);
+        int totalScore = gameScore + PlayerPrefs.GetInt("Coin", 0);
+        gameWinTotalScore.text = totalScore.ToString();
+        PlayerPrefs.SetInt("Coin", totalScore);
+        yield return new WaitForSeconds(1f);
+        LoadNewLevel();
+    }
+
+    public void LoadNewLevel()
+    {
         GameController.instance.levelIndex++;
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
 
@@ -213,7 +270,7 @@ public class UIManager : MonoBehaviour
         {
             SuperStarAd.Instance.ShowInterstitialTimer((O) =>
             {
-                Debug.Log("Next Level After Ad "+ GameController.instance.levelIndex);
+                Debug.Log("Next Level After Ad " + GameController.instance.levelIndex);
                 SceneManager.LoadScene("Level");
             });
         }
@@ -225,7 +282,6 @@ public class UIManager : MonoBehaviour
         
 
     }
-
     public void Home()
     {
         SceneManager.LoadScene("Home");
