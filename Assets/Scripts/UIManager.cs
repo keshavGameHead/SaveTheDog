@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
             //SuperStarAd.Instance.ShowInterstitialTimer();
             //SuperStarAd.Instance.ShowBannerAd();
         }
-
+        SSEventManager.Instance.SSGameWinEventCall(PlayerPrefs.GetInt("UnlockLevel"));
     }
 
     IEnumerator ShowGameWinIE()
@@ -147,6 +147,8 @@ public class UIManager : MonoBehaviour
             //SuperStarAd.Instance.ShowInterstitialTimer();
             // SuperStarAd.Instance.ShowBannerAd();
         }
+        SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
+
     }
 
     int starIndx;
@@ -221,7 +223,27 @@ public class UIManager : MonoBehaviour
 
     public void Hint()
     {
-        
-        guide.SetActive(true);
+        SuperStarAd.Instance.ShowRewardVideo(ExampleShowRewardAssign);
+      //  guide.SetActive(true);
+    }
+
+    public Material Linemat;
+    public Gradient Linecolor;
+
+    public void ExampleShowRewardAssign(bool isrewarded)
+    {
+        if (isrewarded)
+        {
+            //Give reward here
+            Debug.Log("Reward Given");
+            guide.GetComponent<LineRenderer>().material = Linemat;
+            guide.GetComponent<LineRenderer>().colorGradient = Linecolor;
+            guide.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Reward Eroor Given");
+            // do next step as reward not available
+        }
     }
 }

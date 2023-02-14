@@ -325,16 +325,19 @@ public class DrawingManager : MonoBehaviour
 		this.pathRigidbody.bodyType = RigidbodyType2D.Dynamic;
 	}
 
+	public bool isabletodraw = false;
+
 	private void Update()
 	{
-		//EventSystem current = EventSystem.current;
+        //EventSystem current = EventSystem.current;
 
-  //      if (Input.GetMouseButtonDown(0))
-  //      {
+        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
+        {
+			isabletodraw = true;
 
-		//Debug.LogError(EventSystem.current.IsPointerOverGameObject());
-  //      }
-		if (!EventSystem.current.IsPointerOverGameObject())
+			Debug.LogError(EventSystem.current.IsPointerOverGameObject());
+        }
+        if (isabletodraw)
 		{
 			Debug.LogError("no return");
 			//return;
@@ -351,7 +354,15 @@ public class DrawingManager : MonoBehaviour
 		if (this.fixGetMouseButtonUp())
 		{
 			this.onTouchUp();
+				GameController.instance.ActivateGame();
 		}
+		}
+
+		if (Input.GetMouseButtonUp(0))
+		{
+			isabletodraw = false;
+
+		//	Debug.LogError(EventSystem.current.IsPointerOverGameObject());
 		}
 	}
 

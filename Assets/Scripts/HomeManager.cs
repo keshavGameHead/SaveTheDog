@@ -34,6 +34,7 @@ public class HomeManager : MonoBehaviour
         int unlockLevel = PlayerPrefs.GetInt("UnlockLevel");
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
+        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
     }
 
     public void ShowLevelSelector()
