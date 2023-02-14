@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using SuperStarSdk;
 public class HomeManager : MonoBehaviour
 {
     public GameObject levelPanel, settingPanel;
@@ -35,6 +35,17 @@ public class HomeManager : MonoBehaviour
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
         SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+    }
+
+    public void ShowMoreApps() 
+    {
+
+#if UNITY_ANDROID
+        Application.OpenURL(SuperStarSdkManager.Instance.crossPromoAssetsRoot.moreappurl);
+#elif UNITY_IOS
+        Application.OpenURL(SuperStarSdkManager.Instance.crossPromoAssetsRoot.moreappurlios);
+
+#endif
     }
 
     public void ShowLevelSelector()
