@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using SuperStarSdk;
 public class HomeManager : MonoBehaviour
 {
-    public GameObject levelPanel, settingPanel;
+    public GameObject levelPanel, settingPanel, noAds;
     public static HomeManager Instance;
     public TextMeshProUGUI scoreTxt;
 
@@ -20,6 +20,10 @@ public class HomeManager : MonoBehaviour
         }
         //scoreTxt.text = PlayerPrefs.GetInt("Coin", 0).ToString();
         LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
+        if (PlayerPrefs.GetInt("NoAds") == 1)
+        {
+            noAds.SetActive(false);
+        }
     }
 
 
@@ -37,6 +41,10 @@ public class HomeManager : MonoBehaviour
         SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
     }
 
+    public void OnClickNoAds()
+    {
+        InaapManager.Instance.PurchaseNoAdsProuduct();
+    }
     public void ShowMoreApps() 
     {
 

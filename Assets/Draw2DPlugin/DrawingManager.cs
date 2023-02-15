@@ -237,8 +237,15 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchUp()
 	{
-		
-		FreezeMoving.freeze = false;
+		AstarPath.active.Scan();
+		if (Level.Instance.spider != null)
+		{
+			for (int i = 0; i < Level.Instance.spider.Length; i++)
+			{
+                Level.Instance.spider[i].enabled = true;
+            }
+		}
+        FreezeMoving.freeze = false;
 		this.setBlockLineVisiable(false);
 		if (this.canDraw)
 		{

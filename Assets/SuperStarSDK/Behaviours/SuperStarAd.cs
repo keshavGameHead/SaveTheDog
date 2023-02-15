@@ -24,6 +24,17 @@ namespace SuperStarSdk
         public GameObject bannerImage;
 
         public int ReloadTime=40;
+        public int NoAds
+        {
+            get
+            {
+                return PlayerPrefs.GetInt("NoAds", 0);
+            }
+            set
+            {
+                PlayerPrefs.SetInt("NoAds", value);
+            }
+        }
 
         private void Awake()
         {
@@ -54,7 +65,15 @@ namespace SuperStarSdk
             IronSource.Agent.init(appKey);
             bannerImage.SetActive(false);
             lastInterstitial = -1000f;
-            ShowBannerAd();
+            if (NoAds==0)
+            {
+                Debug.Log("no ads is inactive");
+                ShowBannerAd();
+            }
+            else
+            {
+                Debug.Log("no ads is active");
+            }
             LoadInterstitialAd(0);
 
         }
@@ -424,6 +443,22 @@ namespace SuperStarSdk
             }
             isIntrestitiallShowing = true;
             _callbackIntrestital = onComplete;
+            if (NoAds==1)
+            {
+                Debug.Log("No Ads Active");
+                isIntrestitiallShowing = false;
+                if (_callbackIntrestital == null)
+                {
+                    return;
+                }
+                _callbackIntrestital.Invoke(true);
+                _callbackIntrestital = null;
+                return;
+            }
+            else
+            {
+                Debug.Log("No Ads inActive");
+            }
 
 #if UNITY_EDITOR
             isIntrestitiallShowing = false;

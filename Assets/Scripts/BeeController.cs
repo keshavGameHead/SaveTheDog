@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class BeeController : MonoBehaviour
     public AudioSource beeSound;
 
     public SpriteRenderer Sp;
-
+    public AIDestinationSetter AI;
     private void Awake()
     {
         mRigidbody = GetComponent<Rigidbody2D>();
@@ -35,6 +36,8 @@ public class BeeController : MonoBehaviour
     {
         int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
         target = GameController.instance.currentLevel.dogList[dogIndexRandom];
+
+        AI.target = target;
         timer = 0.0f;
         Sp = GetComponentInChildren<SpriteRenderer>();
         if (AudioManager.instance.soundState == 0)

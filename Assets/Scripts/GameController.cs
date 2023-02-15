@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
 
     public UIManager uiManager;
 
+    public GameObject testLevel;
+
     public enum STATE
     {
         DRAWING,
@@ -44,6 +46,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -77,9 +80,8 @@ public class GameController : MonoBehaviour
         {
             levelIndex = levelIndex - maxLevel;
         }
-
         GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
+        //GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();
-       
     }
 }
