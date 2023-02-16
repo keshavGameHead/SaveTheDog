@@ -119,10 +119,11 @@ public class UIManager : MonoBehaviour
         gamePlayScreen.SetActive(false);
         if (GameController.instance.levelIndex > 4)
         {
-            //SuperStarAd.Instance.ShowInterstitialTimer();
+            SuperStarAd.Instance.ShowInterstitialTimer((o)=> { 
+                 SSEventManager.Instance.SSGameOverEventCall(PlayerPrefs.GetInt("UnlockLevel"));
+            });
             //SuperStarAd.Instance.ShowBannerAd();
         }
-        SSEventManager.Instance.SSGameWinEventCall(PlayerPrefs.GetInt("UnlockLevel"));
     }
 
     IEnumerator ShowGameWinIE()
@@ -141,7 +142,7 @@ public class UIManager : MonoBehaviour
         winPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(0.5f);
-        if (GameController.instance.levelIndex == 4)
+        if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
         {
             SuperStarSdkManager.Instance.Rate();
             Debug.Log(GameController.instance.levelIndex);
@@ -149,14 +150,19 @@ public class UIManager : MonoBehaviour
         }
         if (GameController.instance.levelIndex > 4)
         {
-            //SuperStarAd.Instance.ShowInterstitialTimer();
+            SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
+            { 
+            tapToContinue.SetActive(true);
+            SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
+            });
             // SuperStarAd.Instance.ShowBannerAd();
         }
-        yield return new WaitForSeconds(2f);
-        tapToContinue.SetActive(true);
-        SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
+      //  yield return new WaitForSeconds(2f);
 
     }
+
+
+
 
     int starIndx;
     public IEnumerator OnClickRating()
@@ -284,7 +290,11 @@ public class UIManager : MonoBehaviour
     }
     public void Home()
     {
-        SceneManager.LoadScene("Home");
+        SuperStarAd.Instance.ShowInterstitialTimer((O) =>
+        {
+            SceneManager.LoadScene("Home");
+        });
+        
     }
 
     public void Hint()
@@ -312,7 +322,6 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Reward Eroor Given");
             Invoke("InvokeIsPlaying", 0f);
-            // do next step as reward not available
         }
        
     }

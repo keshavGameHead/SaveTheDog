@@ -6,11 +6,12 @@ using TMPro;
 
 public class Setting : MonoBehaviour
 {
-    public Image musicImage, soundImage;
+    public Image musicImage, soundImage, vibrateImage;
 
-    public Sprite musicOn, musicOff, soundOn, soundOff;
+    public Sprite musicOn, musicOff;
 
-    public TextMeshProUGUI musicTxt, soundTxt;
+    public TextMeshProUGUI musicTxt, soundTxt, vibrateTxt;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,11 @@ public class Setting : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnClickFeedBack()
+    {
+
     }
 
     public void ToggleMusic()
@@ -46,16 +52,34 @@ public class Setting : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Sound") == 0)
         {
-            soundImage.sprite = soundOff;
+            soundImage.sprite = musicOff;
             soundTxt.text = "OFF";
             PlayerPrefs.SetInt("Sound", 1);
             AudioManager.instance.TurnSoundOff();
         }
         else
         {
-            soundImage.sprite = soundOn;
+            soundImage.sprite = musicOn;
             soundTxt.text = "ON";
             PlayerPrefs.SetInt("Sound", 0);
+            AudioManager.instance.TurnSoundOn();
+        }
+    }
+
+    public void ToggleVibrate()
+    {
+        if (PlayerPrefs.GetInt("Vibrate") == 0)
+        {
+            vibrateImage.sprite = musicOff;
+            vibrateTxt.text = "OFF";
+            PlayerPrefs.SetInt("Vibrate", 1);
+             
+        }
+        else
+        {
+            vibrateImage.sprite = musicOn;
+            vibrateTxt.text = "ON";
+            PlayerPrefs.SetInt("Vibrate", 0);
             AudioManager.instance.TurnSoundOn();
         }
     }
@@ -77,15 +101,30 @@ public class Setting : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Sound") == 0)
         {
-            soundImage.sprite = soundOn;
+            soundImage.sprite = musicOn;
             soundTxt.text = "ON";
             AudioManager.instance.TurnSoundOn();
         }
         else
         {
-            soundImage.sprite = soundOff;
+            soundImage.sprite = musicOff;
             soundTxt.text = "OFF";
             AudioManager.instance.TurnSoundOff();
+        }
+
+        if (PlayerPrefs.GetInt("Vibrate") == 0)
+        {
+            vibrateImage.sprite = musicOff;
+            vibrateTxt.text = "OFF";
+            PlayerPrefs.SetInt("Vibrate", 1);
+            AudioManager.instance.TurnSoundOff();
+        }
+        else
+        {
+            vibrateImage.sprite = musicOn;
+            vibrateTxt.text = "ON";
+            PlayerPrefs.SetInt("Vibrate", 0);
+            AudioManager.instance.TurnSoundOn();
         }
     }
 }
