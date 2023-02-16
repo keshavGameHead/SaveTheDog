@@ -10,10 +10,11 @@ public class LevelItem : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     public Image bgImage;
+    public List<Image> StarImgs = new List<Image>();
 
-    public Sprite doneSpr, unDoneSpr;
+    public Sprite doneSpr, unDoneSpr, starSPr;
 
-    public GameObject lockObj;
+    public GameObject lockObj, unlockObj;
 
     // Start is called before the first frame update
     void Start()
@@ -35,13 +36,19 @@ public class LevelItem : MonoBehaviour
         {
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
+            unlockObj.SetActive(true);
+            for (int i = 0; i < StarImgs.Count; i++)
+            {
+                StarImgs[i].sprite = starSPr;
+            }
         }
         else
         {
             bgImage.sprite = unDoneSpr;
             lockObj.SetActive(true);
+            unlockObj.SetActive(false);
         }
-            
+
     }
 
    
