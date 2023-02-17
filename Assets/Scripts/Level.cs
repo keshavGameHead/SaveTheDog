@@ -11,6 +11,7 @@ public class Level : MonoBehaviour
     public GameObject guide;
     public List<Transform> dogList;
     public SpiderControl[] spider;
+    public float maxDrawLimit;
 
     private void Awake()
     {

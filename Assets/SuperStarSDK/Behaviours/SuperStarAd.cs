@@ -589,7 +589,7 @@ namespace SuperStarSdk
             //}
             else
             {
-                Debug.LogError("Problem in showing video");
+                //Debug.LogError("Problem in showing video");
                 isRewardShowing = false;
                 if (_callback == null)
                 {
@@ -604,7 +604,7 @@ namespace SuperStarSdk
 
         public void GiveRewardToUser()
         {
-            Debug.LogError("watch video comepleted:" + VideoFor);
+            //Debug.LogError("watch video comepleted:" + VideoFor);
             switch (VideoFor)
             {
 

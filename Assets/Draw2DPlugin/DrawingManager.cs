@@ -221,10 +221,32 @@ public class DrawingManager : MonoBehaviour
 		{
 			if (this.isBeginDrawOnTouch)
 			{
-				this.drawing();
+				UIManager.Instance.drawLimit =1f - ((float)posCount / Level.Instance.maxDrawLimit);
+                Debug.LogError(UIManager.Instance.drawLimit + "DrawLimit");
+                if (UIManager.Instance.drawLimit <= 0)
+                {
+					UIManager.Instance.sliderImage.localScale = new Vector3(0, 1, 1);
+					this.drawing();
+					this.onTouchUp();
+					GameController.instance.ActivateGame();
+				}
+                else
+                {
+					UIManager.Instance.sliderImage.localScale = new Vector3(UIManager.Instance.drawLimit, 1, 1);
+                    if (UIManager.Instance.drawLimit <= 0.25f)
+                    {
+						UIManager.Instance.starImage2.SetActive(false);
+                    }
+                    else if(UIManager.Instance.drawLimit <= 0.5f)
+                    {
+						UIManager.Instance.starImage1.SetActive(false);
+                    }
+					this.drawing();
+                }
 			}
 			else
 			{
+				
 				Vector2 a = Camera.main.ScreenToWorldPoint(this.getTouchPosition());
 				if (Vector2.Distance(a, this.touchDownPosition) > 0.05f && !this.prepareDrawFinish)
 				{
@@ -237,7 +259,6 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchUp()
 	{
-		AstarPath.active.Scan();
 		if (Level.Instance.spider != null)
 		{
 			for (int i = 0; i < Level.Instance.spider.Length; i++)
@@ -350,34 +371,34 @@ public class DrawingManager : MonoBehaviour
         {
 			isabletodraw = true;
 
-			Debug.LogError(EventSystem.current.IsPointerOverGameObject());
+			//Debug.LogError(EventSystem.current.IsPointerOverGameObject());
         }
-        if (isabletodraw)
+		if (isabletodraw)
 		{
-			Debug.LogError("no return");
+			//Debug.LogError("no return");
 			//return;
-		this.hit = Physics2D.Raycast(this.mousePointer.transform.position, Vector2.zero, float.PositiveInfinity, this.layerMask);
-		this.mouseRay = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(this.getTouchPosition()), Vector2.zero, float.PositiveInfinity, this.layerMask);
-		if (this.fixGetMouseButtonDown())
-		{
-			this.onTouchDown();
-		}
-		if (this.fixGetMouseButton())
-		{
-			this.onTouchMove();
-		}
-		if (this.fixGetMouseButtonUp())
-		{
-			this.onTouchUp();
+			this.hit = Physics2D.Raycast(this.mousePointer.transform.position, Vector2.zero, float.PositiveInfinity, this.layerMask);
+			this.mouseRay = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(this.getTouchPosition()), Vector2.zero, float.PositiveInfinity, this.layerMask);
+			if (this.fixGetMouseButtonDown())
+			{
+				this.onTouchDown();
+			}
+			if (this.fixGetMouseButton())
+			{
+				this.onTouchMove();
+			}
+			if (this.fixGetMouseButtonUp())
+			{
+				this.onTouchUp();
 				GameController.instance.ActivateGame();
-		}
+			}
 		}
 
 		if (Input.GetMouseButtonUp(0))
 		{
 			isabletodraw = false;
 
-		//	Debug.LogError(EventSystem.current.IsPointerOverGameObject());
+			//	Debug.LogError(EventSystem.current.IsPointerOverGameObject());
 		}
 	}
 
@@ -436,6 +457,7 @@ public class DrawingManager : MonoBehaviour
 			if (this.canPassWhenDraw(this.newVerticies[this.newVerticies.Count - 1], this.mousePointer.transform.position))
 			{
 				this.setBlockLineVisiable(false);
+				//Debug.LogError(posCount + "Pos Count");
 				this.posCount++;
 				this.pathLineRenderer.SetVertexCount(this.posCount + 1);
 				this.pathLineRenderer.SetPosition(this.posCount, this.mousePointer.transform.position - new Vector3(0f, 0f, Camera.main.transform.position.z));

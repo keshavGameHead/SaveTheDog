@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI clockText, levelText;
     public Animator coinAnimation;
     public GameObject tapToContinue;
+    public RectTransform sliderImage;
+    public float drawLimit;
+    public GameObject starImage3,starImage2,starImage1;
 
     private bool startClock;
     public bool isClick = false;
@@ -44,6 +47,7 @@ public class UIManager : MonoBehaviour
         {
             gamePlayScreen.SetActive(true);
         }
+        sliderImage.localScale = new Vector3(1, 1, 1);
         levelText.text = "LEVEL " + (GameController.instance.levelIndex + 1).ToString();
     }
 
@@ -134,7 +138,18 @@ public class UIManager : MonoBehaviour
         gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
         PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
-        gameWinGameScore.text = "x10";
+        if (drawLimit <= 0.25f)
+        {
+            gameWinGameScore.text = "x10";
+        }
+        else if (drawLimit <= 0.5f)
+        {
+            gameWinGameScore.text = "x20";
+        }
+        else if (drawLimit >= 0.5f)
+        {
+            gameWinGameScore.text = "x30";
+        }
         tapToContinue.SetActive(false);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
@@ -240,7 +255,20 @@ public class UIManager : MonoBehaviour
     IEnumerator StopSlider()
     {
         sliderObj.GetComponent<Animator>().enabled = false;
-        int gameScore = 10 * SliderScript.Instance.sliderInt;
+        int gameScore;
+        if (drawLimit <= 0.25f)
+        {
+            gameScore = 10 * SliderScript.Instance.sliderInt;
+        }
+        else if (drawLimit <= 0.5f)
+        {
+            gameScore = 20 * SliderScript.Instance.sliderInt;
+        }
+        else 
+        {
+            gameScore = 30 * SliderScript.Instance.sliderInt;
+        }
+
         gameWinGameScore.text = gameScore.ToString();
         yield return new WaitForSeconds(1f);
         coinAnimation.SetBool("Play", true);
