@@ -12,6 +12,7 @@ public class Level : MonoBehaviour
     public List<Transform> dogList;
     public SpiderControl[] spider;
     public float maxDrawLimit;
+    public bool isWater;
 
     private void Awake()
     {

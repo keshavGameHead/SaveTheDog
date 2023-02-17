@@ -37,9 +37,18 @@ public class LevelItem : MonoBehaviour
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(true);
+            int starCount = PlayerPrefs.GetInt((page * 8 + index + 1)+"Stars");
+            Debug.LogError("Star Count : " + starCount);
             for (int i = 0; i < StarImgs.Count; i++)
             {
-                StarImgs[i].sprite = starSPr;
+                if (i < starCount)
+                {
+                    StarImgs[i].sprite = starSPr;
+                }
+                else
+                {
+                    StarImgs[i].gameObject.SetActive(false);
+                }
             }
         }
         else

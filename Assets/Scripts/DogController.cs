@@ -27,11 +27,13 @@ public class DogController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water" || collision.gameObject.tag == "Spike")
+        if (collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water" || collision.gameObject.tag == "Spike")
         {
             GameController.instance.currentState = GameController.STATE.GAMEOVER;
             Instantiate(deathVfx, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
+
+   
 }

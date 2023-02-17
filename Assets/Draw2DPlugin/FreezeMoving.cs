@@ -9,6 +9,8 @@ public class FreezeMoving : MonoBehaviour
 
 	public static bool freeze;
 
+	Vector2 offSet;
+
 	private void Start()
 	{
 		this.rigiThis = base.GetComponent<Rigidbody2D>();
@@ -32,5 +34,15 @@ public class FreezeMoving : MonoBehaviour
 				this.rigiThis.bodyType = RigidbodyType2D.Dynamic;
 			}
 		}
+
+        if (Level.Instance.isWater)
+        {
+			rigiThis.velocity = offSet * 1 * Time.deltaTime;
+        }
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		Debug.Log("Is Collided With : " + collision.gameObject.name);
+    }
 }

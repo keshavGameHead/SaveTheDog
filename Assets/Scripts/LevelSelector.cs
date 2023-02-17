@@ -36,7 +36,7 @@ public class LevelSelector : MonoBehaviour
 
         for (int i = 0; i < itemList.Count; i++)
         {
-            if((8 * currentPage + i) <= unlockLevel)
+            if((8 * currentPage + i) < unlockLevel)
                itemList[i].RefreshItem(currentPage, true);
             else
                 itemList[i].RefreshItem(currentPage, false);

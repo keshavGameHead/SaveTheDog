@@ -197,6 +197,7 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchDown()
 	{
+	
 		FreezeMoving.freeze = true;
 		this.prepareDrawFinish = false;
 		this.newVerticies.Clear();
@@ -222,7 +223,6 @@ public class DrawingManager : MonoBehaviour
 			if (this.isBeginDrawOnTouch)
 			{
 				UIManager.Instance.drawLimit =1f - ((float)posCount / Level.Instance.maxDrawLimit);
-                Debug.LogError(UIManager.Instance.drawLimit + "DrawLimit");
                 if (UIManager.Instance.drawLimit <= 0)
                 {
 					UIManager.Instance.sliderImage.localScale = new Vector3(0, 1, 1);

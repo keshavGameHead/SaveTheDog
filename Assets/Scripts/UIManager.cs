@@ -19,7 +19,8 @@ public class UIManager : MonoBehaviour
     public Sprite fillStar;
     public List<GameObject> Stars = new List<GameObject>();
     public GameObject sliderObj;
-    public TextMeshProUGUI gameWinTotalScore,gameWinGameScore;
+    public TextMeshProUGUI gameWinTotalScore,gameWinGameScore,gameWinRewardButtonTxt;
+    bool isRewardStart = false;
     public TextMeshProUGUI clockText, levelText;
     public Animator coinAnimation;
     public GameObject tapToContinue;
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isRewardStart = false;
         if (GameController.instance.currentState == GameController.STATE.PLAYING)
         {
             gamePlayScreen.SetActive(true);
@@ -54,6 +56,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isRewardStart)
+        {
+            gameWinRewardButtonTxt.text = "X" + SliderScript.Instance.sliderInt;
+        }
         if (startClock)
         {
             if (timer > 0.0f)
@@ -133,23 +139,28 @@ public class UIManager : MonoBehaviour
     IEnumerator ShowGameWinIE()
     {
         int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
+        int level = GameController.instance.levelIndex + 1;
+        Debug.LogError("Get Level Index : " + level);
+        if (drawLimit <= 0.25f)
+        {
+            gameWinGameScore.text = "x10";
+            PlayerPrefs.SetInt(level + "Stars", 1);
+        }
+        else if (drawLimit <= 0.5f)
+        {
+            gameWinGameScore.text = "x20";
+            PlayerPrefs.SetInt(level + "Stars", 2);
+        }
+        else if (drawLimit >= 0.5f)
+        {
+            gameWinGameScore.text = "x30";
+            PlayerPrefs.SetInt(level + "Stars", 3);
+        }
         levelUnlock++;
         int score = PlayerPrefs.GetInt("Coin", 0);
         gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
         PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
-        if (drawLimit <= 0.25f)
-        {
-            gameWinGameScore.text = "x10";
-        }
-        else if (drawLimit <= 0.5f)
-        {
-            gameWinGameScore.text = "x20";
-        }
-        else if (drawLimit >= 0.5f)
-        {
-            gameWinGameScore.text = "x30";
-        }
         tapToContinue.SetActive(false);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
@@ -157,6 +168,7 @@ public class UIManager : MonoBehaviour
         winPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(0.5f);
+        isRewardStart = true;
         if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
         {
             SuperStarSdkManager.Instance.Rate();
@@ -172,8 +184,8 @@ public class UIManager : MonoBehaviour
             });
             // SuperStarAd.Instance.ShowBannerAd();
         }
-      //  yield return new WaitForSeconds(2f);
-
+        yield return new WaitForSeconds(2.5f);
+        tapToContinue.SetActive(true);
     }
 
 
