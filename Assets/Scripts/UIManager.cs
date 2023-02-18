@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using SuperStarSdk;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -24,12 +25,14 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI clockText, levelText;
     public Animator coinAnimation;
     public GameObject tapToContinue;
-    public RectTransform sliderImage;
+    public Slider sliderImage;
     public float drawLimit;
     public GameObject starImage3,starImage2,starImage1;
 
     private bool startClock;
     public bool isClick = false;
+    int rewardCoin;
+    public GameObject cryingAnim;
 
     private void Awake()
     {
@@ -44,12 +47,13 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cryingAnim.SetActive(false);
         isRewardStart = false;
         if (GameController.instance.currentState == GameController.STATE.PLAYING)
         {
             gamePlayScreen.SetActive(true);
         }
-        sliderImage.localScale = new Vector3(1, 1, 1);
+        sliderImage.value = 1;
         levelText.text = "LEVEL " + (GameController.instance.levelIndex + 1).ToString();
     }
 
@@ -59,6 +63,7 @@ public class UIManager : MonoBehaviour
         if (isRewardStart)
         {
             gameWinRewardButtonTxt.text = "X" + SliderScript.Instance.sliderInt;
+            //gameWinGameScore.text = "X" +rewardCoin;
         }
         if (startClock)
         {
@@ -68,11 +73,16 @@ public class UIManager : MonoBehaviour
                 clockText.text = Mathf.CeilToInt(timer).ToString();
             }
 
+
             else
             {
                 startClock = false;
                 clock.SetActive(false);
                 ShowResult();
+            }
+            if (timer < 6)
+            {
+                clock.GetComponent<Animator>().SetBool("Play", true);
             }
 
             if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
@@ -89,8 +99,10 @@ public class UIManager : MonoBehaviour
     {
         clock.SetActive(true);
         startClock = true;
+        
     }
 
+    Coroutine gameWin;
     void ShowResult()
     {
         if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
@@ -103,20 +115,20 @@ public class UIManager : MonoBehaviour
         {
             AudioManager.instance.winAudio.Play();
             GameController.instance.currentState = GameController.STATE.FINISH;
-            StartCoroutine(ShowGameWinIE());
+            gameWin = StartCoroutine(ShowGameWinIE());
 
         }
     }
 
     public void ShowRatingPopup()
     {
-        ratingPopUp.SetActive(true);
+        //ratingPopUp.SetActive(true);
     }
 
     public void CloseRatingPopup()
     {
-        SuperStarSdkManager.Instance.Rate();
-        ratingPopUp.SetActive(false);
+        //SuperStarSdkManager.Instance.Rate();
+        //ratingPopUp.SetActive(false);
     }
 
 
@@ -127,6 +139,9 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         failPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
+        cryingAnim.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        cryingAnim.GetComponent<Animator>().SetBool("Play", true);
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> { 
@@ -143,16 +158,19 @@ public class UIManager : MonoBehaviour
         Debug.LogError("Get Level Index : " + level);
         if (drawLimit <= 0.25f)
         {
+            rewardCoin = 10;
             gameWinGameScore.text = "x10";
             PlayerPrefs.SetInt(level + "Stars", 1);
         }
         else if (drawLimit <= 0.5f)
         {
+            rewardCoin = 20;
             gameWinGameScore.text = "x20";
             PlayerPrefs.SetInt(level + "Stars", 2);
         }
         else if (drawLimit >= 0.5f)
         {
+            rewardCoin = 30;
             gameWinGameScore.text = "x30";
             PlayerPrefs.SetInt(level + "Stars", 3);
         }
@@ -169,12 +187,8 @@ public class UIManager : MonoBehaviour
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         isRewardStart = true;
-        if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
-        {
-            SuperStarSdkManager.Instance.Rate();
-            Debug.Log(GameController.instance.levelIndex);
-           // ShowRatingPopup();
-        }
+        yield return new WaitForSeconds(2f);
+        tapToContinue.SetActive(true);
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
@@ -184,8 +198,6 @@ public class UIManager : MonoBehaviour
             });
             // SuperStarAd.Instance.ShowBannerAd();
         }
-        yield return new WaitForSeconds(2.5f);
-        tapToContinue.SetActive(true);
     }
 
 
@@ -197,13 +209,13 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         if (starIndx > 2)
         {
-            SuperStarSdkManager.Instance.Rate();
-            ratingPopUp.SetActive(false);
+            //SuperStarSdkManager.Instance.Rate();
+            //ratingPopUp.SetActive(false);
         }
         else
         {
             //NextLevel();
-            ratingPopUp.SetActive(false);
+            //ratingPopUp.SetActive(false);
         }
     }
 
@@ -246,6 +258,7 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
+       
         SuperStarAd.Instance.ShowRewardVideo(StartNextCoroutine);
     }
 
@@ -266,6 +279,7 @@ public class UIManager : MonoBehaviour
     }
     IEnumerator StopSlider()
     {
+        StopCoroutine(gameWin);
         sliderObj.GetComponent<Animator>().enabled = false;
         int gameScore;
         if (drawLimit <= 0.25f)
@@ -295,7 +309,7 @@ public class UIManager : MonoBehaviour
     IEnumerator ContinueLoadLevel()
     {
         sliderObj.gameObject.SetActive(false);
-        int gameScore = 10;
+        int gameScore = rewardCoin;
         gameWinGameScore.text = gameScore.ToString();
         yield return new WaitForSeconds(1f);
         coinAnimation.SetBool("Play", true);

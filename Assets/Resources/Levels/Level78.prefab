@@ -210,10 +210,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
+  isDarkBg: 0
+  guide: {fileID: 0}
   dogList:
   - {fileID: 5925292717961953385}
   - {fileID: 5925292717892075186}
   - {fileID: 282700146988522314}
+  spider: []
+  maxDrawLimit: 200
+  isWater: 0
 --- !u!1 &5925292717499126039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4552,7 +4557,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -15, y: -10, z: 0}
@@ -4579,7 +4584,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -10, z: 0}
@@ -4597,7 +4602,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -10, y: -10, z: 0}
@@ -4705,7 +4710,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 2, y: -10, z: 0}

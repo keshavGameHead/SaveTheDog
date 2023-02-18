@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetPoints : MonoBehaviour
+public class SetPosition : MonoBehaviour
 {
 	public float side;
 	// Use this for initialization

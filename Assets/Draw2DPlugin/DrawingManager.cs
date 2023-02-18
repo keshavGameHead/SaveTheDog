@@ -222,17 +222,17 @@ public class DrawingManager : MonoBehaviour
 		{
 			if (this.isBeginDrawOnTouch)
 			{
-				UIManager.Instance.drawLimit =1f - ((float)posCount / Level.Instance.maxDrawLimit);
+				UIManager.Instance.drawLimit = 1f - ((float)posCount / Level.Instance.maxDrawLimit);
                 if (UIManager.Instance.drawLimit <= 0)
                 {
-					UIManager.Instance.sliderImage.localScale = new Vector3(0, 1, 1);
+					UIManager.Instance.sliderImage.value = 0;
 					this.drawing();
 					this.onTouchUp();
 					GameController.instance.ActivateGame();
 				}
                 else
                 {
-					UIManager.Instance.sliderImage.localScale = new Vector3(UIManager.Instance.drawLimit, 1, 1);
+					UIManager.Instance.sliderImage.value = UIManager.Instance.drawLimit;
                     if (UIManager.Instance.drawLimit <= 0.25f)
                     {
 						UIManager.Instance.starImage2.SetActive(false);

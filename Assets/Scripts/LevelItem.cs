@@ -56,6 +56,10 @@ public class LevelItem : MonoBehaviour
             bgImage.sprite = unDoneSpr;
             lockObj.SetActive(true);
             unlockObj.SetActive(false);
+            for (int i = 0; i < StarImgs.Count; i++)
+            {
+                StarImgs[i].gameObject.SetActive(false);
+            }
         }
 
     }

@@ -37,7 +37,7 @@ public class BeeController : MonoBehaviour
         int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
         target = GameController.instance.currentLevel.dogList[dogIndexRandom];
 
-        AI.target = target;
+        //AI.target = target;
         timer = 0.0f;
         Sp = GetComponentInChildren<SpriteRenderer>();
         if (AudioManager.instance.soundState == 0)
