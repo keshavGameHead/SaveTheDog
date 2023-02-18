@@ -80,7 +80,7 @@ public class Setting : MonoBehaviour
             vibrateImage.sprite = musicOn;
             vibrateTxt.text = "ON";
             PlayerPrefs.SetInt("Vibrate", 0);
-            AudioManager.instance.TurnSoundOn();
+          //  AudioManager.instance.TurnSoundOn();
         }
     }
 
@@ -114,17 +114,17 @@ public class Setting : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Vibrate") == 0)
         {
-            vibrateImage.sprite = musicOff;
-            vibrateTxt.text = "OFF";
-            PlayerPrefs.SetInt("Vibrate", 1);
-            AudioManager.instance.TurnSoundOff();
+          //  PlayerPrefs.SetInt("Vibrate", 1);
+            vibrateImage.sprite = musicOn;
+            vibrateTxt.text = "ON";
+           // AudioManager.instance.TurnSoundOff();
         }
         else
         {
-            vibrateImage.sprite = musicOn;
-            vibrateTxt.text = "ON";
-            PlayerPrefs.SetInt("Vibrate", 0);
-            AudioManager.instance.TurnSoundOn();
+            vibrateImage.sprite = musicOff;
+            vibrateTxt.text = "OFF";
+         ///   PlayerPrefs.SetInt("Vibrate", 0);
+           // AudioManager.instance.TurnSoundOn();
         }
     }
 }
