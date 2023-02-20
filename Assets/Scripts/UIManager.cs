@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseRatingPopup()
     {
-        //SuperStarSdkManager.Instance.Rate();
+        SuperStarSdkManager.Instance.Rate();
         //ratingPopUp.SetActive(false);
     }
 
@@ -184,11 +184,15 @@ public class UIManager : MonoBehaviour
         isRewardStart = true;
         yield return new WaitForSeconds(2f);
         tapToContinue.SetActive(true);
+        if(GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
+        {
+            SuperStarSdkManager.Instance.Rate();
+        }
+
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
             { 
-            tapToContinue.SetActive(true);
             SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
             });
             // SuperStarAd.Instance.ShowBannerAd();
