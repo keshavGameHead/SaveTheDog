@@ -35,14 +35,9 @@ public class FreezeMoving : MonoBehaviour
 			}
 		}
 
-        if (Level.Instance.isWater)
-        {
-			rigiThis.velocity = offSet * 1 * Time.deltaTime;
-        }
 	}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-		Debug.Log("Is Collided With : " + collision.gameObject.name);
     }
 }

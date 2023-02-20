@@ -12,7 +12,7 @@ public class Level : MonoBehaviour
     public List<Transform> dogList;
     public SpiderControl[] spider;
     public float maxDrawLimit;
-    public bool isWater;
+    public bool LoveMode;
 
     private void Awake()
     {
@@ -54,6 +54,14 @@ public class Level : MonoBehaviour
             }
         }
         
+    }
+
+    public void StartLoveAnim()
+    {
+        for (int i = 0; i < dogList.Count; i++)
+        {
+            dogList[i].GetComponent<Animator>().SetBool("Love", true);
+        }
     }
 
 

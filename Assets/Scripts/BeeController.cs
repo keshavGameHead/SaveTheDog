@@ -109,7 +109,7 @@ public class BeeController : MonoBehaviour
             StartToAttack();
         }
 
-        if (collision.gameObject.tag == "Dog")
+        if (collision.gameObject.tag == "Dog" || collision.gameObject.tag == "LDog")
         {
             StartToAttack();
             collision.gameObject.GetComponent<DogController>().Hurt();

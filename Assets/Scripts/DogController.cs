@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class DogController : MonoBehaviour
 {
+    public Rigidbody2D rb;
     public Animator mAnimator;
-
     public GameObject deathVfx;
     public static DogController Instance;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-   
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void Hurt()
@@ -33,7 +36,16 @@ public class DogController : MonoBehaviour
             Instantiate(deathVfx, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+
+        if (Level.Instance.LoveMode)
+        {
+            if (collision.gameObject.tag == "LDog")
+            {
+                Debug.LogError("Is Collide with GrilDog");
+                UIManager.Instance.isCollideWithGirl = true;
+                Level.Instance.StartLoveAnim();
+            }
+        }
     }
 
-   
 }

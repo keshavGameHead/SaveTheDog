@@ -28,8 +28,9 @@ public class UIManager : MonoBehaviour
     public Slider sliderImage;
     public float drawLimit;
     public GameObject starImage3,starImage2,starImage1;
+    public bool isCollideWithGirl;
 
-    private bool startClock;
+    public bool startClock;
     public bool isClick = false;
     int rewardCoin;
     public GameObject cryingAnim;
@@ -63,7 +64,6 @@ public class UIManager : MonoBehaviour
         if (isRewardStart)
         {
             gameWinRewardButtonTxt.text = "X" + SliderScript.Instance.sliderInt;
-            //gameWinGameScore.text = "X" +rewardCoin;
         }
         if (startClock)
         {
@@ -72,8 +72,6 @@ public class UIManager : MonoBehaviour
                 timer -= Time.deltaTime;
                 clockText.text = Mathf.CeilToInt(timer).ToString();
             }
-
-
             else
             {
                 startClock = false;
@@ -96,27 +94,24 @@ public class UIManager : MonoBehaviour
     }
 
     public void ActiveClock()
-    {
+    { 
         clock.SetActive(true);
         startClock = true;
-        
     }
 
     Coroutine gameWin;
     void ShowResult()
     {
-        if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
+        if (GameController.instance.currentState == GameController.STATE.GAMEOVER || !isCollideWithGirl)
         {
             AudioManager.instance.failAudio.Play();
             StartCoroutine(ShowGameOverIE());
-
         }
         else
         {
             AudioManager.instance.winAudio.Play();
             GameController.instance.currentState = GameController.STATE.FINISH;
             gameWin = StartCoroutine(ShowGameWinIE());
-
         }
     }
 
