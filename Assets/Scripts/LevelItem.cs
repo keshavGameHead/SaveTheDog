@@ -31,14 +31,24 @@ public class LevelItem : MonoBehaviour
     public void RefreshItem(int page, bool isDone)
     {
         levelText.text = "LV " + (page * 8 + index + 1).ToString();
-
-        if (isDone)
+        int currentLevelNum = (PlayerPrefs.GetInt("CurrentLevel") + 1);
+        if (currentLevelNum == (page * 8 + index + 1))
+        {
+            Debug.LogError("Current Level : " + (currentLevelNum));
+            bgImage.sprite = doneSpr;
+            lockObj.SetActive(false);
+            unlockObj.SetActive(false);
+            for (int i = 0; i < StarImgs.Count; i++)
+            {
+                StarImgs[i].gameObject.SetActive(false);
+            }
+        }
+        else if (isDone)
         {
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(true);
             int starCount = PlayerPrefs.GetInt((page * 8 + index + 1)+"Stars");
-            Debug.LogError("Star Count : " + starCount);
             for (int i = 0; i < StarImgs.Count; i++)
             {
                 if (i < starCount)

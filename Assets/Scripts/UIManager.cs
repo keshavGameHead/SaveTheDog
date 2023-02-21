@@ -191,8 +191,8 @@ public class UIManager : MonoBehaviour
     IEnumerator ShowGameWinIE()
     {
         int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
+        //Debug.LogError("Get Level Index : " + level);
         int level = GameController.instance.levelIndex + 1;
-        Debug.LogError("Get Level Index : " + level);
         if (drawLimit <= 0.25f)
         {
             rewardCoin = 10;

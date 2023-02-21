@@ -82,8 +82,8 @@ public class GameController : MonoBehaviour
         {
             levelIndex = levelIndex - maxLevel;
         }
-        //GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
-        GameObject levelObj = Instantiate(testLevel);
+        GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
+        //GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();
     }
 }
