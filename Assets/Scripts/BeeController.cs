@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BeeController : MonoBehaviour
 {
-    protected Rigidbody2D mRigidbody;
+    public Rigidbody2D mRigidbody;
 
     protected Transform target;
 
@@ -113,6 +113,12 @@ public class BeeController : MonoBehaviour
         {
             StartToAttack();
             collision.gameObject.GetComponent<DogController>().Hurt();
+        }
+
+        if (collision.gameObject.tag == "Monster")
+        {
+            StartToAttack();
+            collision.gameObject.GetComponent<DogController>().MonsterHurt();
         }
 
         if (collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water")

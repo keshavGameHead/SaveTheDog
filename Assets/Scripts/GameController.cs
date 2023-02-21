@@ -69,7 +69,10 @@ public class GameController : MonoBehaviour
     {
         for(int i = 0; i < currentLevel.dogList.Count; i++)
         {
-            currentLevel.dogList[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            if (!currentLevel.dogList[i].CompareTag("Monster"))
+            {
+                currentLevel.dogList[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            }
         }
     }
 
@@ -79,8 +82,8 @@ public class GameController : MonoBehaviour
         {
             levelIndex = levelIndex - maxLevel;
         }
-        GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
-        //GameObject levelObj = Instantiate(testLevel);
+        //GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex + 1).ToString())) as GameObject;
+        GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();
     }
 }

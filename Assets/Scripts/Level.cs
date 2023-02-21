@@ -13,6 +13,8 @@ public class Level : MonoBehaviour
     public SpiderControl[] spider;
     public float maxDrawLimit;
     public bool LoveMode;
+    public bool monsterMode;
+    public List<DogController> monsters = new List<DogController>();
 
     private void Awake()
     {

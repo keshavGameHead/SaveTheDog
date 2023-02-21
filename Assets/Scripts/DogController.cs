@@ -8,6 +8,9 @@ public class DogController : MonoBehaviour
     public Animator mAnimator;
     public GameObject deathVfx;
     public static DogController Instance;
+    public bool ishurt;
+    public bool isMonster;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,10 +26,16 @@ public class DogController : MonoBehaviour
     public void Hurt()
     {
         AudioManager.instance.dogAudio.Play();
+        ishurt = true;
         mAnimator.SetBool("Hurt", true);
         GameController.instance.currentState = GameController.STATE.GAMEOVER;
     }
-
+    public void MonsterHurt()
+    {
+        AudioManager.instance.dogAudio.Play();
+        ishurt = true;
+        mAnimator.SetBool("Hurt", true);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -41,9 +50,22 @@ public class DogController : MonoBehaviour
         {
             if (collision.gameObject.tag == "LDog")
             {
-                Debug.LogError("Is Collide with GrilDog");
                 UIManager.Instance.isCollideWithGirl = true;
                 Level.Instance.StartLoveAnim();
+            }
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (isMonster)
+        {
+            if (col.gameObject.tag == "Dog")
+            {
+                Debug.LogError("Is Collide with Monster");
+                col.gameObject.GetComponent<DogController>().Hurt();
+                gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             }
         }
     }

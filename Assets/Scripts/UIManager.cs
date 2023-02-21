@@ -29,11 +29,13 @@ public class UIManager : MonoBehaviour
     public float drawLimit;
     public GameObject starImage3,starImage2,starImage1;
     public bool isCollideWithGirl;
+    public bool isCollideWithBee;
 
     public bool startClock;
     public bool isClick = false;
     int rewardCoin;
     public GameObject cryingAnim;
+    public GameObject monObj = null;
 
     private void Awake()
     {
@@ -102,17 +104,57 @@ public class UIManager : MonoBehaviour
     Coroutine gameWin;
     void ShowResult()
     {
-        if (GameController.instance.currentState == GameController.STATE.GAMEOVER || !isCollideWithGirl)
+        if (Level.Instance.LoveMode)
         {
-            AudioManager.instance.failAudio.Play();
-            StartCoroutine(ShowGameOverIE());
+            if (GameController.instance.currentState == GameController.STATE.GAMEOVER || !isCollideWithGirl)
+            {
+                StartGameOverCoroutine();
+            }
+            else
+            {
+                StartGameWinCoroutine();
+            }
+        }
+        else if (Level.Instance.monsterMode)
+        {
+            for (int i = 0; i < Level.Instance.monsters.Count; i++)
+            {
+                if (!Level.Instance.monsters[i].ishurt)
+                {
+                    monObj = Level.Instance.monsters[i].gameObject;
+                }
+            }
+            if (monObj!= null)
+            {
+                monObj.GetComponent<CircleCollider2D>().isTrigger = true;
+                monObj.transform.DOMove(Level.Instance.dogList[0].position, 3f).OnComplete(StartGameOverCoroutine);
+            }
+            else
+            {
+                StartGameWinCoroutine();
+            }
+        }
+        else if(GameController.instance.currentState == GameController.STATE.GAMEOVER)
+        {
+            StartGameOverCoroutine();
         }
         else
         {
-            AudioManager.instance.winAudio.Play();
-            GameController.instance.currentState = GameController.STATE.FINISH;
-            gameWin = StartCoroutine(ShowGameWinIE());
+            StartGameWinCoroutine();
         }
+    }
+
+    public void StartGameOverCoroutine()
+    {
+        AudioManager.instance.failAudio.Play();
+        StartCoroutine(ShowGameOverIE());
+    }
+
+    public void StartGameWinCoroutine()
+    {
+        AudioManager.instance.winAudio.Play();
+        GameController.instance.currentState = GameController.STATE.FINISH;
+        gameWin = StartCoroutine(ShowGameWinIE());
     }
 
     public void ShowRatingPopup()
