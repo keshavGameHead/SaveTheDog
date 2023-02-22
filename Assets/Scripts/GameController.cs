@@ -39,28 +39,28 @@ public class GameController : MonoBehaviour
             instance = this;
         }
         currentState = STATE.DRAWING;
-        GetCurrentLevelIndex();
+        levelIndex = GetCurrentLevelIndex();
         CreateLevel();
         Application.targetFrameRate = 60;
     }
 
-    private void GetCurrentLevelIndex()
+    public int GetCurrentLevelIndex()
     {
         if (HomeManager.Instance.LoveMode)
         {
-            levelIndex = PlayerPrefs.GetInt("LoveCurrentLevel", 1);
+            return PlayerPrefs.GetInt("LoveCurrentLevel", 1);
         }
         else if (HomeManager.Instance.MonsterMode)
         {
-            levelIndex = PlayerPrefs.GetInt("MonsterCurrentLevel", 1);
+            return PlayerPrefs.GetInt("MonsterCurrentLevel", 1);
         }
         else if (HomeManager.Instance.SpiderMode)
         {
-            levelIndex = PlayerPrefs.GetInt("SpiderCurrentLevel", 1);
+            return PlayerPrefs.GetInt("SpiderCurrentLevel", 1);
         }
         else
         {
-            levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
+            return PlayerPrefs.GetInt("CurrentLevel", 1);
         }
     }
 

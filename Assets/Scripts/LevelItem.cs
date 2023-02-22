@@ -36,6 +36,7 @@ public class LevelItem : MonoBehaviour
         int currentLevelNum = PlayerPrefs.GetInt("UnlockLevel",1);
         if (currentLevelNum == (page * 8 + index + 1))
         {
+            gameObject.GetComponent<Button>().interactable = true;
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(false);
@@ -46,6 +47,7 @@ public class LevelItem : MonoBehaviour
         }
         else if (isDone)
         {
+            gameObject.GetComponent<Button>().interactable = true;
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(true);

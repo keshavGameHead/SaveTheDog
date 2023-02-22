@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
             gamePlayScreen.SetActive(true);
         }
         sliderImage.value = 1;
-        levelText.text = "LEVEL " + (GameController.instance.GetUnlockLevelIndex()).ToString();
+        levelText.text = "LEVEL " + (GameController.instance.GetCurrentLevelIndex()).ToString();
     }
 
     // Update is called once per frame
