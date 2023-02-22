@@ -197,7 +197,7 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchDown()
 	{
-	
+		UIManager.Instance.guide.SetActive(false);
 		FreezeMoving.freeze = true;
 		this.prepareDrawFinish = false;
 		this.newVerticies.Clear();

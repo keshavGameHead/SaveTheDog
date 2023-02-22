@@ -31,10 +31,9 @@ public class LevelItem : MonoBehaviour
     public void RefreshItem(int page, bool isDone)
     {
         levelText.text = "LV " + (page * 8 + index + 1).ToString();
-        int currentLevelNum = (PlayerPrefs.GetInt("CurrentLevel") + 1);
+        int currentLevelNum = PlayerPrefs.GetInt("UnlockLevel",1);
         if (currentLevelNum == (page * 8 + index + 1))
         {
-            Debug.LogError("Current Level : " + (currentLevelNum));
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(false);

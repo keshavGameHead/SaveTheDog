@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
             gamePlayScreen.SetActive(true);
         }
         sliderImage.value = 1;
-        levelText.text = "LEVEL " + (GameController.instance.levelIndex + 1).ToString();
+        levelText.text = "LEVEL " + (GameController.instance.levelIndex).ToString();
     }
 
     // Update is called once per frame
@@ -99,6 +99,7 @@ public class UIManager : MonoBehaviour
     { 
         clock.SetActive(true);
         startClock = true;
+       
     }
 
     Coroutine gameWin;
@@ -190,32 +191,34 @@ public class UIManager : MonoBehaviour
 
     IEnumerator ShowGameWinIE()
     {
-        int levelUnlock = PlayerPrefs.GetInt("UnlockLevel");
-        //Debug.LogError("Get Level Index : " + level);
-        int level = GameController.instance.levelIndex + 1;
+        int level = GameController.instance.levelIndex;
+        
+        int maxLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
+        if (level >= maxLevel)
+        {
+            PlayerPrefs.SetInt("UnlockLevel", level + 1);
+        }
         if (drawLimit <= 0.25f)
         {
             rewardCoin = 10;
             gameWinGameScore.text = "x10";
-            PlayerPrefs.SetInt(level + "Stars", 1);
+            PlayerPrefs.SetInt((level) + "Stars", 1);
         }
         else if (drawLimit <= 0.5f)
         {
             rewardCoin = 20;
             gameWinGameScore.text = "x20";
-            PlayerPrefs.SetInt(level + "Stars", 2);
+            PlayerPrefs.SetInt((level) + "Stars", 2);
         }
         else if (drawLimit >= 0.5f)
         {
             rewardCoin = 30;
             gameWinGameScore.text = "x30";
-            PlayerPrefs.SetInt(level + "Stars", 3);
+            PlayerPrefs.SetInt((level ) + "Stars", 3);
         }
-        levelUnlock++;
         int score = PlayerPrefs.GetInt("Coin", 0);
         gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
-        PlayerPrefs.SetInt("UnlockLevel", levelUnlock);
         tapToContinue.SetActive(false);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
@@ -234,8 +237,8 @@ public class UIManager : MonoBehaviour
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
-            { 
-            SSEventManager.Instance.SSGameWinEventCall(levelUnlock-1);
+            {
+                SSEventManager.Instance.SSGameWinEventCall(level - 1);
             });
             // SuperStarAd.Instance.ShowBannerAd();
         }
@@ -299,7 +302,6 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
-       
         SuperStarAd.Instance.ShowRewardVideo(StartNextCoroutine);
     }
 
@@ -367,7 +369,7 @@ public class UIManager : MonoBehaviour
         GameController.instance.levelIndex++;
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
 
-        if (GameController.instance.levelIndex > 4)
+        if (GameController.instance.levelIndex >= 5)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((O) =>
             {

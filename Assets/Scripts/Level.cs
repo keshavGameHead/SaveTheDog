@@ -22,6 +22,7 @@ public class Level : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     // Start is called before the first frame update
@@ -35,6 +36,10 @@ public class Level : MonoBehaviour
             }
         }
         UIManager.Instance.guide = this.guide;
+        if (levelIndex != 0)
+        {
+            guide.SetActive(false);
+        }
         if (isDarkBg)
         {
             UIManager.Instance.Bg.GetComponent<SpriteRenderer>().color = new Color32(85, 85, 85, 255);

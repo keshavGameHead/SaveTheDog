@@ -32,8 +32,7 @@ public class LevelSelector : MonoBehaviour
 
     void RefreshItem()
     {
-        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel");
-
+        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel",1);
         for (int i = 0; i < itemList.Count; i++)
         {
             if((8 * currentPage + i) < unlockLevel)
@@ -63,15 +62,8 @@ public class LevelSelector : MonoBehaviour
     public void GoToLevel(int index)
     {
         int levelIndex = 8 * currentPage + index;
-
-        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel");
-       
-
-        if (levelIndex <= unlockLevel)
-        {
-            AudioManager.instance.buttonAudio.Play();
-            PlayerPrefs.SetInt("CurrentLevel", levelIndex);
-            SceneManager.LoadScene("Level");
-        }
+        AudioManager.instance.buttonAudio.Play();
+        PlayerPrefs.SetInt("CurrentLevel", levelIndex + 1);
+        SceneManager.LoadScene("Level");
     }
 }

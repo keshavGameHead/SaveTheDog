@@ -19,7 +19,7 @@ public class HomeManager : MonoBehaviour
             Instance = this;
         }
         //scoreTxt.text = PlayerPrefs.GetInt("Coin", 0).ToString();
-        LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
+        //LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
         if (PlayerPrefs.GetInt("NoAds") == 1)
         {
             noAds.SetActive(false);
@@ -35,7 +35,7 @@ public class HomeManager : MonoBehaviour
 
     public void Play()
     {
-        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel");
+        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
         SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
