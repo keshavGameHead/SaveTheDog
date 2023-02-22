@@ -918,7 +918,7 @@ MonoBehaviour:
   maxLevel: 72
   drawManager: {fileID: 1541232133}
   uiManager: {fileID: 277408823}
-  testLevel: {fileID: 7615910168916761766, guid: 97a29eca043402e408b9757e486262b9,
+  testLevel: {fileID: 7615910168916761766, guid: a8824068847fcda48ade715e5cf754af,
     type: 3}
   currentState: 0
 --- !u!4 &277408822
@@ -980,9 +980,11 @@ MonoBehaviour:
   starImage2: {fileID: 137263678}
   starImage1: {fileID: 1640127750}
   isCollideWithGirl: 0
+  isCollideWithBee: 0
   startClock: 0
   isClick: 0
   cryingAnim: {fileID: 1535652286}
+  monObj: {fileID: 0}
   Linemat: {fileID: 2100000, guid: 5f47eea6a1234af3b723b994da79a75c, type: 2}
   Linecolor:
     serializedVersion: 2
@@ -1633,7 +1635,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &551581687
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1650,7 +1652,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &553626173
 GameObject:
   m_ObjectHideFlags: 0
@@ -6195,7 +6197,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &1535652290
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6212,7 +6214,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &1541232132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8256,7 +8258,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &2098925804
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8273,7 +8275,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &2102327192
 GameObject:
   m_ObjectHideFlags: 0
