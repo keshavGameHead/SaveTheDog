@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,13 +33,34 @@ public class LevelSelector : MonoBehaviour
 
     void RefreshItem()
     {
-        int unlockLevel = PlayerPrefs.GetInt("UnlockLevel",1);
+        
+        int unlockLevel = GetUnlockLevelIndex();
         for (int i = 0; i < itemList.Count; i++)
         {
             if((8 * currentPage + i) < unlockLevel)
                itemList[i].RefreshItem(currentPage, true);
             else
                 itemList[i].RefreshItem(currentPage, false);
+        }
+    }
+
+    private int GetUnlockLevelIndex()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            return PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+        }
+        else if(HomeManager.Instance.MonsterMode)
+        {
+            return PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            return PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+        }
+        else
+        {
+            return PlayerPrefs.GetInt("UnlockLevel", 1);
         }
     }
 

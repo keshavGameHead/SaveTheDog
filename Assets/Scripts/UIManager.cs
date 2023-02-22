@@ -6,6 +6,7 @@ using TMPro;
 using SuperStarSdk;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class UIManager : MonoBehaviour
             gamePlayScreen.SetActive(true);
         }
         sliderImage.value = 1;
-        levelText.text = "LEVEL " + (GameController.instance.levelIndex).ToString();
+        levelText.text = "LEVEL " + (GameController.instance.GetUnlockLevelIndex()).ToString();
     }
 
     // Update is called once per frame
@@ -192,30 +193,7 @@ public class UIManager : MonoBehaviour
     IEnumerator ShowGameWinIE()
     {
         int level = GameController.instance.levelIndex;
-        
-        int maxLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
-        if (level >= maxLevel)
-        {
-            PlayerPrefs.SetInt("UnlockLevel", level + 1);
-        }
-        if (drawLimit <= 0.25f)
-        {
-            rewardCoin = 10;
-            gameWinGameScore.text = "x10";
-            PlayerPrefs.SetInt((level) + "Stars", 1);
-        }
-        else if (drawLimit <= 0.5f)
-        {
-            rewardCoin = 20;
-            gameWinGameScore.text = "x20";
-            PlayerPrefs.SetInt((level) + "Stars", 2);
-        }
-        else if (drawLimit >= 0.5f)
-        {
-            rewardCoin = 30;
-            gameWinGameScore.text = "x30";
-            PlayerPrefs.SetInt((level ) + "Stars", 3);
-        }
+        SaveLevelByMode();
         int score = PlayerPrefs.GetInt("Coin", 0);
         gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
@@ -244,8 +222,117 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-
+    private void SaveLevelByMode()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("LoveUnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "LoveStars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "LoveStars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "LoveStars", 3);
+            }
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("MonsterUnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "MonsterStars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "MonsterStars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "MonsterStars", 3);
+            }
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("SpiderUnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "SpiderStars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "SpiderStars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "SpiderStars", 3);
+            }
+        }
+        else
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("UnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "Stars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "Stars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "Stars", 3);
+            }
+        }
+    }
 
     int starIndx;
     public IEnumerator OnClickRating()

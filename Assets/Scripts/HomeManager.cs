@@ -9,6 +9,7 @@ public class HomeManager : MonoBehaviour
     public GameObject levelPanel, settingPanel, noAds;
     public static HomeManager Instance;
     public TextMeshProUGUI scoreTxt;
+    public bool LoveMode, MonsterMode, SpiderMode;
 
     public int LevelIdx;
 
@@ -24,6 +25,9 @@ public class HomeManager : MonoBehaviour
         {
             noAds.SetActive(false);
         }
+        LoveMode = false;
+        MonsterMode = false;
+        SpiderMode = false;
     }
 
 
@@ -35,8 +39,44 @@ public class HomeManager : MonoBehaviour
 
     public void Play()
     {
+        LoveMode = false;
+        MonsterMode = false;
+        SpiderMode = false;
         int unlockLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
+        SceneManager.LoadScene("Level");
+        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+    }
+
+    public void LoveModePlay()
+    {
+        LoveMode = true;
+        MonsterMode = false;
+        SpiderMode = false;
+        int unlockLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+        PlayerPrefs.SetInt("LoveCurrentLevel", unlockLevel);
+        SceneManager.LoadScene("Level");
+        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+    }
+
+    public void MonsterModePlay()
+    {
+        LoveMode = false;
+        MonsterMode = true;
+        SpiderMode = false;
+        int unlockLevel = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+        PlayerPrefs.SetInt("MonsterCurrentLevel", unlockLevel);
+        SceneManager.LoadScene("Level");
+        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+    }
+
+    public void SpiderModePlay()
+    {
+        LoveMode = false;
+        MonsterMode = false;
+        SpiderMode = true;
+        int unlockLevel = PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+        PlayerPrefs.SetInt("SpiderCurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
         SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
     }

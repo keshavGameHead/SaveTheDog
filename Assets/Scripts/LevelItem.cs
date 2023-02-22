@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+
 public class LevelItem : MonoBehaviour
 {
     public int index;
@@ -47,7 +49,8 @@ public class LevelItem : MonoBehaviour
             bgImage.sprite = doneSpr;
             lockObj.SetActive(false);
             unlockObj.SetActive(true);
-            int starCount = PlayerPrefs.GetInt((page * 8 + index + 1)+"Stars");
+            int starCount = GetStarIndex(page);
+            
             for (int i = 0; i < StarImgs.Count; i++)
             {
                 if (i < starCount)
@@ -62,6 +65,7 @@ public class LevelItem : MonoBehaviour
         }
         else
         {
+            gameObject.GetComponent<Button>().interactable = false;
             bgImage.sprite = unDoneSpr;
             lockObj.SetActive(true);
             unlockObj.SetActive(false);
@@ -73,5 +77,23 @@ public class LevelItem : MonoBehaviour
 
     }
 
-   
+    private int GetStarIndex(int page)
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            return PlayerPrefs.GetInt((page * 8 + index + 1) + "LoveStars");
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            return PlayerPrefs.GetInt((page * 8 + index + 1) + "MonsterStars");
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            return PlayerPrefs.GetInt((page * 8 + index + 1) + "SpiderStars");
+        }
+        else
+        {
+            return PlayerPrefs.GetInt((page * 8 + index + 1) + "Stars");
+        }
+    }
 }

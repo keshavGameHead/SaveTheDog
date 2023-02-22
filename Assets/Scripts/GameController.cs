@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SuperStarSdk;
+using System;
 
 public class GameController : MonoBehaviour
 {
@@ -38,10 +39,51 @@ public class GameController : MonoBehaviour
             instance = this;
         }
         currentState = STATE.DRAWING;
-        levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
+        GetCurrentLevelIndex();
         CreateLevel();
         Application.targetFrameRate = 60;
     }
+
+    private void GetCurrentLevelIndex()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            levelIndex = PlayerPrefs.GetInt("LoveCurrentLevel", 1);
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            levelIndex = PlayerPrefs.GetInt("MonsterCurrentLevel", 1);
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            levelIndex = PlayerPrefs.GetInt("SpiderCurrentLevel", 1);
+        }
+        else
+        {
+            levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
+        }
+    }
+
+    public int GetUnlockLevelIndex()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            return levelIndex = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            return levelIndex = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            return levelIndex = PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+        }
+        else
+        {
+            return levelIndex = PlayerPrefs.GetInt("UnlockLevel", 1);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,12 +120,34 @@ public class GameController : MonoBehaviour
 
     void CreateLevel()
     {
-        if(levelIndex >= maxLevel)
+        if(levelIndex > maxLevel)
         {
-            levelIndex = levelIndex - maxLevel;
+            Debug.LogError("New Repeat level");
+            levelIndex = UnityEngine.Random.Range(1,maxLevel);
         }
-        GameObject levelObj = Instantiate(Resources.Load("Levels/Level" + (levelIndex).ToString())) as GameObject;
+        
+        GameObject levelObj = GetLevelObj();
         //GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();
+    }
+
+    private GameObject GetLevelObj()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            return Instantiate(Resources.Load("LoveMode/Level" + (levelIndex).ToString())) as GameObject;
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            return Instantiate(Resources.Load("MonsterMode/Level" + (levelIndex).ToString())) as GameObject;
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            return Instantiate(Resources.Load("SpiderMode/Level" + (levelIndex).ToString())) as GameObject;
+        }
+        else
+        {
+            return Instantiate(Resources.Load("Levels/Level" + (levelIndex).ToString())) as GameObject;
+        }
     }
 }
