@@ -54,6 +54,15 @@ public class DogController : MonoBehaviour
                 Level.Instance.StartLoveAnim();
             }
         }
+        if (Level.Instance.laserMode)
+        {
+            if (collision.gameObject.tag == "Laser")
+            {
+                GameController.instance.currentState = GameController.STATE.GAMEOVER;
+                Instantiate(deathVfx, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
 
     }
 
@@ -68,6 +77,8 @@ public class DogController : MonoBehaviour
                 gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             }
         }
+
+        
     }
 
 }

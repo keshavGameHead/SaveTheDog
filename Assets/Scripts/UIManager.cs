@@ -12,7 +12,8 @@ public class UIManager : MonoBehaviour
 {
 
     public static UIManager Instance;
-    public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp, guide;
+    public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp, guide, levelPanel;
+    public TextMeshProUGUI levelpanelText;
 
     private float timer;
 
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         cryingAnim.SetActive(false);
+        levelPanel.SetActive(false);
         isRewardStart = false;
         if (GameController.instance.currentState == GameController.STATE.PLAYING)
         {
@@ -136,6 +138,28 @@ public class UIManager : MonoBehaviour
                 StartGameWinCoroutine();
             }
         }
+        else if (Level.Instance.spiderMode)
+        {
+            if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
+            {
+                StartGameOverCoroutine();
+            }
+            else
+            {
+                StartGameWinCoroutine();
+            }
+        }
+        else if (Level.Instance.laserMode)
+        {
+            if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
+            {
+                StartGameOverCoroutine();
+            }
+            else
+            {
+                StartGameWinCoroutine();
+            }
+        }
         else if(GameController.instance.currentState == GameController.STATE.GAMEOVER)
         {
             StartGameOverCoroutine();
@@ -168,6 +192,11 @@ public class UIManager : MonoBehaviour
     {
         SuperStarSdkManager.Instance.Rate();
         //ratingPopUp.SetActive(false);
+    }
+
+    public void GoBackToHome()
+    {
+        SceneManager.LoadScene("Home");
     }
 
 
@@ -303,6 +332,33 @@ public class UIManager : MonoBehaviour
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "SpiderStars", 3);
+            }
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("LaserUnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "LaserStars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "LaserStars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "LaserStars", 3);
             }
         }
         else
@@ -453,7 +509,9 @@ public class UIManager : MonoBehaviour
 
     public void LoadNewLevel()
     {
-        GameController.instance.levelIndex++;
+        int num = GameController.instance.levelIndex;
+        num++;
+        SetCurrentLevelIndexByMode(num);
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
 
         if (GameController.instance.levelIndex >= 5)
@@ -468,17 +526,58 @@ public class UIManager : MonoBehaviour
         {
             SceneManager.LoadScene("Level");
         }
-
-        
-
     }
+
+    private void SetCurrentLevelIndexByMode(int num)
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            PlayerPrefs.SetInt("LoveCurrentLevel", num);
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            PlayerPrefs.SetInt("MonsterCurrentLevel", num);
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            PlayerPrefs.SetInt("SpiderCurrentLevel", num);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("CurrentLevel", num);
+        }
+    }
+
     public void Home()
     {
         SuperStarAd.Instance.ShowInterstitialTimer((O) =>
         {
-            SceneManager.LoadScene("Home");
+            LoadHomePanel();
         });
         
+    }
+
+    private void LoadHomePanel()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            levelPanel.SetActive(true);
+            levelpanelText.text = "LOVE MODE";
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            levelPanel.SetActive(true);
+            levelpanelText.text = "MONSTER MODE";
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            levelPanel.SetActive(true);
+            levelpanelText.text = "SPIDER MODE";
+        }
+        else
+        {
+            SceneManager.LoadScene("Home");
+        }
     }
 
     public void Hint()

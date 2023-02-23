@@ -9,7 +9,7 @@ public class HomeManager : MonoBehaviour
     public GameObject levelPanel, settingPanel, noAds;
     public static HomeManager Instance;
     public TextMeshProUGUI scoreTxt;
-    public bool LoveMode, MonsterMode, SpiderMode;
+    public bool LoveMode, MonsterMode, SpiderMode, LaserMode;
 
     public int LevelIdx;
 
@@ -28,6 +28,7 @@ public class HomeManager : MonoBehaviour
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
+        LaserMode = false;
     }
 
 
@@ -42,6 +43,7 @@ public class HomeManager : MonoBehaviour
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
+        LaserMode = false;
         int unlockLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
@@ -53,6 +55,7 @@ public class HomeManager : MonoBehaviour
         LoveMode = true;
         MonsterMode = false;
         SpiderMode = false;
+        LaserMode = false;
         int unlockLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
         PlayerPrefs.SetInt("LoveCurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
@@ -64,6 +67,7 @@ public class HomeManager : MonoBehaviour
         LoveMode = false;
         MonsterMode = true;
         SpiderMode = false;
+        LaserMode = false;
         int unlockLevel = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
         PlayerPrefs.SetInt("MonsterCurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
@@ -75,8 +79,21 @@ public class HomeManager : MonoBehaviour
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = true;
+        LaserMode = false;
         int unlockLevel = PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
         PlayerPrefs.SetInt("SpiderCurrentLevel", unlockLevel);
+        SceneManager.LoadScene("Level");
+        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+    }
+
+    public void LaserModePlay()
+    {
+        LoveMode = false;
+        MonsterMode = false;
+        SpiderMode = false;
+        LaserMode = true;
+        int unlockLevel = PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+        PlayerPrefs.SetInt("LaserCurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
         SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
     }

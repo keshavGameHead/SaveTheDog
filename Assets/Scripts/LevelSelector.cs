@@ -58,6 +58,10 @@ public class LevelSelector : MonoBehaviour
         {
             return PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
         }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            return PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+        }
         else
         {
             return PlayerPrefs.GetInt("UnlockLevel", 1);
@@ -86,6 +90,31 @@ public class LevelSelector : MonoBehaviour
         int levelIndex = 8 * currentPage + index;
         AudioManager.instance.buttonAudio.Play();
         PlayerPrefs.SetInt("CurrentLevel", levelIndex + 1);
+        SetCurrentLevel(levelIndex + 1);
         SceneManager.LoadScene("Level");
+    }
+
+    private void SetCurrentLevel(int v)
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+             PlayerPrefs.SetInt("LoveUnlockLevel", v);
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            PlayerPrefs.SetInt("MonsterUnlockLevel", v);
+        }
+        else if (HomeManager.Instance.SpiderMode)
+        {
+            PlayerPrefs.SetInt("SpiderUnlockLevel", v);
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            PlayerPrefs.SetInt("LaserUnlockLevel", v);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("UnlockLevel", v);
+        }
     }
 }

@@ -58,6 +58,10 @@ public class GameController : MonoBehaviour
         {
             return PlayerPrefs.GetInt("SpiderCurrentLevel", 1);
         }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            return PlayerPrefs.GetInt("LaserCurrentLevel", 1);
+        }
         else
         {
             return PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -68,26 +72,30 @@ public class GameController : MonoBehaviour
     {
         if (HomeManager.Instance.LoveMode)
         {
-            return levelIndex = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+            return PlayerPrefs.GetInt("LoveUnlockLevel", 1);
         }
         else if (HomeManager.Instance.MonsterMode)
         {
-            return levelIndex = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+            return PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
         }
         else if (HomeManager.Instance.SpiderMode)
         {
-            return levelIndex = PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+            return PlayerPrefs.GetInt("SpiderUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            return PlayerPrefs.GetInt("LaserUnlockLevel", 1);
         }
         else
         {
-            return levelIndex = PlayerPrefs.GetInt("UnlockLevel", 1);
+            return PlayerPrefs.GetInt("UnlockLevel", 1);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -116,18 +124,19 @@ public class GameController : MonoBehaviour
                 currentLevel.dogList[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
         }
+        Level.Instance.bombObj.rb.bodyType = RigidbodyType2D.Dynamic;
+        Level.Instance.bombObj.isTimeStart = true;
     }
 
     void CreateLevel()
     {
         if(levelIndex > maxLevel)
         {
-            Debug.LogError("New Repeat level");
             levelIndex = UnityEngine.Random.Range(1,maxLevel);
         }
-        
-        GameObject levelObj = GetLevelObj();
-        //GameObject levelObj = Instantiate(testLevel);
+
+        //GameObject levelObj = GetLevelObj();
+        GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();
     }
 
@@ -144,6 +153,10 @@ public class GameController : MonoBehaviour
         else if (HomeManager.Instance.SpiderMode)
         {
             return Instantiate(Resources.Load("SpiderMode/Level" + (levelIndex).ToString())) as GameObject;
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            return Instantiate(Resources.Load("LaserMode/Level" + (levelIndex).ToString())) as GameObject;
         }
         else
         {

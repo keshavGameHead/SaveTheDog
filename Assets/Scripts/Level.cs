@@ -14,7 +14,11 @@ public class Level : MonoBehaviour
     public float maxDrawLimit;
     public bool LoveMode;
     public bool monsterMode;
+    public bool spiderMode;
+    public bool laserMode;
     public List<DogController> monsters = new List<DogController>();
+    public GameObject laserLineObj;
+    public Bomb bombObj;
 
     private void Awake()
     {
@@ -22,7 +26,6 @@ public class Level : MonoBehaviour
         {
             Instance = this;
         }
-
     }
 
     // Start is called before the first frame update

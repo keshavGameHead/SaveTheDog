@@ -121,7 +121,7 @@ public class BeeController : MonoBehaviour
             collision.gameObject.GetComponent<DogController>().MonsterHurt();
         }
 
-        if (collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water")
+        if (collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water" || collision.gameObject.tag == "Laser")
         {
             Instantiate(deathVfx, transform.position, Quaternion.identity);
             Destroy(gameObject);
