@@ -62,6 +62,10 @@ public class GameController : MonoBehaviour
         {
             return PlayerPrefs.GetInt("LaserCurrentLevel", 1);
         }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            return PlayerPrefs.GetInt("TeleCurrentLevel", 1);
+        }
         else
         {
             return PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -85,6 +89,10 @@ public class GameController : MonoBehaviour
         else if (HomeManager.Instance.LaserMode)
         {
             return PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            return PlayerPrefs.GetInt("TeleUnlockLevel", 1);
         }
         else
         {
@@ -137,8 +145,8 @@ public class GameController : MonoBehaviour
         {
             levelIndex = UnityEngine.Random.Range(1,maxLevel);
         }
-        GameObject levelObj = GetLevelObj();
-        //GameObject levelObj = Instantiate(testLevel);
+        //GameObject levelObj = GetLevelObj();
+        GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();  
     }
 
@@ -159,6 +167,10 @@ public class GameController : MonoBehaviour
         else if (HomeManager.Instance.LaserMode)
         {
             return Instantiate(Resources.Load("LaserMode/Level" + (levelIndex).ToString())) as GameObject;
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            return Instantiate(Resources.Load("TeleportMode/Level" + (levelIndex).ToString())) as GameObject;
         }
         else
         {

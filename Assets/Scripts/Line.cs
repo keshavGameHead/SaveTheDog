@@ -6,7 +6,7 @@ public class Line : MonoBehaviour
 {
     private void Awake()
     {
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -17,7 +17,15 @@ public class Line : MonoBehaviour
         }
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.LogError("Wall Collision is Check");
+            for (int i = 0; i < Level.Instance.spider.Length; i++)
+            {
+                if (Level.Instance.spider[i].isCollideWithLine)
+                {
+                    Level.Instance.spider[i].isCollided = false;
+                    Level.Instance.spider[i].offset = Vector2.zero;
+                    //this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                }
+            }
         }
     }
 
@@ -30,5 +38,18 @@ public class Line : MonoBehaviour
                 Level.Instance.laserLineObj.SetActive(true);
             }
         }
+        if (collision.gameObject.tag == "Wall")
+        {
+            for (int i = 0; i < Level.Instance.spider.Length; i++)
+            {
+                if (Level.Instance.spider[i].isCollideWithLine)
+                {
+                    Level.Instance.spider[i].isCollided = true;
+                    Level.Instance.spider[i].offset = Vector2.up;
+                    //this.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                }
+            }
+        }
     }
+
 }

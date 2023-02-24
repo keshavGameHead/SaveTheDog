@@ -7,7 +7,7 @@ public class BeeController : MonoBehaviour
 {
     public Rigidbody2D mRigidbody;
 
-    protected Transform target;
+    public Transform target;
 
     public GameObject deathVfx;
 
@@ -25,7 +25,9 @@ public class BeeController : MonoBehaviour
     public AudioSource beeSound;
 
     public SpriteRenderer Sp;
+
     public AIDestinationSetter AI;
+
     private void Awake()
     {
         mRigidbody = GetComponent<Rigidbody2D>();
@@ -34,8 +36,15 @@ public class BeeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
-        target = GameController.instance.currentLevel.dogList[dogIndexRandom];
+        if (Level.Instance.TeleportMode)
+        {
+            target = Level.Instance.teleTargetObj;
+        }
+        else
+        {
+            int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
+            target = GameController.instance.currentLevel.dogList[dogIndexRandom];
+        }
 
         //AI.target = target;
         timer = 0.0f;
@@ -125,6 +134,13 @@ public class BeeController : MonoBehaviour
         {
             Instantiate(deathVfx, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
+        
+        if (collision.gameObject.tag == "TeleEnter")
+        {
+            transform.position = Level.Instance.teleOutObj.position;
+            int dogIndexRandom = Random.RandomRange(0, GameController.instance.currentLevel.dogList.Count);
+            target = GameController.instance.currentLevel.dogList[dogIndexRandom];
         }
     }
 

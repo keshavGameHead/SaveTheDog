@@ -160,6 +160,17 @@ public class UIManager : MonoBehaviour
                 StartGameWinCoroutine();
             }
         }
+        else if (Level.Instance.TeleportMode)
+        {
+            if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
+            {
+                StartGameOverCoroutine();
+            }
+            else
+            {
+                StartGameWinCoroutine();
+            }
+        }
         else if(GameController.instance.currentState == GameController.STATE.GAMEOVER)
         {
             StartGameOverCoroutine();
@@ -361,6 +372,33 @@ public class UIManager : MonoBehaviour
                 PlayerPrefs.SetInt((level) + "LaserStars", 3);
             }
         }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            int level = GameController.instance.levelIndex;
+            int maxLevel = PlayerPrefs.GetInt("TeleUnlockLevel", 1);
+            if (level >= maxLevel)
+            {
+                PlayerPrefs.SetInt("TeleUnlockLevel", level + 1);
+            }
+            if (drawLimit <= 0.25f)
+            {
+                rewardCoin = 10;
+                gameWinGameScore.text = "x10";
+                PlayerPrefs.SetInt((level) + "TeleStars", 1);
+            }
+            else if (drawLimit <= 0.5f)
+            {
+                rewardCoin = 20;
+                gameWinGameScore.text = "x20";
+                PlayerPrefs.SetInt((level) + "TeleStars", 2);
+            }
+            else if (drawLimit >= 0.5f)
+            {
+                rewardCoin = 30;
+                gameWinGameScore.text = "x30";
+                PlayerPrefs.SetInt((level) + "TeleStars", 3);
+            }
+        }
         else
         {
             int level = GameController.instance.levelIndex;
@@ -542,6 +580,10 @@ public class UIManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("LaserCurrentLevel", num);
         }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            PlayerPrefs.SetInt("TeleCurrentLevel", num);
+        }
         else
         {
             PlayerPrefs.SetInt("CurrentLevel", num);
@@ -573,6 +615,16 @@ public class UIManager : MonoBehaviour
         {
             levelPanel.SetActive(true);
             levelpanelText.text = "SPIDER MODE";
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            levelPanel.SetActive(true);
+            levelpanelText.text = "LASER MODE";
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            levelPanel.SetActive(true);
+            levelpanelText.text = "TELEPORT MODE";
         }
         else
         {

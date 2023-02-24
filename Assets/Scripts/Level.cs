@@ -17,6 +17,10 @@ public class Level : MonoBehaviour
     public bool spiderMode;
     public bool laserMode;
     public bool BombMode;
+    public bool TeleportMode;
+
+    public Transform teleTargetObj;
+    public Transform teleOutObj;
     public List<DogController> monsters = new List<DogController>();
     public GameObject laserLineObj;
     public Bomb bombObj;

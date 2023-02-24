@@ -93,9 +93,13 @@ public class LevelItem : MonoBehaviour
         {
             return PlayerPrefs.GetInt((page * 8 + index + 1) + "SpiderStars");
         }
-        else if (HomeManager.Instance.SpiderMode)
+        else if (HomeManager.Instance.LaserMode)
         {
             return PlayerPrefs.GetInt((page * 8 + index + 1) + "LaserStars");
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            return PlayerPrefs.GetInt((page * 8 + index + 1) + "TeleStars");
         }
         else
         {
@@ -119,6 +123,10 @@ public class LevelItem : MonoBehaviour
         else if (HomeManager.Instance.LaserMode)
         {
             return PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            return PlayerPrefs.GetInt("TeleUnlockLevel", 1);
         }
         else
         {
