@@ -350,9 +350,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94cc0d59cee84147a3fd45235fcd3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   mAnimator: {fileID: 8681263221366737233}
   deathVfx: {fileID: 4934538680218827739, guid: fd83b06b2deb34e31aa05087b372f5d1,
     type: 3}
+  ishurt: 0
+  isMonster: 0
 --- !u!1 &2203394765642112699
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c725b7afdb17942cb8758f56b9ae5c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 0
+  levelIndex: 1
   isDarkBg: 0
   guide: {fileID: 2326779989522207507}
   dogList:
@@ -917,8 +920,15 @@ MonoBehaviour:
   - {fileID: 2355643294739284777}
   - {fileID: 805207281519638182}
   spider: []
-  maxDrawLimit: 200
-  isWater: 0
+  maxDrawLimit: 400
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  monsters: []
+  laserLineObj: {fileID: 0}
+  bombObj: {fileID: 0}
 --- !u!1 &3912610833428769638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,9 +1086,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94cc0d59cee84147a3fd45235fcd3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   mAnimator: {fileID: 3912610833428769637}
   deathVfx: {fileID: 4934538680218827739, guid: fd83b06b2deb34e31aa05087b372f5d1,
     type: 3}
+  ishurt: 0
+  isMonster: 0
 --- !u!1 &3912610833739759077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,9 +1421,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94cc0d59cee84147a3fd45235fcd3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   mAnimator: {fileID: 7848790207257064888}
   deathVfx: {fileID: 4934538680218827739, guid: fd83b06b2deb34e31aa05087b372f5d1,
     type: 3}
+  ishurt: 0
+  isMonster: 0
 --- !u!1 &6059113633202765860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,7 +1656,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5f47eea6a1234af3b723b994da79a75c, type: 2}
+      objectReference: {fileID: 2100000, guid: a5c942911ae583048b72a7cfd28e10c2, type: 2}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -5299,32 +5315,32 @@ PrefabInstance:
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3067059228302101817, guid: 84494d36ff14b2d459aef50addd83f1a,
         type: 3}

@@ -15,6 +15,10 @@ public class Line : MonoBehaviour
         {
             Level.Instance.laserLineObj.SetActive(false);
         }
+        if (collision.gameObject.tag == "Wall")
+        {
+            Debug.LogError("Wall Collision is Check");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)

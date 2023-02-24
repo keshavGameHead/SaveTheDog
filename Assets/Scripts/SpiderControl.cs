@@ -12,6 +12,7 @@ public class SpiderControl : MonoBehaviour
     public List<Vector2> points = new List<Vector2>();
     Vector2 startPos;
     public bool isCollided = false;
+    GameObject collidedObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class SpiderControl : MonoBehaviour
         }
         else
         {
+            collidedObj.transform.SetParent(this.gameObject.transform);
             transform.position = Vector2.MoveTowards(transform.position, startPos, 1f * Time.deltaTime);
             
         }
@@ -49,13 +51,21 @@ public class SpiderControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Line")
         {
             isCollided = true;
             offset = Vector2.up;
-            collision.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            collision.transform.SetParent(this.gameObject.transform);
+            collidedObj = collision.gameObject;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
     }
 
 }

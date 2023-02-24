@@ -117,15 +117,18 @@ public class GameController : MonoBehaviour
 
     void ActiveDog()
     {
-        for(int i = 0; i < currentLevel.dogList.Count; i++)
+        for (int i = 0; i < currentLevel.dogList.Count; i++)
         {
             if (!currentLevel.dogList[i].CompareTag("Monster"))
             {
                 currentLevel.dogList[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             }
         }
-        Level.Instance.bombObj.rb.bodyType = RigidbodyType2D.Dynamic;
-        Level.Instance.bombObj.isTimeStart = true;
+        if (Level.Instance.BombMode)
+        {
+            Level.Instance.bombObj.rb.bodyType = RigidbodyType2D.Dynamic;
+            Level.Instance.bombObj.isTimeStart = true;
+        }
     }
 
     void CreateLevel()
@@ -134,10 +137,9 @@ public class GameController : MonoBehaviour
         {
             levelIndex = UnityEngine.Random.Range(1,maxLevel);
         }
-
-        //GameObject levelObj = GetLevelObj();
-        GameObject levelObj = Instantiate(testLevel);
-        currentLevel = levelObj.GetComponent<Level>();
+        GameObject levelObj = GetLevelObj();
+        //GameObject levelObj = Instantiate(testLevel);
+        currentLevel = levelObj.GetComponent<Level>();  
     }
 
     private GameObject GetLevelObj()

@@ -510,15 +510,11 @@ public class UIManager : MonoBehaviour
     public void LoadNewLevel()
     {
         int num = GameController.instance.levelIndex;
-        num++;
-        SetCurrentLevelIndexByMode(num);
-        PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
-
-        if (GameController.instance.levelIndex >= 5)
+        SetCurrentLevelIndexByMode(num + 1);
+        if (num >= 5)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((O) =>
             {
-                Debug.Log("Next Level After Ad " + GameController.instance.levelIndex);
                 SceneManager.LoadScene("Level");
             });
         }
@@ -541,6 +537,10 @@ public class UIManager : MonoBehaviour
         else if (HomeManager.Instance.SpiderMode)
         {
             PlayerPrefs.SetInt("SpiderCurrentLevel", num);
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            PlayerPrefs.SetInt("LaserCurrentLevel", num);
         }
         else
         {

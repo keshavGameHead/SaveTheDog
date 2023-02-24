@@ -16,9 +16,11 @@ public class Level : MonoBehaviour
     public bool monsterMode;
     public bool spiderMode;
     public bool laserMode;
+    public bool BombMode;
     public List<DogController> monsters = new List<DogController>();
     public GameObject laserLineObj;
     public Bomb bombObj;
+
 
     private void Awake()
     {
@@ -28,7 +30,6 @@ public class Level : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if (spider != null)

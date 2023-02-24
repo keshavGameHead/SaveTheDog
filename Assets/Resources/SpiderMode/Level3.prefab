@@ -330,7 +330,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -550,8 +550,13 @@ MonoBehaviour:
   maxDrawLimit: 200
   LoveMode: 0
   monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
   monsters:
   - {fileID: 0}
+  laserLineObj: {fileID: 0}
+  bombObj: {fileID: 0}
 --- !u!1 &7615910169603406941
 GameObject:
   m_ObjectHideFlags: 0
