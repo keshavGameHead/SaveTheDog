@@ -53,19 +53,43 @@ public class HomeManager : MonoBehaviour
 
     public void LoveModePlay()
     {
-        LoveMode = true;
-        MonsterMode = false;
-        SpiderMode = false;
-        LaserMode = false;
-        TeleportMode = false;
-        int unlockLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
-        PlayerPrefs.SetInt("LoveCurrentLevel", unlockLevel);
-        SceneManager.LoadScene("Level");
-        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+        if (PlayerPrefs.GetInt("LoveMode", 0) == 0)
+        {
+            ModsPanel.Instance.popupPanel.SetActive(true);
+            ModsPanel.Instance.LogoTxt.text = "LOVE MODE";
+            ModsPanel.Instance.SetLogo(1);
+        }
+        else
+        {
+            LoveMode = true;
+            MonsterMode = false;
+            SpiderMode = false;
+            LaserMode = false;
+            TeleportMode = false;
+            int unlockLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
+            PlayerPrefs.SetInt("LoveCurrentLevel", unlockLevel);
+            SceneManager.LoadScene("Level");
+            SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+        }
+    }
+    public void LoveModeIsEnable(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            PlayerPrefs.SetInt("LoveMode", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("LoveMode", 0);
+        }
     }
 
     public void MonsterModePlay()
     {
+        ModsPanel.Instance.popupPanel.SetActive(true);
+        ModsPanel.Instance.LogoTxt.text = "MONSTER MODE";
+        ModsPanel.Instance.SetLogo(2);
+
         LoveMode = false;
         MonsterMode = true;
         SpiderMode = false;
@@ -79,6 +103,7 @@ public class HomeManager : MonoBehaviour
 
     public void SpiderModePlay()
     {
+
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = true;
@@ -92,6 +117,10 @@ public class HomeManager : MonoBehaviour
 
     public void LaserModePlay()
     {
+        ModsPanel.Instance.popupPanel.SetActive(true);
+        ModsPanel.Instance.LogoTxt.text = "LASER MODE";
+        ModsPanel.Instance.SetLogo(3);
+
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
@@ -105,6 +134,10 @@ public class HomeManager : MonoBehaviour
 
     public void TeleportModePlay()
     {
+        ModsPanel.Instance.popupPanel.SetActive(true);
+        ModsPanel.Instance.LogoTxt.text = "TELEPORT MODE";
+        ModsPanel.Instance.SetLogo(4);
+
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
