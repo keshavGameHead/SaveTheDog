@@ -458,7 +458,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c725b7afdb17942cb8758f56b9ae5c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 0
+  levelIndex: 1
   isDarkBg: 0
   guide: {fileID: 4293037329109207518}
   dogList:
@@ -671,7 +671,17 @@ MonoBehaviour:
   - {fileID: 1173351142980637492}
   spider: []
   maxDrawLimit: 200
-  isWater: 0
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
+  monsters: []
+  laserLineObj: {fileID: 0}
+  bombObj: {fileID: 0}
 --- !u!1 &3912610833739759077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,9 +1011,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94cc0d59cee84147a3fd45235fcd3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   mAnimator: {fileID: 7848790207257064888}
   deathVfx: {fileID: 4934538680218827739, guid: fd83b06b2deb34e31aa05087b372f5d1,
     type: 3}
+  ishurt: 0
+  isMonster: 0
 --- !u!1 &4845280722197239576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4833,7 +4846,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -15, y: -18, z: 0}
@@ -4842,7 +4855,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -14, y: -18, z: 0}
@@ -4851,7 +4864,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -13, y: -18, z: 0}
@@ -4878,7 +4891,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -10, y: -18, z: 0}
@@ -4923,7 +4936,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -5, y: -18, z: 0}
@@ -4950,7 +4963,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -2, y: -18, z: 0}
@@ -5040,7 +5053,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 8, y: -18, z: 0}
@@ -5385,9 +5398,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94cc0d59cee84147a3fd45235fcd3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   mAnimator: {fileID: 2212578096955488713}
   deathVfx: {fileID: 4934538680218827739, guid: fd83b06b2deb34e31aa05087b372f5d1,
     type: 3}
+  ishurt: 0
+  isMonster: 0
 --- !u!1001 &6497391118717486967
 PrefabInstance:
   m_ObjectHideFlags: 0

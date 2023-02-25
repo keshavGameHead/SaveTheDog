@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c725b7afdb17942cb8758f56b9ae5c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 0
+  levelIndex: 1
   isDarkBg: 0
   guide: {fileID: 5726140529206987142}
   dogList:
@@ -450,8 +450,16 @@ MonoBehaviour:
   maxDrawLimit: 200
   LoveMode: 0
   monsterMode: 1
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
   monsters:
   - {fileID: 1191941393884772590}
+  laserLineObj: {fileID: 0}
+  bombObj: {fileID: 0}
 --- !u!1 &7615910169603406941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,7 +2369,7 @@ Tilemap:
       - {fileID: 21300000, guid: 25b3278bd89164f0cafa6da2b6ae817f, type: 3}
       - {fileID: 21300000, guid: c313f365dbe2e49be95911025ee09a9d, type: 3}
       - {fileID: 21300000, guid: cc630678ca276440eaa2e742ac50a012, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -7, y: -7, z: 0}

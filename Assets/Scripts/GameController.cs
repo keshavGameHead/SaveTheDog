@@ -13,6 +13,10 @@ public class GameController : MonoBehaviour
     public int levelIndex;
 
     public int maxLevel;
+    public int loveMax;
+    public int monsterMax;
+    public int laserMax;
+    public int teleportMax;
 
     public static GameController instance;
 
@@ -106,16 +110,6 @@ public class GameController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonUp(0) && currentState == STATE.DRAWING)
-    //    {
-           
-    //    }
-           
-    //}
-
     public void ActivateGame() 
     {
         currentState = STATE.PLAYING;
@@ -141,14 +135,51 @@ public class GameController : MonoBehaviour
 
     void CreateLevel()
     {
-        if(levelIndex > maxLevel)
-        {
-            levelIndex = UnityEngine.Random.Range(1,maxLevel);
-        }
+        GetMaxLevel();
         //GameObject levelObj = GetLevelObj();
         GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();  
     }
+
+    private void GetMaxLevel()
+    {
+        if (HomeManager.Instance.LoveMode)
+        {
+            if (levelIndex > loveMax)
+            {
+                levelIndex = UnityEngine.Random.Range(1, loveMax);
+            }
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            if (levelIndex > monsterMax)
+            {
+                levelIndex = UnityEngine.Random.Range(1, monsterMax);
+            }
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            if (levelIndex > laserMax)
+            {
+                levelIndex = UnityEngine.Random.Range(1, laserMax);
+            }
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            if (levelIndex > teleportMax)
+            {
+                levelIndex = UnityEngine.Random.Range(1, teleportMax);
+            }
+        }
+        else
+        {
+            if (levelIndex > maxLevel)
+            {
+                levelIndex = UnityEngine.Random.Range(1, maxLevel);
+            }
+        }
+    }
+
 
     private GameObject GetLevelObj()
     {

@@ -224,12 +224,12 @@ public class UIManager : MonoBehaviour
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> { 
-                 SSEventManager.Instance.SSGameOverEventCall(PlayerPrefs.GetInt("UnlockLevel"));
+                 SSEventManager.Instance.SSGameOverEventCall(HomeManager.Instance.levelMode + (PlayerPrefs.GetInt("UnlockLevel")));
             });
             //SuperStarAd.Instance.ShowBannerAd();
         }
     }
-
+    public string levelMode;
     IEnumerator ShowGameWinIE()
     {
         int level = GameController.instance.levelIndex;
@@ -256,7 +256,7 @@ public class UIManager : MonoBehaviour
         {
             SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
             {
-                SSEventManager.Instance.SSGameWinEventCall(level - 1);
+                SSEventManager.Instance.SSGameWinEventCall(HomeManager.Instance.levelMode+(level - 1));
             });
             // SuperStarAd.Instance.ShowBannerAd();
         }

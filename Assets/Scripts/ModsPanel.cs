@@ -28,12 +28,34 @@ public class ModsPanel : MonoBehaviour
 
     public void UnlockBtn()
     {
-        SuperStarAd.Instance.ShowRewardVideo(HomeManager.Instance.LoveModeIsEnable);
+        if (HomeManager.Instance.LoveMode)
+        {
+            SuperStarAd.Instance.ShowRewardVideo(HomeManager.Instance.LoveModeIsEnable);
+        }
+        else if (HomeManager.Instance.MonsterMode)
+        {
+            SuperStarAd.Instance.ShowRewardVideo(HomeManager.Instance.MonsterModeIsEnable);
+        }
+        else if (HomeManager.Instance.LaserMode)
+        {
+            SuperStarAd.Instance.ShowRewardVideo(HomeManager.Instance.LaserModeIsEnable);
+        }
+        else if (HomeManager.Instance.TeleportMode)
+        {
+            SuperStarAd.Instance.ShowRewardVideo(HomeManager.Instance.TeleModeIsEnable);
+        }
     }
 
     public void SetLogo(int n)
     {
-        switch(n)
+        if (Insta.transform.childCount > 0)
+        {
+            for (int i = 0; i < Insta.transform.childCount; i++)
+            {
+                Destroy(Insta.transform.GetChild(i).gameObject);
+            }
+        }
+        switch (n)
         {
             case 1:
                 Instantiate(LoveLogo, Insta.transform);

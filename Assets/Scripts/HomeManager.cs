@@ -10,6 +10,7 @@ public class HomeManager : MonoBehaviour
     public static HomeManager Instance;
     public TextMeshProUGUI scoreTxt;
     public bool LoveMode, MonsterMode, SpiderMode, LaserMode, TeleportMode;
+    public string levelMode;
 
     public int LevelIdx;
 
@@ -40,6 +41,7 @@ public class HomeManager : MonoBehaviour
 
     public void Play()
     {
+        levelMode = null;
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
@@ -53,6 +55,12 @@ public class HomeManager : MonoBehaviour
 
     public void LoveModePlay()
     {
+        levelMode = "LoveMode";
+        LoveMode = true;
+        MonsterMode = false;
+        SpiderMode = false;
+        LaserMode = false;
+        TeleportMode = false;
         if (PlayerPrefs.GetInt("LoveMode", 0) == 0)
         {
             ModsPanel.Instance.popupPanel.SetActive(true);
@@ -61,15 +69,10 @@ public class HomeManager : MonoBehaviour
         }
         else
         {
-            LoveMode = true;
-            MonsterMode = false;
-            SpiderMode = false;
-            LaserMode = false;
-            TeleportMode = false;
             int unlockLevel = PlayerPrefs.GetInt("LoveUnlockLevel", 1);
             PlayerPrefs.SetInt("LoveCurrentLevel", unlockLevel);
             SceneManager.LoadScene("Level");
-            SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+            SSEventManager.Instance.SSGameStarEventCall("LoveMode"+unlockLevel);
         }
     }
     public void LoveModeIsEnable(bool isRewarded)
@@ -77,28 +80,53 @@ public class HomeManager : MonoBehaviour
         if (isRewarded)
         {
             PlayerPrefs.SetInt("LoveMode", 1);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            LoveModePlay();
         }
         else
         {
             PlayerPrefs.SetInt("LoveMode", 0);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            SceneManager.LoadScene("Home");
         }
     }
 
     public void MonsterModePlay()
     {
-        ModsPanel.Instance.popupPanel.SetActive(true);
-        ModsPanel.Instance.LogoTxt.text = "MONSTER MODE";
-        ModsPanel.Instance.SetLogo(2);
-
+        levelMode = "MonsterMode";
         LoveMode = false;
         MonsterMode = true;
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = false;
-        int unlockLevel = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
-        PlayerPrefs.SetInt("MonsterCurrentLevel", unlockLevel);
-        SceneManager.LoadScene("Level");
-        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+        if (PlayerPrefs.GetInt("MonsterMode", 0) == 0)
+        {
+            ModsPanel.Instance.popupPanel.SetActive(true);
+            ModsPanel.Instance.LogoTxt.text = "MONSTER MODE";
+            ModsPanel.Instance.SetLogo(2);
+        }
+        else
+        {
+            int unlockLevel = PlayerPrefs.GetInt("MonsterUnlockLevel", 1);
+            PlayerPrefs.SetInt("MonsterCurrentLevel", unlockLevel);
+            SceneManager.LoadScene("Level");
+            SSEventManager.Instance.SSGameStarEventCall("MonsterMode" + unlockLevel);
+        }
+    }
+    public void MonsterModeIsEnable(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            PlayerPrefs.SetInt("MonsterMode", 1);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            MonsterModePlay();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("MonsterMode", 0);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            SceneManager.LoadScene("Home");
+        }
     }
 
     public void SpiderModePlay()
@@ -117,36 +145,78 @@ public class HomeManager : MonoBehaviour
 
     public void LaserModePlay()
     {
-        ModsPanel.Instance.popupPanel.SetActive(true);
-        ModsPanel.Instance.LogoTxt.text = "LASER MODE";
-        ModsPanel.Instance.SetLogo(3);
-
+        levelMode = "LaserMode";
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
         LaserMode = true;
         TeleportMode = false;
-        int unlockLevel = PlayerPrefs.GetInt("LaserUnlockLevel", 1);
-        PlayerPrefs.SetInt("LaserCurrentLevel", unlockLevel);
-        SceneManager.LoadScene("Level");
-        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+        if (PlayerPrefs.GetInt("LaserMode", 0) == 0)
+        {
+            ModsPanel.Instance.popupPanel.SetActive(true);
+            ModsPanel.Instance.LogoTxt.text = "LASER MODE";
+            ModsPanel.Instance.SetLogo(3);
+        }
+        else
+        {
+            int unlockLevel = PlayerPrefs.GetInt("LaserUnlockLevel", 1);
+            PlayerPrefs.SetInt("LaserCurrentLevel", unlockLevel);
+            SceneManager.LoadScene("Level");
+            SSEventManager.Instance.SSGameStarEventCall("LaserMode" + unlockLevel);
+        }
     }
 
+    public void LaserModeIsEnable(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            PlayerPrefs.SetInt("LaserMode", 1);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            LaserModePlay();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("LaserMode", 0);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            SceneManager.LoadScene("Home");
+        }
+    }
     public void TeleportModePlay()
     {
-        ModsPanel.Instance.popupPanel.SetActive(true);
-        ModsPanel.Instance.LogoTxt.text = "TELEPORT MODE";
-        ModsPanel.Instance.SetLogo(4);
-
+        levelMode = "TeleportMode";
         LoveMode = false;
         MonsterMode = false;
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = true;
-        int unlockLevel = PlayerPrefs.GetInt("TeleUnlockLevel", 1);
-        PlayerPrefs.GetInt("TeleCurrentLevel", unlockLevel);
-        SceneManager.LoadScene("Level");
-        SSEventManager.Instance.SSGameStarEventCall(unlockLevel);
+        if (PlayerPrefs.GetInt("TeleportMode", 0) == 0)
+        {
+            ModsPanel.Instance.popupPanel.SetActive(true);
+            ModsPanel.Instance.LogoTxt.text = "TELEPORT MODE";
+            ModsPanel.Instance.SetLogo(4);
+        }
+        else
+        {
+            int unlockLevel = PlayerPrefs.GetInt("TeleUnlockLevel", 1);
+            PlayerPrefs.GetInt("TeleCurrentLevel", unlockLevel);
+            SceneManager.LoadScene("Level");
+            SSEventManager.Instance.SSGameStarEventCall("TeleportMode" + unlockLevel);
+        }
+    }
+    public void TeleModeIsEnable(bool isRewarded)
+    {
+        if (isRewarded)
+        {
+            PlayerPrefs.SetInt("TeleportMode", 1);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            TeleportModePlay();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TeleportMode", 0);
+            ModsPanel.Instance.popupPanel.SetActive(false);
+            SceneManager.LoadScene("Home");
+        }
     }
 
     public void OnClickNoAds()

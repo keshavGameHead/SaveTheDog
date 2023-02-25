@@ -23,14 +23,25 @@ public class SSEventManager : MonoBehaviour
     {
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, CurrentLevelIndex + "Level_Start"); // without score
     }
-
+    public void SSGameStarEventCall(string CurrentLevelIndex)
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, CurrentLevelIndex + "Level_Start"); // without score
+    }
 
     public void SSGameWinEventCall(int CurrentLevelIndex)
     {
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, CurrentLevelIndex + "Level_Complete");
     }
+    public void SSGameWinEventCall(string CurrentLevelIndex)
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, CurrentLevelIndex + "Level_Complete");
+    }
 
     public void SSGameOverEventCall(int CurrentLevelIndex)
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelIndex + "Level_Fail");
+    }
+    public void SSGameOverEventCall(string CurrentLevelIndex)
     {
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelIndex + "Level_Fail");
     }
