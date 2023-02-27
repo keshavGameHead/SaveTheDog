@@ -1,4 +1,3 @@
-using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,8 +24,6 @@ public class BeeController : MonoBehaviour
     public AudioSource beeSound;
 
     public SpriteRenderer Sp;
-
-    public AIDestinationSetter AI;
 
     private void Awake()
     {
