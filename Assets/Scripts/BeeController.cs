@@ -146,4 +146,10 @@ public class BeeController : MonoBehaviour
         currentState = STATE.ATTACK;
         timer = 0.0f;
     }
+
+    public void Hurt()
+    {
+        Instantiate(deathVfx, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }

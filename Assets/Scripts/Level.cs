@@ -22,7 +22,7 @@ public class Level : MonoBehaviour
     public Transform teleTargetObj;
     public Transform teleOutObj;
     public List<DogController> monsters = new List<DogController>();
-    public GameObject laserLineObj;
+    public GameObject[] laserLineObj;
     public Bomb bombObj;
 
 

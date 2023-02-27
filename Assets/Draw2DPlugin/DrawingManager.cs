@@ -197,6 +197,14 @@ public class DrawingManager : MonoBehaviour
 
 	private void onTouchDown()
 	{
+		if (HomeManager.Instance.LaserMode)
+		{
+			for (int i = 0; i < Level.Instance.laserLineObj.Length;i++)
+			{
+				Level.Instance.laserLineObj[i].GetComponent<BoxCollider2D>().enabled = false;
+
+            }
+		}
 		UIManager.Instance.guide.SetActive(false);
 		FreezeMoving.freeze = true;
 		this.prepareDrawFinish = false;
@@ -266,6 +274,13 @@ public class DrawingManager : MonoBehaviour
                 Level.Instance.spider[i].enabled = true;
             }
 		}
+        if (HomeManager.Instance.LaserMode)
+        {
+            for (int i = 0; i < Level.Instance.laserLineObj.Length; i++)
+            {
+                Level.Instance.laserLineObj[i].GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
         FreezeMoving.freeze = false;
 		this.setBlockLineVisiable(false);
 		if (this.canDraw)

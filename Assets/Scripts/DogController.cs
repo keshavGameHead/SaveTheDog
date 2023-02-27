@@ -37,6 +37,12 @@ public class DogController : MonoBehaviour
         mAnimator.SetBool("Hurt", true);
     }
 
+    public void Hurtdestroy()
+    {
+        GameController.instance.currentState = GameController.STATE.GAMEOVER;
+        Instantiate(deathVfx, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Lava" || collision.gameObject.tag == "Water" || collision.gameObject.tag == "Spike")

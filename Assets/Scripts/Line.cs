@@ -11,10 +11,7 @@ public class Line : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "LaserSwitch")
-        {
-            Level.Instance.laserLineObj.SetActive(false);
-        }
+        
         if (collision.gameObject.tag == "Wall")
         {
             for (int i = 0; i < Level.Instance.spider.Length; i++)
@@ -29,13 +26,27 @@ public class Line : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "LaserSwitch")
+        {
+            for (int i = 0; i < Level.Instance.laserLineObj.Length; i++)
+            {
+                Level.Instance.laserLineObj[i].SetActive(false);
+            }
+        }
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (Level.Instance.laserMode)
         {
             if (collision.gameObject.tag == "LaserSwitch")
             {
-                Level.Instance.laserLineObj.SetActive(true);
+                for (int i = 0; i < Level.Instance.laserLineObj.Length; i++)
+                {
+                    Level.Instance.laserLineObj[i].SetActive(true);
+                }
             }
         }
         if (collision.gameObject.tag == "Wall")

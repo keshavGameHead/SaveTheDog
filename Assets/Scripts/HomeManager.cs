@@ -20,16 +20,11 @@ public class HomeManager : MonoBehaviour
         {
             Instance = this;
         }
-        //scoreTxt.text = PlayerPrefs.GetInt("Coin", 0).ToString();
-        //LevelIdx = PlayerPrefs.GetInt("CurrentLevel");
+        
         if (PlayerPrefs.GetInt("NoAds") == 1)
         {
             noAds.SetActive(false);
         }
-        LoveMode = false;
-        MonsterMode = false;
-        SpiderMode = false;
-        LaserMode = false;
     }
 
 
