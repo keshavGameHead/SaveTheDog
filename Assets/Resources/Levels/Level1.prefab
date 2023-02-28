@@ -255,7 +255,6 @@ Transform:
   - {fileID: 7615910170463330972}
   - {fileID: 7615910169682070734}
   - {fileID: 813330455196262543}
-  - {fileID: 2836460617884573981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,10 +283,13 @@ MonoBehaviour:
   laserMode: 0
   BombMode: 0
   TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
   teleTargetObj: {fileID: 0}
   teleOutObj: {fileID: 0}
   monsters: []
-  laserLineObj: {fileID: 0}
+  laserLineObj:
+  - {fileID: 0}
   bombObj: {fileID: 0}
 --- !u!1 &7615910169603406941
 GameObject:
@@ -733,8 +735,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beeTotalInCell: 8
-  genDelay: 1
+  genDelay: 0.01
   beePrefabs: {fileID: 2295828488975202296, guid: dd6c8a5e2e9d02c4380f1fad13fcb94c,
+    type: 3}
+  queenBee: {fileID: 2295828488975202296, guid: a3ea4d5f55f96af46abb076839e6166f,
     type: 3}
 --- !u!1 &7615910170000824187
 GameObject:
@@ -1028,34 +1032,3 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!1 &9013328518076999149
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2836460617884573981}
-  m_Layer: 0
-  m_Name: Path Finder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2836460617884573981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9013328518076999149}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7615910168916761767}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
