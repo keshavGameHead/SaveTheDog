@@ -18,6 +18,8 @@ public class Level : MonoBehaviour
     public bool laserMode;
     public bool BombMode;
     public bool TeleportMode;
+    public bool QueenMode;
+    public bool PathFindMode;
 
     public Transform teleTargetObj;
     public Transform teleOutObj;

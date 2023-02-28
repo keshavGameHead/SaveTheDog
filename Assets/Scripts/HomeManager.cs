@@ -9,7 +9,7 @@ public class HomeManager : MonoBehaviour
     public GameObject levelPanel, settingPanel, noAds;
     public static HomeManager Instance;
     public TextMeshProUGUI scoreTxt;
-    public bool LoveMode, MonsterMode, SpiderMode, LaserMode, TeleportMode;
+    public bool LoveMode, MonsterMode, SpiderMode, LaserMode, TeleportMode, QueenMode;
     public string levelMode;
 
     public int LevelIdx;

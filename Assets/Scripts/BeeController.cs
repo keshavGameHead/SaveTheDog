@@ -36,6 +36,11 @@ public class BeeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!Level.Instance.PathFindMode)
+        {
+            gameObject.GetComponent<AIPath>().enabled = false;
+            gameObject.GetComponent<AIDestinationSetter>().enabled = false;
+        }
         if (Level.Instance.TeleportMode)
         {
             target = Level.Instance.teleTargetObj;
