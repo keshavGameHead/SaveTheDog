@@ -36,11 +36,6 @@ public class BeeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!Level.Instance.PathFindMode)
-        {
-            gameObject.GetComponent<AIPath>().enabled = false;
-            gameObject.GetComponent<AIDestinationSetter>().enabled = false;
-        }
         if (Level.Instance.TeleportMode)
         {
             target = Level.Instance.teleTargetObj;
@@ -51,7 +46,16 @@ public class BeeController : MonoBehaviour
             target = GameController.instance.currentLevel.dogList[dogIndexRandom];
         }
 
-        AI.target = this.target;
+        if (!Level.Instance.PathFindMode)
+        {
+           gameObject.GetComponent<AIPath>().enabled = false;
+           gameObject.GetComponent<AIDestinationSetter>().enabled = false;
+        }
+        else
+        {
+            AI.target = this.target;
+        }
+        
         timer = 0.0f;
         Sp = GetComponentInChildren<SpriteRenderer>();
         if (AudioManager.instance.soundState == 0)
@@ -63,7 +67,11 @@ public class BeeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameController.instance.currentState == GameController.STATE.GAMEOVER || GameController.instance.currentState == GameController.STATE.FINISH)
+        {
+            this.currentState = STATE.MOVE;
+            mRigidbody.fixedAngle = true;
+        }
     }
 
     private void FixedUpdate()

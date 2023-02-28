@@ -37,6 +37,7 @@ Transform:
   - {fileID: 5648318359956827127}
   - {fileID: 2742969388465200812}
   - {fileID: 3046722346853379082}
+  - {fileID: 5330679793452852204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +61,106 @@ MonoBehaviour:
   - {fileID: 2742969388465200812}
   spider: []
   maxDrawLimit: 200
-  isWater: 0
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
+  monsters: []
+  laserLineObj: []
+  bombObj: {fileID: 0}
+--- !u!1 &3337196096134718467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5330679793452852204}
+  - component: {fileID: 4806445838366873455}
+  m_Layer: 0
+  m_Name: PathFInder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5330679793452852204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3337196096134718467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 368062958306164564}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4806445838366873455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3337196096134718467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAMArIezlIG7tVQIAABAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HpqQkvbUOIT0QmJBOLr4o0hprkCWPPvjK8N+7km3s0OkJ8d7b3berlT+IULYG5rSZG8EXmgP5MSLhTL6MevIJDnSj1VqcoNO8Ce7KIKJR80Kd0IinIczqCpwR7KfayCBOEPRKFNpUM76BTFtnES6otICU0S5EK4Q+RuSAPzf3IeSIp/E0nE54uk9GZzwyUA5ML+2EnaxRecUkrWrgwXIvTjt12sgUNtMqgnGmpRS2dULcsY6dZrS2HvtAARcUO4vlg74EsSldcDkMXhaFBddaMvT4IAwOqMlKfulmahW128bXjkoPF+NNysU/7E0a6cLo6qmrmiahgisF277QI6PWDYY6hB8+2/ZqT+WWvkt4K0E967nRXnEknfEh1FsYP/R/L41lJbBtjzdWr0Bf//9qQg/n2Pshk6J6D9TXSQOspY7TjhcPBu/lNxqOa2HbFIgGF38svNLNcH9a4lEY65Bqu1TB3rv2JkjJLM4sdONdpo2CCLema1BUuuMK07jrC7ziBmWvmEcaXkpbvOW6B3AVEuFenyRX1ErvL5dlS71fgC2X3kmhoDcdiGecU6aVavZrOJMubO1NQdkgbOMF/7xahNK728n0fgyTW8YmyfQmTfgdpJx/Azq++z5NSNw9obBPKleN0XY8eGuqT65wz7oPyGhuaB13nRu6n4tTpQcjF6rQa2YA1LLJcDEOBovgm+QzLnBAa3BOqHjf5CMnUrMt8PySKI+dzg7O0LzPkpNa7LQLSE6y+MXISYAvu7wysBOwD8W7ZGdy/gtQSwMEFAAACAgAwCsh7DCB37NtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFJiooWpibmlUaqJaXKyiYG5rqFBikWqYUqKcWqikYWZuYFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAwCsh7OUgbu1VAgAAEAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAwCsh7DCB37NtAAAAeAAAAAkAJAAAAAAAAAAAAAAAogIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABaAwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 1
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
 --- !u!1 &3713945624134965830
 GameObject:
   m_ObjectHideFlags: 0
