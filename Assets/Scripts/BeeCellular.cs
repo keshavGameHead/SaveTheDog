@@ -16,6 +16,10 @@ public class BeeCellular : MonoBehaviour
 
     public GameObject beePrefabs;
 
+    public GameObject queenBee;
+
+    private Transform queenSpawnBee;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,9 +52,36 @@ public class BeeCellular : MonoBehaviour
 
     void CreateNewBee()
     {
-        currentBeeTotal++;
-        GameObject beeObj = Instantiate(beePrefabs, transform.position + (Vector3)(Random.insideUnitCircle * 0.5f), Quaternion.identity);
-        beeObj.GetComponent<BeeController>().currentState = BeeController.STATE.MOVE;
-        currentGenDelay = genDelay + Random.RandomRange(-0.5f, 0.5f);
+        if (Level.Instance.QueenMode)
+        {
+            currentBeeTotal = beeTotalInCell;
+            queenSpawnBee = Instantiate(queenBee, transform.position + (Vector3)(Random.insideUnitCircle * 0.5f), Quaternion.identity).transform;
+            queenSpawnBee.GetComponent<BeeController>().currentState = BeeController.STATE.MOVE;
+            //currentGenDelay = genDelay + Random.RandomRange(-0.5f, 0.5f);
+            StartCoroutine(CreateChildBee());
+        }
+        else
+        {
+            currentBeeTotal++;
+            GameObject beeObj = Instantiate(beePrefabs, transform.position + (Vector3)(Random.insideUnitCircle * 0.5f), Quaternion.identity);
+            beeObj.GetComponent<BeeController>().currentState = BeeController.STATE.MOVE;
+            currentGenDelay = genDelay + Random.RandomRange(-0.5f, 0.5f);
+        }
     }
+
+    IEnumerator CreateChildBee()
+    {
+        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < beeTotalInCell; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            GameObject beeObj = Instantiate(beePrefabs, queenSpawnBee.position + (Vector3)(Random.insideUnitCircle * 0.5f), Quaternion.identity);
+            beeObj.GetComponent<BeeController>().currentState = BeeController.STATE.MOVE;
+        }
+    }
+    //void CreateChildBee()
+    //{
+    //    GameObject beeObj = Instantiate(beePrefabs, queenSpawnBee.position + (Vector3)(Random.insideUnitCircle * 0.5f), Quaternion.identity);
+    //    beeObj.GetComponent<BeeController>().currentState = BeeController.STATE.MOVE;
+    //}
 }

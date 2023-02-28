@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 2295828412622092276}
   - component: {fileID: 506340323759856268}
   - component: {fileID: 4267538584138368627}
-  - component: {fileID: 8374349682158584662}
-  - component: {fileID: 6639686762081069006}
-  - component: {fileID: 261638680200719035}
+  - component: {fileID: 5420321139354857398}
+  - component: {fileID: 1732122068667498417}
+  - component: {fileID: 9014226686261104819}
   m_Layer: 0
-  m_Name: Bee
+  m_Name: Queen Bee
   m_TagString: Bee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   charingTime: 0.15
   beeSound: {fileID: 4267538584138368627}
   Sp: {fileID: 0}
-  AI: {fileID: 261638680200719035}
+  AI: {fileID: 9014226686261104819}
 --- !u!82 &4267538584138368627
 AudioSource:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8374349682158584662
+--- !u!114 &5420321139354857398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &6639686762081069006
+--- !u!114 &1732122068667498417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,10 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.5
-  height: 2
+  radius: 0.15
+  height: 0.15
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 7
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -245,25 +245,25 @@ MonoBehaviour:
   centerOffsetCompatibility: NaN
   repathRateCompatibility: NaN
   canSearchCompability: 0
-  orientation: 0
+  orientation: 1
   enableRotation: 1
   autoRepath:
     mode: 2
     interval: 0.5
-    sensitivity: 10
-    maximumInterval: 2
+    sensitivity: 6
+    maximumInterval: 3
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
+  maxAcceleration: 5
   rotationSpeed: 360
   slowdownDistance: 0.6
   pickNextWaypointDist: 2
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
+  slowWhenNotFacingTarget: 0
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &261638680200719035
+--- !u!114 &9014226686261104819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2295828488958425082}
   - component: {fileID: 2295828415675545589}
-  - component: {fileID: 506340323719335838}
+  - component: {fileID: 4415996284645915932}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Bee
@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 2295828488975202303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2295828488958425081}
@@ -351,7 +351,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -8
-  m_Sprite: {fileID: 21300000, guid: 431d1e91b53e4632a6d5cc5a6fd84f9d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f79397209ea5dae42817e00a31fbb880, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -362,7 +362,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &506340323719335838
+--- !u!95 &4415996284645915932
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -372,7 +372,7 @@ Animator:
   m_GameObject: {fileID: 2295828488975202303}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3939f2f9535a4e20bd0655af439e652d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9f56368f7b05095448d51cabc1d99357, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
