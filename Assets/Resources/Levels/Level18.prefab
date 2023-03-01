@@ -229,7 +229,19 @@ MonoBehaviour:
   - {fileID: 2971007257715520838}
   spider: []
   maxDrawLimit: 200
-  isWater: 0
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
+  monsters: []
+  laserLineObj: []
+  bombObj: {fileID: 0}
 --- !u!1001 &514630251770664176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2701,7 +2713,7 @@ PrefabInstance:
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
@@ -2787,7 +2799,7 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.58
+      value: -2.28
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
@@ -2862,7 +2874,7 @@ PrefabInstance:
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4
+      value: 2.3000002
       objectReference: {fileID: 0}
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
@@ -2948,7 +2960,7 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.77
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
@@ -3023,7 +3035,7 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13
+      value: 0.03000009
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
@@ -8693,7 +8705,7 @@ PrefabInstance:
     - target: {fileID: 6026484340039058312, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.16
+      value: -0.2599999
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340039058312, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}

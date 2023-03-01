@@ -59,7 +59,19 @@ MonoBehaviour:
   - {fileID: 6916821704321547835}
   spider: []
   maxDrawLimit: 200
-  isWater: 0
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
+  monsters: []
+  laserLineObj: []
+  bombObj: {fileID: 0}
 --- !u!1001 &1404240362596429991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,6 +159,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dog (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8219554077320200808, guid: 7fa3219a3ee4c45ed954db1f30d03926,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_RootOrder
@@ -155,12 +172,12 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.77
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.16
+      value: 1.48
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
@@ -11388,17 +11405,17 @@ PrefabInstance:
     - target: {fileID: 6026484340061396120, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[17].second.m_AnimationSpeed
-      value: 5
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340061396120, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[18].second.m_AnimationSpeed
-      value: 5
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340061396120, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_AnimatedTiles.Array.data[19].second.m_AnimationSpeed
-      value: 5.0000005
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340061396120, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}

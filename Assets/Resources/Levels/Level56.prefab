@@ -57,7 +57,19 @@ MonoBehaviour:
   - {fileID: 272537863029291106}
   spider: []
   maxDrawLimit: 200
-  isWater: 0
+  LoveMode: 0
+  monsterMode: 0
+  spiderMode: 0
+  laserMode: 0
+  BombMode: 0
+  TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
+  teleTargetObj: {fileID: 0}
+  teleOutObj: {fileID: 0}
+  monsters: []
+  laserLineObj: []
+  bombObj: {fileID: 0}
 --- !u!1 &3255303631104116924
 GameObject:
   m_ObjectHideFlags: 0
@@ -5842,7 +5854,7 @@ PrefabInstance:
     - target: {fileID: 6026484340039058312, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.36
       objectReference: {fileID: 0}
     - target: {fileID: 6026484340039058312, guid: 65083ceddff21414490e8b0ecbaaf423,
         type: 3}
@@ -21292,12 +21304,12 @@ PrefabInstance:
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.63
+      value: 1.27
       objectReference: {fileID: 0}
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.82
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 8312325444710406989, guid: 29ba3b50587b54bc1b450596ce32172a,
         type: 3}
@@ -21378,7 +21390,7 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4
+      value: -1.76
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
@@ -21453,7 +21465,7 @@ PrefabInstance:
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.13
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: 8219554077320200814, guid: 7fa3219a3ee4c45ed954db1f30d03926,
         type: 3}
