@@ -221,12 +221,16 @@ public class UIManager : MonoBehaviour
         cryingAnim.SetActive(true);
         yield return new WaitForSeconds(1f);
         cryingAnim.GetComponent<Animator>().SetBool("Play", true);
-        if (GameController.instance.levelIndex > 4)
+        if (PlayerPrefs.GetInt("NoAds") == 0)
         {
-            SuperStarAd.Instance.ShowInterstitialTimer((o)=> { 
-                 SSEventManager.Instance.SSGameOverEventCall(HomeManager.Instance.levelMode + (PlayerPrefs.GetInt("UnlockLevel")));
-            });
-            //SuperStarAd.Instance.ShowBannerAd();
+            if (GameController.instance.levelIndex > 4)
+            {
+                SuperStarAd.Instance.ShowInterstitialTimer((o) =>
+                {
+                    SSEventManager.Instance.SSGameOverEventCall(HomeManager.Instance.levelMode + (PlayerPrefs.GetInt("UnlockLevel")));
+                });
+                //SuperStarAd.Instance.ShowBannerAd();
+            }
         }
     }
     public string levelMode;
@@ -247,20 +251,23 @@ public class UIManager : MonoBehaviour
         isRewardStart = true;
         yield return new WaitForSeconds(2f);
         tapToContinue.SetActive(true);
-        if(GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
+        if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
         {
             SuperStarSdkManager.Instance.Rate();
         }
-
-        if (GameController.instance.levelIndex > 4)
+        if (PlayerPrefs.GetInt("NoAds") == 0)
         {
-            SuperStarAd.Instance.ShowInterstitialTimer((o)=> 
+            if (GameController.instance.levelIndex > 4)
             {
-                SSEventManager.Instance.SSGameWinEventCall(HomeManager.Instance.levelMode+(level - 1));
-            });
-            // SuperStarAd.Instance.ShowBannerAd();
+                SuperStarAd.Instance.ShowInterstitialTimer((o) =>
+                {
+                    SSEventManager.Instance.SSGameWinEventCall(HomeManager.Instance.levelMode + (level - 1));
+                });
+                // SuperStarAd.Instance.ShowBannerAd();
+            }
         }
     }
+
 
     private void SaveLevelByMode()
     {
@@ -592,11 +599,17 @@ public class UIManager : MonoBehaviour
 
     public void Home()
     {
-        SuperStarAd.Instance.ShowInterstitialTimer((O) =>
+        if (PlayerPrefs.GetInt("NoAds") == 0)
+        {
+            SuperStarAd.Instance.ShowInterstitialTimer((O) =>
+            {
+                LoadHomePanel();
+            });
+        }
+        else
         {
             LoadHomePanel();
-        });
-        
+        }
     }
 
     private void LoadHomePanel()

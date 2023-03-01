@@ -136,8 +136,8 @@ public class GameController : MonoBehaviour
     void CreateLevel()
     {
         GetMaxLevel();
-        GameObject levelObj = GetLevelObj();
-        //GameObject levelObj = Instantiate(testLevel);
+        //GameObject levelObj = GetLevelObj();
+        GameObject levelObj = Instantiate(testLevel);
         currentLevel = levelObj.GetComponent<Level>();  
     }
 
