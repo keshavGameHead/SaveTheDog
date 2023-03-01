@@ -177,6 +177,7 @@ public class InaapManager : MonoBehaviour, IStoreListener
         if (String.Equals(args.purchasedProduct.definition.id, BundleId[0], StringComparison.Ordinal))
         {
             Debug.Log("Give no ads access");
+            HomeManager.Instance.noAds.SetActive(false);
             SuperStarSdk.SuperStarAd.Instance.NoAds = 1;
             SuperStarSdk.SuperStarAd.Instance.HideBannerAd();
 
@@ -188,6 +189,7 @@ public class InaapManager : MonoBehaviour, IStoreListener
         else
         {
             Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+            HomeManager.Instance.noAds.SetActive(true);
         }       
        
         return PurchaseProcessingResult.Complete;

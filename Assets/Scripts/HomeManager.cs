@@ -61,6 +61,7 @@ public class HomeManager : MonoBehaviour
             ModsPanel.Instance.popupPanel.SetActive(true);
             ModsPanel.Instance.LogoTxt.text = "LOVE MODE";
             ModsPanel.Instance.SetLogo(1);
+            ModsPanel.Instance.LevelText.text = "Automatically Unlock After Complete\n20 Level in main mode, or unlock\nimmediately after watching ad!";
         }
         else
         {
@@ -99,6 +100,8 @@ public class HomeManager : MonoBehaviour
             ModsPanel.Instance.popupPanel.SetActive(true);
             ModsPanel.Instance.LogoTxt.text = "MONSTER MODE";
             ModsPanel.Instance.SetLogo(2);
+            ModsPanel.Instance.LevelText.text = "Automatically Unlock After Complete\n40 Level in main mode, or unlock\nimmediately after watching ad!";
+
         }
         else
         {
@@ -151,6 +154,8 @@ public class HomeManager : MonoBehaviour
             ModsPanel.Instance.popupPanel.SetActive(true);
             ModsPanel.Instance.LogoTxt.text = "LASER MODE";
             ModsPanel.Instance.SetLogo(3);
+            ModsPanel.Instance.LevelText.text = "Automatically Unlock After Complete\n60 Level in main mode, or unlock\nimmediately after watching ad!";
+
         }
         else
         {
@@ -189,6 +194,8 @@ public class HomeManager : MonoBehaviour
             ModsPanel.Instance.popupPanel.SetActive(true);
             ModsPanel.Instance.LogoTxt.text = "TELEPORT MODE";
             ModsPanel.Instance.SetLogo(4);
+            ModsPanel.Instance.LevelText.text = "Automatically Unlock After Complete\n80 Level in main mode, or unlock\nimmediately after watching ad!";
+
         }
         else
         {
@@ -214,6 +221,11 @@ public class HomeManager : MonoBehaviour
         }
     }
 
+    public void OnClickShop()
+    {
+        ShopPanel.Instance.popupPanel.SetActive(true);
+        ShopPanel.Instance.SetPanel();
+    }
     public void OnClickNoAds()
     {
         InaapManager.Instance.PurchaseNoAdsProuduct();

@@ -432,7 +432,24 @@ public class UIManager : MonoBehaviour
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "Stars", 3);
             }
+            if (maxLevel >= 20)
+            {
+                PlayerPrefs.SetInt("LoveMode", 1);
+            }
+            if (maxLevel >= 40)
+            {
+                PlayerPrefs.SetInt("MonsterMode", 1);
+            }
+            if (maxLevel >= 60)
+            {
+                PlayerPrefs.SetInt("LaserMode", 1);
+            }
+            if (maxLevel >= 80)
+            {
+                PlayerPrefs.SetInt("TeleportMode", 1);
+            }
         }
+
     }
 
     int starIndx;

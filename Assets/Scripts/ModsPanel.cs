@@ -11,7 +11,7 @@ public class ModsPanel : MonoBehaviour
     public GameObject MonsterLogo, LoveLogo, LaserLogo, TeleportLogo;
     public GameObject Insta;
 
-    public TextMeshProUGUI LogoTxt;
+    public TextMeshProUGUI LogoTxt, LevelText;
 
     private void Awake()
     {

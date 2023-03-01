@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
 
     public GameObject testLevel;
 
+    public List<GameObject> playerSkin = new List<GameObject>();
     public enum STATE
     {
         DRAWING,
@@ -104,7 +105,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -132,13 +132,31 @@ public class GameController : MonoBehaviour
             Level.Instance.bombObj.isTimeStart = true;
         }
     }
-
+    public List<Transform> doglist = new List<Transform>();   
     void CreateLevel()
     {
         GetMaxLevel();
         GameObject levelObj = GetLevelObj();
         //GameObject levelObj = Instantiate(testLevel);
+
         currentLevel = levelObj.GetComponent<Level>();  
+
+        if (!HomeManager.Instance.LoveMode && !HomeManager.Instance.MonsterMode && !HomeManager.Instance.LaserMode && !HomeManager.Instance.TeleportMode)
+        {
+            GameObject getSkin = playerSkin[PlayerPrefs.GetInt("PlayerSkin", 0)];
+            for (int i = 0; i < currentLevel.dogList.Count; i++)
+            {
+                GameObject obj = Instantiate(getSkin, currentLevel.dogList[i].position, Quaternion.identity);
+                this.doglist.Add(obj.transform);
+            }
+            for (int i = 0; i < currentLevel.dogList.Count; i++)
+            {
+                currentLevel.dogList[i].gameObject.SetActive(false);
+            }
+
+            currentLevel.dogList.Clear();
+            currentLevel.dogList = this.doglist;
+        }
     }
 
     private void GetMaxLevel()
