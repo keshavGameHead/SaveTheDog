@@ -30,10 +30,8 @@ public class BeeCellular : MonoBehaviour
     void Update()
     {
         if (GameController.instance.currentState == GameController.STATE.DRAWING)
-
             return;
         if (GameController.instance.currentState == GameController.STATE.GAMEOVER)
-
             return;
 
         if (currentBeeTotal < beeTotalInCell)

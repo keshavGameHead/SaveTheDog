@@ -7,6 +7,7 @@ using SuperStarSdk;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using Spine.Unity;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     public GameObject clock, fail, complete, winPanel, failPanel, gamePlayScreen, Bg, ratingPopUp, guide, levelPanel;
     public TextMeshProUGUI levelpanelText;
-
+    public GameObject TeleportPanel;
+    public TextMeshProUGUI TeleportText;
     private float timer;
 
     public float timerMax;
@@ -61,6 +63,33 @@ public class UIManager : MonoBehaviour
         }
         sliderImage.value = 1;
         levelText.text = "LEVEL " + (GameController.instance.GetCurrentLevelIndex()).ToString();
+        if (GameController.instance.GetCurrentLevelIndex() == 1)
+        {
+            if (HomeManager.Instance.levelMode == null)
+            {
+                TeleportPanel.SetActive(false);
+            }
+            else
+            {
+                TeleportPanel.SetActive(true);
+                if (HomeManager.Instance.LoveMode)
+                {
+                    TeleportText.text = "Lets Meet The Dogs!";
+                }
+                else if (HomeManager.Instance.MonsterMode)
+                {
+                    TeleportText.text = "Kill The Evil Dog!";
+                }
+                else if (HomeManager.Instance.LaserMode)
+                {
+                    TeleportText.text = "Protect The Dog From Laser!";
+                }
+                else if (HomeManager.Instance.TeleportMode)
+                {
+                    TeleportText.text = "Bees Will Teleport From Portal!";
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -189,6 +218,16 @@ public class UIManager : MonoBehaviour
 
     public void StartGameWinCoroutine()
     {
+        if (HomeManager.Instance.levelMode == null)
+        {
+            for (int i = 0; i < Level.Instance.dogList.Count; i++)
+            {
+                if (Level.Instance.dogList[i].gameObject.tag == "Dog")
+                {
+                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "5-happy";
+                }
+            }
+        }
         AudioManager.instance.winAudio.Play();
         GameController.instance.currentState = GameController.STATE.FINISH;
         gameWin = StartCoroutine(ShowGameWinIE());
@@ -225,17 +264,16 @@ public class UIManager : MonoBehaviour
         {
             if (GameController.instance.levelIndex > 4)
             {
-                SuperStarAd.Instance.ShowInterstitialTimer((o) =>
-                {
-                    SSEventManager.Instance.SSGameOverEventCall(HomeManager.Instance.levelMode + (PlayerPrefs.GetInt("UnlockLevel")));
-                });
+                SuperStarAd.Instance.ShowInterstitialTimer((o) => { });
                 //SuperStarAd.Instance.ShowBannerAd();
             }
         }
+        SSEventManager.Instance.SSGameOverEventCall(HomeManager.Instance.levelMode + (PlayerPrefs.GetInt("UnlockLevel")));
     }
     public string levelMode;
     IEnumerator ShowGameWinIE()
     {
+       
         int level = GameController.instance.levelIndex;
         SaveLevelByMode();
         int score = PlayerPrefs.GetInt("Coin", 0);
@@ -259,13 +297,11 @@ public class UIManager : MonoBehaviour
         {
             if (GameController.instance.levelIndex > 4)
             {
-                SuperStarAd.Instance.ShowInterstitialTimer((o) =>
-                {
-                    SSEventManager.Instance.SSGameWinEventCall(HomeManager.Instance.levelMode + (level - 1));
-                });
+                SuperStarAd.Instance.ShowInterstitialTimer((o) =>{});
                 // SuperStarAd.Instance.ShowBannerAd();
             }
         }
+        SSEventManager.Instance.SSGameWinEventCall(HomeManager.Instance.levelMode + (level - 1));
     }
 
 
@@ -695,5 +731,10 @@ public class UIManager : MonoBehaviour
     public void InvokeIsPlaying() {
 
         isAdplaying = false;
+    }
+
+    public void TelePortPanelCloseBtn()
+    {
+        TeleportPanel.SetActive(false);
     }
 }

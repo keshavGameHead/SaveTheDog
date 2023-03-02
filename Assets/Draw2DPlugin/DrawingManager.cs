@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -205,6 +206,17 @@ public class DrawingManager : MonoBehaviour
 
             }
 		}
+		if (HomeManager.Instance.levelMode == null)
+		{
+			for (int i = 0; i < Level.Instance.dogList.Count; i++)
+			{
+				if (Level.Instance.dogList[i].gameObject.tag == "Dog")
+				{
+					Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "3-stung";
+
+                }
+			}
+		}
 		UIManager.Instance.guide.SetActive(false);
 		FreezeMoving.freeze = true;
 		this.prepareDrawFinish = false;
@@ -281,6 +293,7 @@ public class DrawingManager : MonoBehaviour
                 Level.Instance.laserLineObj[i].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
+
         FreezeMoving.freeze = false;
 		this.setBlockLineVisiable(false);
 		if (this.canDraw)
@@ -316,6 +329,7 @@ public class DrawingManager : MonoBehaviour
 		}
 
 		gameObject.SetActive(false);
+        
 	}
 
 	private void makeLinePhysics()

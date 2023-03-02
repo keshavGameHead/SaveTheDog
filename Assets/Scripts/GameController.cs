@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SuperStarSdk;
 using System;
+using Spine.Unity;
 
 public class GameController : MonoBehaviour
 {
@@ -115,6 +116,8 @@ public class GameController : MonoBehaviour
         currentState = STATE.PLAYING;
         ActiveDog();
         uiManager.ActiveClock();
+        
+
     }
 
     void ActiveDog()
@@ -132,30 +135,27 @@ public class GameController : MonoBehaviour
             Level.Instance.bombObj.isTimeStart = true;
         }
     }
-    public List<Transform> doglist = new List<Transform>();   
+    public List<Transform> doglist = new List<Transform>();
     void CreateLevel()
     {
         GetMaxLevel();
         GameObject levelObj = GetLevelObj();
         //GameObject levelObj = Instantiate(testLevel);
 
-        currentLevel = levelObj.GetComponent<Level>();  
+        currentLevel = levelObj.GetComponent<Level>();
 
-        if (!HomeManager.Instance.LoveMode && !HomeManager.Instance.MonsterMode && !HomeManager.Instance.LaserMode && !HomeManager.Instance.TeleportMode)
+        GameObject getSkin = playerSkin[PlayerPrefs.GetInt("PlayerSkin", 0)];
+        if (!HomeManager.Instance.LoveMode)
         {
-            GameObject getSkin = playerSkin[PlayerPrefs.GetInt("PlayerSkin", 0)];
             for (int i = 0; i < currentLevel.dogList.Count; i++)
             {
-                GameObject obj = Instantiate(getSkin, currentLevel.dogList[i].position, Quaternion.identity);
-                this.doglist.Add(obj.transform);
+                if (currentLevel.dogList[i].gameObject.tag == "Dog")
+                {
+                    GameObject obj = Instantiate(getSkin, currentLevel.dogList[i].position, Quaternion.identity);
+                    Destroy(currentLevel.dogList[i].gameObject);
+                    currentLevel.dogList[i] = obj.transform;
+                }
             }
-            for (int i = 0; i < currentLevel.dogList.Count; i++)
-            {
-                currentLevel.dogList[i].gameObject.SetActive(false);
-            }
-
-            currentLevel.dogList.Clear();
-            currentLevel.dogList = this.doglist;
         }
     }
 

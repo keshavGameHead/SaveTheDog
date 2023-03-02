@@ -101,26 +101,32 @@ public class LevelSelector : MonoBehaviour
     {
         if (HomeManager.Instance.LoveMode)
         {
+            HomeManager.Instance.levelMode = "LoveMode";
              PlayerPrefs.SetInt("LoveCurrentLevel", v);
         }
         else if (HomeManager.Instance.MonsterMode)
         {
+            HomeManager.Instance.levelMode = "MonsterMode";
             PlayerPrefs.SetInt("MonsterCurrentLevel", v);
         }
         else if (HomeManager.Instance.SpiderMode)
         {
+            HomeManager.Instance.levelMode = "SpiderMode";
             PlayerPrefs.SetInt("SpiderCurrentLevel", v);
         }
         else if (HomeManager.Instance.LaserMode)
         {
+            HomeManager.Instance.levelMode = "LaserMode";
             PlayerPrefs.SetInt("LaserCurrentLevel", v);
         }
         else if (HomeManager.Instance.TeleportMode)
         {
+            HomeManager.Instance.levelMode = "TeleportMode";
             PlayerPrefs.SetInt("TeleCurrentLevel", v);
         }
         else
         {
+            HomeManager.Instance.levelMode = null;
             PlayerPrefs.SetInt("CurrentLevel", v);
         }
     }

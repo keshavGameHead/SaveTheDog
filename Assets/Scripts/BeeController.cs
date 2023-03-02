@@ -1,4 +1,5 @@
 using Pathfinding;
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,6 +125,38 @@ public class BeeController : MonoBehaviour
         if(collision.gameObject.tag == "Line")
         {
             StartToAttack();
+            if (GameController.instance.currentState == GameController.STATE.PLAYING)
+            {
+                if (HomeManager.Instance.levelMode == null)
+                {
+                    for (int i = 0; i < Level.Instance.dogList.Count; i++)
+                    {
+                        if (Level.Instance.dogList[i].gameObject.tag == "Dog")
+                        {
+                            int RandNum = Random.Range(1, 5);
+
+                            switch (RandNum)
+                            {
+                                case 1:
+                                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "2-scary left";
+                                    break;
+                                case 2:
+                                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "2-scary right";
+                                    break;
+                                case 3:
+                                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "2-scary up";
+                                    break;
+                                case 4:
+                                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "2-scary down";
+                                    break;
+                                default:
+                                    Level.Instance.dogList[i].gameObject.GetComponent<SkeletonAnimation>().AnimationName = "2-scary up";
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         if (collision.gameObject.tag == "Bee")

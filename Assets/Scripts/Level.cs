@@ -51,6 +51,10 @@ public class Level : MonoBehaviour
         {
             guide.SetActive(false);
         }
+        else
+        {
+            guide.SetActive(true);
+        }
         if (isDarkBg)
         {
             UIManager.Instance.Bg.GetComponent<SpriteRenderer>().color = new Color32(85, 85, 85, 255);

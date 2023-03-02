@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class DogController : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public Animator mAnimator;
+    public SkeletonAnimation mAnimator;
     public GameObject deathVfx;
     public static DogController Instance;
     public bool ishurt;
@@ -27,14 +28,14 @@ public class DogController : MonoBehaviour
     {
         AudioManager.instance.dogAudio.Play();
         ishurt = true;
-        mAnimator.SetBool("Hurt", true);
+        mAnimator.AnimationName = "4-sting";
         GameController.instance.currentState = GameController.STATE.GAMEOVER;
     }
     public void MonsterHurt()
     {
         AudioManager.instance.dogAudio.Play();
         ishurt = true;
-        mAnimator.SetBool("Hurt", true);
+        mAnimator.AnimationName = "4-sting";
     }
 
     public void Hurtdestroy()
