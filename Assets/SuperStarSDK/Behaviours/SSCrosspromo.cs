@@ -62,31 +62,30 @@ public class SSCrosspromo : MonoBehaviour
             {
                 Debug.Log("No video Prepared");
             }
-            else {
+            else
+            {
 
-            _currentCrossPromoAsset = SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[cross];
-            SetUpCrosspromo();
+                _currentCrossPromoAsset = SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[cross];
+                SetUpCrosspromo();
             }
         }
     }
 
 
-     public   List<int> data = new List<int>();
-    public int GiveMeCrossPromoVideoIndex() {
-
+    public List<int> data = new List<int>();
+    public int GiveMeCrossPromoVideoIndex()
+    {
         for (int i = 0; i < SuperStarSdkManager.Instance.crossPromoAssetsRoot.data.Count; i++)
         {
-
             for (int z = 0; z < SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideourl.Count; z++)
             {
-            if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideourl[z].isDownloaded )
-            {
+                if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideourl[z].isDownloaded)
+                {
                     if (!data.Contains(i))
                     {
-                   data.Add(i);
+                        data.Add(i);
                     }
-            }
-
+                }
             }
             //else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].isVideoDownloaded && SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideotype == CrosspromoType)
             //{
@@ -96,7 +95,7 @@ public class SSCrosspromo : MonoBehaviour
 
         if (data.Count > 0)
         {
-            int x =  data[UnityEngine.Random.Range(0, data.Count)];
+            int x = data[UnityEngine.Random.Range(0, data.Count)];
 
             if (CurrentVideoIndex != x)
             {
@@ -107,36 +106,32 @@ public class SSCrosspromo : MonoBehaviour
             {
                 return GiveMeCrossPromoVideoIndex();
             }
-
         }
-        else {
+        else
+        {
             return -1;
         }
     }
 
-
     public int GiveMeCrossPromoVideoURLIndex()
     {
-
         List<int> dummyIndex = new List<int>();
 
-            for (int z = 0; z < _currentCrossPromoAsset.appvideourl.Count; z++)
+        for (int z = 0; z < _currentCrossPromoAsset.appvideourl.Count; z++)
+        {
+            if (_currentCrossPromoAsset.appvideourl[z].isDownloaded)
             {
-                if (_currentCrossPromoAsset.appvideourl[z].isDownloaded)
-                {
                 dummyIndex.Add(z);
-                }
-
             }
+        }
 
         return dummyIndex[UnityEngine.Random.Range(0, dummyIndex.Count)];
-
         return -1;
-            //else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].isVideoDownloaded && SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideotype == CrosspromoType)
-            //{
-            //    data.Add(i);
-            //}
-        
+        //else if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].isVideoDownloaded && SuperStarSdkManager.Instance.crossPromoAssetsRoot.data[i].appvideotype == CrosspromoType)
+        //{
+        //    data.Add(i);
+        //}
+
 
     }
 
@@ -165,7 +160,7 @@ public class SSCrosspromo : MonoBehaviour
         //Debug.LogError("Data arrived Load Video");
         //_currentCrossPromoAsset = SuperStarSdkManager.Instance.crossPromoAssetsRoot.crossPromoAssets[0];
         //SetUpCrosspromo();
-       // _container.SetActive(true);
+        // _container.SetActive(true);
     }
 
     private void SetUpCrosspromo()
@@ -197,13 +192,13 @@ public class SSCrosspromo : MonoBehaviour
     }
     private void OnVideoPrepared(VideoPlayer source)
     {
-        
+
         Debug.LogError("Video Prepared");
         CleanTexture();
-       // source.frameReady += OnFrameReady;
+        // source.frameReady += OnFrameReady;
         source.Play();
         _videoContent.gameObject.SetActive(true);
-      //  Show();
+        //  Show();
     }
 
     //private void Show()
@@ -242,9 +237,9 @@ public class SSCrosspromo : MonoBehaviour
     void LoadVideo()
     {
         int crosspromoindex = GiveMeCrossPromoVideoURLIndex();
-        Debug.Log("Load video" + Application.persistentDataPath + "/" + _currentCrossPromoAsset.appname+_currentCrossPromoAsset.appvideourl[crosspromoindex].name + ".mp4");
-        _videoPlayer.url = Application.persistentDataPath + "/"+ _currentCrossPromoAsset.appname + _currentCrossPromoAsset.appvideourl[crosspromoindex].name + ".mp4";
-          _gameName.text = _currentCrossPromoAsset.appname;
+        Debug.Log("Load video" + Application.persistentDataPath + "/" + _currentCrossPromoAsset.appname + _currentCrossPromoAsset.appvideourl[crosspromoindex].name + ".mp4");
+        _videoPlayer.url = Application.persistentDataPath + "/" + _currentCrossPromoAsset.appname + _currentCrossPromoAsset.appvideourl[crosspromoindex].name + ".mp4";
+        _gameName.text = _currentCrossPromoAsset.appname;
         _container.SetActive(true);
         _videoPlayer.Prepare();
     }
@@ -260,7 +255,7 @@ public class SSCrosspromo : MonoBehaviour
         //    Hide();
         //    yield break;
         //}
-       // StartCoroutine(SuperStarSdk.StartInitialDownload(Format));
+        // StartCoroutine(SuperStarSdk.StartInitialDownload(Format));
 
         while (!isActiveAndEnabled)
         {
@@ -297,7 +292,7 @@ public class SSCrosspromo : MonoBehaviour
         //        }
         //        if (currentAsset == null)
         //        {
-                   yield return null;
+        yield return null;
         //        }
         //    } while (currentAsset == null);
         //    _currentCrossPromoAsset = currentAsset;
@@ -325,7 +320,7 @@ public class SSCrosspromo : MonoBehaviour
 
     private void OnDestroy()
     {
-       
+
         _containerButton.onClick.RemoveAllListeners();
         _containerButton.onClick.RemoveAllListeners();
         _playButton.onClick.RemoveAllListeners();

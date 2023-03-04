@@ -1,0 +1,97 @@
+
+
+This is RateBox documentation. 
+
+I’m  happy to answer any questions, please contact me at paperplanetools@gmail.com.
+
+Check out online documentation at http://paperplanetools.com
+
+1. Installations
+  1.1. Import package to your project. 
+  1.2. If you wish, you can delete /PaperPlaneTools/Documentation and /PaperPlaneTools/Demo folders. 
+       These folders are only for you to understand how to use the package.
+
+2. Demo scene
+  It is easier to understand basics of using RateBox class from example. For that reason we include demo scene to the package.
+  Demo scene can be founded at PaperPlaneTools/Demo/RateBoxDemoScene.unity.
+  This scene demonstrates basic usage of RateBox class. 
+
+
+Usage 1 (Almost no coding):
+
+1. Drag PaperPlaneTools/RateBox/Resources/PaperPlaneTools/RateBox/RateBoxPrefab and drop it your scene.
+2. In the inspector change settings of RateBoxPrefab
+3. Call RateBox.Instance.Show()  
+
+
+Usage 2 (With coding, but more control):
+
+1. RateBox class usage
+-  Call Init function every time application launches or returns from background state
+   Read more about RateBoxConditions in section 4 "RateBoxConditions class description". 
+      RateBox.Instance.Init (rateUrl, new RateBoxConditions()); // rateUrl is http(s) address to open when user click rate button
+    
+-  Call Show function whenever rate dialog is appropriate.
+   Show function will only display rate dialog if all restriction from RateBoxConditions are met. 
+   Hint: Call Show function when user is satisfied (level up, complete the stage, receive bonus, etc). 
+   This approach increases the chances user will rate your game higher.
+      RateBox.Instance.Show (title, description, rateButtonTitle, laterButtonTitle);
+
+   If all restrictions are met, a rate dialog with two buttons will be shown.
+   Alternatively, you can give user an option to opt out of future rate requests. To do that call Show function with fifth argument
+       RateBox.Instance.Show (title, description, rateButtonTitle, laterButtonTitle, neverButtonTitle);
+
+   Note: RateBox class clear internal statistics if new application version is detected.
+   For example, if user choose not to show a rate dialog, the dialog will be shown again if a new version of application is detected.
+
+2. RateBoxConditions class description
+   This class define restrictions for a rate dialog display.
+   All restrictions should be met in order to display a dialog.
+
+   MinSessionCount (default value 0)
+      A dialog will not be shown unless session count is lesser than MinSessionCount. 
+      Session counter increases by 1 every time RateBox.Instance.Init is called
+     
+   MinCustomEventsCount (default value 0)
+      A dialog will not be shown unless custom event count is lesser than MinCustomEventsCount. 
+      Custom event counter increases by calling RateBox.Instance.IncrementCustomCounter.
+      Eventually you can decrease the counter by passing negative number to IncrementCustomCounter, but this is more like odd feature.
+
+   DelayAfterInstallInSeconds (default value 0)
+      Wait N seconds after  the first call of RateBox.Instance.Init function
+
+   DelayAfterLaunchInSeconds (default value 0)
+      Wait N seconds after the last call of RateBox.Instance.Init function
+
+   PostponeCooldownInSeconds (default value 22 hours)
+      Wait N seconds after the last dialog was shown.
+
+   RequireInternetConnection (default value TRUE)
+      If true, a dialog will no be shown if there is no an Internet connection (user won't be able to rate the application without an Internet connection).
+      If false, doesn't affect restriction check.
+
+3. Unconditional display
+    Show a dialog regardless restrictions check. For example, to show a dialog from application settings.
+       RateBox.Instance.ForceShow (title, description, rateButtonTitle, laterButtonTitle);
+
+4. Clear statistics
+   Normally you do need to manually clear statistics. However, sometimes it's useful when debugging.
+       RateBox.Instance.ClearStatistics(); 
+
+5. Cross-platform Alert 
+   "RateBox" asset comes with "Mobile Alert Dialog" asset (http://u3d.as/AGX).
+   For more information check out AlertDocumentation.txt
+
+6. iOS 10.3 Review feature - SKStoreReviewController
+   According to the Apple documentation, the request review function uses a proprietary method to analyze if it is a suitable time to ask user for a review, 
+   therefore there will be two conditions to met - RateBox CheckConditionsAreMet function and proprietary algorithm of SKStoreReviewController.
+   RateBox using SKStoreReviewController when 'Use IOS Review' parameter is checked in RateBoxPrefab (or RateBox.Settings.UseIOSReview is set manually) 
+   and platform is iOS version 10.3 or higher.
+   
+   Important fact to consider is that there is no feedback from SKStoreReviewController on user action, therefore no way to handle dialogue dismiss or rate action.
+   
+   The actual display of a rating/review request view is governed by App Store policy.
+   Because this method may or may not present an alert, RateBox.Instance.ForceShow function never uses 
+   SKStoreReviewController but standard Alert window instead (UIAlertController).
+  
+   

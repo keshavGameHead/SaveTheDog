@@ -118,25 +118,15 @@ public class ConnectionTester : MonoBehaviour
             yield break;
         }
 
-        WaitForSeconds f = new WaitForSeconds(0.05f);
-        Debug.Log($"CheckInternet: ping ip: {INTERNET_TEST_PING_IP}");
-        Ping ping = new Ping(INTERNET_TEST_PING_IP);
-        float pingTime = Time.time;
-        while (ping.isDone == false && pingTime <= INTERNET_TEST_PING_TIME_MAX)
+        if (internetPossiblyAvailable)
         {
-            yield return f;
-            pingTime += Time.deltaTime;
+            Debug.LogError("Available ");
+            callback(true);
         }
+        else { 
+            Debug.LogError("Not available ");
+            callback(false);
 
-        if (ping.isDone)
-        {
-            Debug.Log("CheckInternet: internet available");
-            callback(true);
-        }
-        else
-        {
-            Debug.Log("CheckInternet: internet unavailable");
-            callback(true);
         }
     }
 }

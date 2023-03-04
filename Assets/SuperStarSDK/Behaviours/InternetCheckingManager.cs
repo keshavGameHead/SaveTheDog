@@ -5,8 +5,9 @@ using UnityEngine;
 public class InternetCheckingManager : MonoBehaviour
 {
     public static InternetCheckingManager Instance;
-    public GameObject popupPanel;
-    float time;
+    public ConnectionTester _connectionTester;
+    public bool isinternetavailable;
+    public GameObject NoInternetPopUp;
     private void Awake()
     {
         if (Instance == null)
@@ -16,37 +17,38 @@ public class InternetCheckingManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        CheckPanel();
-    }
+    //void Start()
+    //{
+    //     _connectionTester = ConnectionTester
+    //        .GetInstance(gameObject)
+    //        .ipToTest("www.google.com");
 
-    private void Update()
-    {
-        time -= Time.deltaTime;
 
-        if (time < 0)
-        {
-            time = 3;
-            CheckPanel();
-        }
-    }
+    //    InternetCheckInvoke();
+    //}
 
-    public void CheckPanel()
-    {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
-        {
-            popupPanel.SetActive(true);
-        }
-        else
-        {
-            popupPanel.SetActive(false);
-        }
-    }
+    //public void InternetCheckInvoke() 
+    //{
 
-    public void CloseBtn()
-    {
-        popupPanel.SetActive(false);
-        time = 3;
-    }
+    //    _connectionTester.TestInternet((test) =>
+    //    {
+    //        if (test)
+    //        {
+    //            isinternetavailable = true;
+    //            Debug.LogError("disable popup");
+    //            Debug.LogError("Internet Availables");
+    //            NoInternetPopUp.SetActive(false);
+    //            Invoke("InternetCheckInvoke", 10);
+
+    //        }
+    //        else
+    //        {
+    //            isinternetavailable = false;
+    //            Debug.LogError("Show popup");
+    //            NoInternetPopUp.SetActive(true);
+    //            Invoke("InternetCheckInvoke", 5);
+    //        }
+
+    //    });
+    //}
 }

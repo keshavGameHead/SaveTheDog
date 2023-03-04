@@ -6,10 +6,10 @@
             url "https://maven.google.com"
         }
         maven {
-            url "https://android-sdk.is.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9, Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:16, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16, Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:8, Assets/IronSource/Editor/ISChartboostAdapterDependencies.xml:8, Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:16, Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:8, Assets/IronSource/Editor/ISUnityAdsAdapterDependencies.xml:8
+            url "https://maven.google.com/" // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7, Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12, Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17, Assets/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7, Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17, Assets/IronSource/Editor/IronSourceSDKDependencies.xml:25, Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:8, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8, Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:15, Assets/IronSource/Editor/ISChartboostAdapterDependencies.xml:15, Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8, Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:22, Assets/IronSource/Editor/ISUnityAdsAdapterDependencies.xml:15
         }
         maven {
-            url "https://maven.google.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17, Assets/IronSource/Editor/IronSourceSDKDependencies.xml:25, Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:8, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8, Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:15, Assets/IronSource/Editor/ISChartboostAdapterDependencies.xml:15, Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8, Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:22, Assets/IronSource/Editor/ISUnityAdsAdapterDependencies.xml:15
+            url "https://android-sdk.is.com/" // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9, Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:16, Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16, Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:8, Assets/IronSource/Editor/ISChartboostAdapterDependencies.xml:8, Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:16, Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:8, Assets/IronSource/Editor/ISUnityAdsAdapterDependencies.xml:8
         }
         maven {
             url "https://repo.maven.apache.org/maven2/" // Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:15
@@ -26,10 +26,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
     implementation 'androidx.legacy:legacy-support-v4:1.0.0' // Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:22
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
+    implementation 'androidx.lifecycle:lifecycle-process:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17
     implementation 'com.adcolony:sdk:4.8.0' // Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:8
     implementation 'com.applovin:applovin-sdk:11.6.1' // Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:15
     implementation 'com.chartboost:chartboost-sdk:9.1.1' // Assets/IronSource/Editor/ISChartboostAdapterDependencies.xml:15
     implementation 'com.facebook.android:audience-network-sdk:6.12.0' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8
+    // implementation 'com.google.android.gms:play-services-ads:21.3.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
     implementation 'com.google.android.gms:play-services-ads:21.4.0' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17
     implementation 'com.google.android.gms:play-services-appset:16.0.2' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:4
@@ -37,6 +40,7 @@ dependencies {
     implementation 'com.google.android.instantapps:instantapps:1.1.0' // Assets/GameAnalytics/Editor/Android/Dependencies.xml:3
     implementation 'com.google.android.play:core-common:2.0.0' // Assets/GooglePlayPlugins/com.google.play.core/Editor/Dependencies.xml:3
     implementation 'com.google.android.play:review:2.0.0' // Assets/GooglePlayPlugins/com.google.play.review/Editor/Dependencies.xml:3
+    implementation 'com.google.android.ump:user-messaging-platform:2.0.0' // Assets/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7
     implementation 'com.inmobi.monetization:inmobi-ads:10.1.2' // Assets/IronSource/Editor/ISInMobiAdapterDependencies.xml:15
     implementation 'com.ironsource.adapters:adcolonyadapter:4.3.13' // Assets/IronSource/Editor/ISAdColonyAdapterDependencies.xml:16
     implementation 'com.ironsource.adapters:admobadapter:4.3.34' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16

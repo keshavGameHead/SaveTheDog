@@ -1,0 +1,70 @@
+
+First read RateBoxDocumentation.txt
+
+This is Mobile Alert Dialog documentation. 
+This package is designed to provide universal interface for native alert dialogs.
+
+I'm happy to answer any questions, please contact us at paperplanetools@gmail.com.
+
+1. Installations
+  1.1. Import package to your project. 
+  1.2. If you wish, you can delete /PaperPlaneTools/Documentation and /PaperPlaneTools/Demo folders. 
+       These folders are only for you to understand how to use the package.
+
+2. Demo scene
+  It is easier to understand basics of using Alert class from example. For that reason I include demo scene to the package.
+  Demo scene can be founded at PaperPlaneTools/Demo/AlertDemoScene.unity.
+  This scene demonstrates basic usage of Alert class. 
+  You can launch it in Unity Editor, iOS or Android devices as Alert class supports these platforms.
+
+3. Alert class features and usage
+
+  Simple usage:
+    new Alert ("Hello", "Hello, world!")
+       .SetPositiveButton("OK")
+       .Show();
+
+  Queue support:
+    Alert supports queue. This means that you can call Alert.Show() regardless if another Alert is presented.
+    For example code bellow will produce two alerts in a row (second alert will appear after first is dismissed):
+       for (int i=0; i<2; i++) 
+       {
+            new Alert ("Hello", "Hello, world!")
+                .SetPositiveButton("OK")
+                .Show();
+       }
+
+  Set callbacks:
+    new Alert ("Hello", "Hello, world!")
+       .SetPositiveButton("OK", () => { print("Button pressed"); })
+       .Show();
+
+  Set dismiss callback:
+    Dismiss callback is called every time when alert dialog is dismissed
+    with no respect to the reason of closing:
+    Dialog can be canceled on Android (tap out of the dialog) or
+    Dialog can be closed after the button was pressed
+    For example:
+         new Alert ("Hello", "Hello, world!")
+             .SetPositiveButton("OK", () => { print("Button pressed"); })
+             .SetOnDismiss(() => { print("Dialog is dismissed"); } )
+             .Show();
+    output will be:
+         Button pressed
+         Dialog is dismissed    
+
+  Fine-tuning:
+    You can customize alert behavior on various platforms (For details see AlertAndroidOptions, AlertIOSOptions)
+    This example demonstrates how to show alert with Red (destructive) button on IOS devices 
+    and prevent dialog from cancellation on Android devices:
+        new Alert ("Delete confirmation", "Do you want to delete selected items?")
+            .SetPositiveButton("Yes", () => { /*...*/ })
+            .SetNegativeButton("No")
+            .AddOptions(new AlertIOSOptions() {
+                 NegativeButton = AlertIOSButton.Type.Destructive,
+     	         PreferableButton = Alert.ButtonType.Positive
+            })
+            .AddOptions(new AlertAndroidOptions() {
+                 Cancelable = false
+            })
+            .Show();

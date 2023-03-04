@@ -7,6 +7,11 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
+using Unity.Advertisement.IosSupport;
+#if UNITY_IOS
+using UnityEngine.iOS;
+#endif
+using PaperPlaneTools;
 #if UNITY_EDITOR
 using Unity.EditorCoroutines.Editor;
 
@@ -18,7 +23,7 @@ namespace SuperStarSdk
         public int LastPlayedCrossPromoBoxIndex = -1;
         public int LastPlayedCrossPromoIntrestitialIndex = -1;
 
-        public bool isLogEnabled = false;
+
         public static SuperStarSdkManager Instance;
         //public SdkDataClass Settings;
         public string ConfigFileURL;
@@ -81,7 +86,7 @@ namespace SuperStarSdk
             {
                 Destroy(this.gameObject);
             }
-            Debug.unityLogger.logEnabled = isLogEnabled;
+
             //if (PrivacyAccepted == 0)
             //{
             //    GDPR.SetActive(true);
@@ -90,16 +95,7 @@ namespace SuperStarSdk
             //    GDPR.SetActive(false);
 
             //}
-            //if (!string.IsNullOrEmpty(DefaultConfig))
-            //{
-
-            //    crossPromoAssetsRoot = JsonConvert.DeserializeObject<SSCrossPromoAssetRoot>(DefaultConfig);
-            //    AdmobManager.Instance.SetUp();
-            //}
-            //else {
-            //    AdmobManager.Instance.SetUp();
-
-            //}
+          
 
         }
 
@@ -119,8 +115,21 @@ namespace SuperStarSdk
 
         private IEnumerator Start()
         {
-            
-          //  Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
+            if (!string.IsNullOrEmpty(DefaultConfig))
+            {
+
+                crossPromoAssetsRoot = JsonConvert.DeserializeObject<SSCrossPromoAssetRoot>(DefaultConfig);
+                AdmobManager.Instance.SetUp();
+            }
+            else
+            {
+                AdmobManager.Instance.SetUp();
+
+            }
+
+            SuperStarAd.Instance.Setup();
+            //  Debug.Log("Complete json : => " + JsonConvert.SerializeObject(crossPromoAssetsRoot));
+            AppTrackTransperancy();
             yield return new WaitForSeconds(1);
           //cross prom data 
 
@@ -128,12 +137,39 @@ namespace SuperStarSdk
 
         }
 
+
+        public event Action sentTrackingAuthorizationRequest;
+        public void AppTrackTransperancy() {
+#if UNITY_IOS
+
+            Version currentVersion = new Version(Device.systemVersion); 
+            Version ios14 = new Version("14.5"); 
+            // check with iOS to see if the user has accepted or declined tracking
+            var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
+
+            if (status == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && currentVersion >= ios14)
+            {
+
+            Debug.Log("Unity iOS Support: Requesting iOS App Tracking Transparency native dialog.");
+
+            ATTrackingStatusBinding.RequestAuthorizationTracking();
+
+            sentTrackingAuthorizationRequest?.Invoke();
+
+                Debug.LogWarning("Unity iOS Support: Tried to request iOS App Tracking Transparency native dialog, " +
+                                 "but the current platform is not iOS.");
+
+            }
+#else
+            Debug.Log("Unity iOS Support: App Tracking Transparency status not checked, because the platform is not iOS.");
+#endif
+
+        }
+
         public IEnumerator IEGetCrossPromoData()
         {
 
             Debug.Log("IEGetCrossPromoData Config files ");
-
-
 
             UnityWebRequest www = UnityWebRequest.Get(ConfigFileURL);//APImainURL
             yield return www.SendWebRequest();
@@ -225,14 +261,14 @@ namespace SuperStarSdk
             {
                 if (crossPromoAssetsRoot.minversionforceupdate > float.Parse(Application.version))
                 {
-                    ForceUpdateScreen.SetActive(true);
+                    UpdatepopupOpen();
                 }
             }
-            else
-            {
-                ForceUpdateScreen.SetActive(false);
+            //else
+            //{
+            //    ForceUpdateScreen.SetActive(false);
 
-            }
+            //}
         }
 
         IEnumerator DownloadVideo()
@@ -334,7 +370,6 @@ namespace SuperStarSdk
                 }
                 else
                 {
-
                     Debug.Log("Banner is downloading");
 
                     UnityWebRequest www = UnityWebRequest.Get(crossPromoAssetsRoot.data[i].appiconurl.url);
@@ -346,7 +381,6 @@ namespace SuperStarSdk
                     }
                     else
                     {
-
                         //yield return new WaitForSeconds(0.1f);
                         File.WriteAllBytes(Application.persistentDataPath + "/" + crossPromoAssetsRoot.data[i].appname + crossPromoAssetsRoot.data[i].appiconurl.name + ".jpg", www.downloadHandler.data);
                         crossPromoAssetsRoot.data[i].appiconurl.isDownloaded = true;
@@ -357,6 +391,43 @@ namespace SuperStarSdk
             }
         }
 
+        public int LastCriticalUpdateDate
+        {
+            get
+            {
+                return PlayerPrefs.GetInt("LastCriticalUpdateDate", 0);
+            }
+            set
+            {
+                PlayerPrefs.SetInt("LastCriticalUpdateDate", value);
+            }
+        }
+      
+        public void UpdatepopupOpen()
+        {
+            if (DateTime.Now.Day != LastCriticalUpdateDate)
+            {
+                print("open update dialog");
+                LastCriticalUpdateDate = DateTime.Now.Day;
+                ForceUpdateScreen.SetActive(true);
+            }
+            else
+            {
+                ForceUpdateScreen.SetActive(false);
+            }
+
+        }
+
+        public void UpdateAppUrl()
+        {
+#if UNITY_ANDROID
+            Application.OpenURL(String.Format(PlayStoreUrl, crossPromoAssetsRoot.AndroidBundleId));
+#elif UNITY_IOS
+
+            Application.OpenURL(String.Format(AppStoreUrl, crossPromoAssetsRoot.iOSAppBundleId));
+#endif
+
+        }
 
         public void MoreApps() 
         {
@@ -366,23 +437,42 @@ namespace SuperStarSdk
             }
 
         }
-        
+
+        public GameObject RatePopUpScreen;
         public void Rate()
         {
 
             if (crossPromoAssetsRoot.display_direct_review == 1)
             {
-                Review.Instance.Rate();
-            }
-            else {
+                //Show Native popups
 
+#if UNITY_ANDROID
+                Review.Instance.Rate();
+
+#elif UNITY_IOS
+
+                RateBox.Instance.Show();
+
+#endif
+            }
+            else 
+            {
+
+                RatePopUpScreen.SetActive(true);
+              //  RateGame.Instance.ForceShowRatePopup();
+              //Show Gley popup
+
+            }
+
+        }
+
+        public void OpenRateURLs() {
 #if UNITY_ANDROID
             Application.OpenURL(String.Format(PlayStoreUrl, crossPromoAssetsRoot.AndroidBundleId));
 #elif UNITY_IOS
 
-            Application.OpenURL(String.Format(AppStoreUrl, crossPromoAssetsRoot.iOSAppBundleId));
+                        Application.OpenURL(String.Format(AppStoreUrl, crossPromoAssetsRoot.iOSAppBundleId));
 #endif
-            }
 
         }
 
@@ -531,9 +621,14 @@ public class SSCrossPromoAssetRoot
     [Header("Configuration Data")]
     public float jsonversion = 0;
     public float minversionforceupdate = 0;
-    //public int display_Admob_intrestitial = 1;
-    //public int display_Admob_reward = 1;
-    //public int display_Admob_appopen = 1;
+    public int ad_Start_Level = 4;
+    public int rate_Us_level = 3;
+    public float display_Admob_intrestitial_Probablity = 0.5f;
+    public float display_Admob_reward_Probablity = 0.5f;
+    public int display_Admob_intrestitial = 1;
+    public int display_Admob_reward = 1;
+    public int display_Admob_appopen = 1;
+    public int display_Admob_banner = 1;
     public int display_IS_banner_ads = 1;
     public int display_IS_interstitial_ads = 1;
     public int display_IS_reward_ads = 1;
@@ -551,21 +646,25 @@ public class SSCrossPromoAssetRoot
     public string moreappurlios;
     public string PrivacyPolicy;
     public string AndroidISAppKey;
- //   public string AndroidAdmobAppKey;
+    public string AndroidAdmobAppKey;
     public string iOSISAppKey;
- //   public string iOSAdmobAppKey;
+    public string iOSAdmobAppKey;
     public string ExtraURL;
+
+    [Header("Ads Data")]
+    public int IntrestitialAdsStartLevel = 5;
+    public List<int> RateAppLevel= new List<int>();
 
     [Header("Share")]
     public string AndroidBundleId;
     public string iOSAppBundleId;
-    //public List<string> AAdmobBID = new List<string>();
-    //public List<string> AAdmobInID = new List<string>();
-    //public List<string> AAdmobReID = new List<string>();
-    //public List<string> AAdmobOpenID = new List<string>();
-    //public List<string> IAdmobBID = new List<string>();
-    //public List<string> IAdmobInID = new List<string>();
-    //public List<string> IAdmobReID = new List<string>();
-    //public List<string> IAdmobOpenID = new List<string>();
+    public List<string> AAdmobBID = new List<string>();
+    public List<string> AAdmobInID = new List<string>();
+    public List<string> AAdmobReID = new List<string>();
+    public List<string> AAdmobOpenID = new List<string>();
+    public List<string> IAdmobBID = new List<string>();
+    public List<string> IAdmobInID = new List<string>();
+    public List<string> IAdmobReID = new List<string>();
+    public List<string> IAdmobOpenID = new List<string>();
     public List<SSCrossPromoAsset> data;
 }

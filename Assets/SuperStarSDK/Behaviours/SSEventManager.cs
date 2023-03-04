@@ -47,12 +47,12 @@ public class SSEventManager : MonoBehaviour
     }
 
 
-    public void SSOnPressCrossPromoBox(string gamename,string os)
+    public void SSOnPressCrossPromoBox(string gamename, string os)
     {
         Dictionary<string, object> fields = new Dictionary<string, object>();
         fields.Add("gamename", gamename);
         fields.Add("os", os);
-       // fields.Add("test_2", "hello_world");
+        // fields.Add("test_2", "hello_world");
 
         GameAnalytics.NewDesignEvent("OnPressCrossPromoBox");
     }
@@ -62,7 +62,7 @@ public class SSEventManager : MonoBehaviour
         Dictionary<string, object> fields = new Dictionary<string, object>();
         fields.Add("gamename", gamename);
         fields.Add("os", os);
-       // fields.Add("test_2", "hello_world");
+        // fields.Add("test_2", "hello_world");
 
         GameAnalytics.NewDesignEvent("OnPressCrossPromoCollection", fields);
     }

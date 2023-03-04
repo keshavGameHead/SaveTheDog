@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperStarSdk;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -178,8 +179,8 @@ public class InaapManager : MonoBehaviour, IStoreListener
         {
             Debug.Log("Give no ads access");
             HomeManager.Instance.noAds.SetActive(false);
-            SuperStarSdk.SuperStarAd.Instance.NoAds = 1;
-            SuperStarSdk.SuperStarAd.Instance.HideBannerAd();
+            SuperStarAd.Instance.NoAds = 1;
+            SuperStarAd.Instance.HideBannerAd();
 
         }
         else if (String.Equals(args.purchasedProduct.definition.id, BundleId[1], StringComparison.Ordinal))
