@@ -289,9 +289,12 @@ public class UIManager : MonoBehaviour
         isRewardStart = true;
         yield return new WaitForSeconds(2f);
         tapToContinue.SetActive(true);
-        if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
+        if (HomeManager.Instance.levelMode == null)
         {
-            SuperStarSdkManager.Instance.Rate();
+            if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
+            {
+                SuperStarSdkManager.Instance.Rate();
+            }
         }
         if (PlayerPrefs.GetInt("NoAds") == 0)
         {

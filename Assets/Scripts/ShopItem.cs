@@ -14,12 +14,12 @@ public class ShopItem : MonoBehaviour
         if (itemText.text != "Select" || itemText.text == "Selected")
         {
             int coin = PlayerPrefs.GetInt("Coin", 0);
+            coin = coin - (int.Parse(itemText.text));
             if (coin <= 0)
             {
                 Debug.LogError("You Don't Have Enough Coin");
                 return;
             }
-            coin = coin - (int.Parse(itemText.text));
             PlayerPrefs.SetInt("Coin", coin);
             ShopPanel.Instance.coinText.text = coin.ToString();
             itemText.text = "Select";

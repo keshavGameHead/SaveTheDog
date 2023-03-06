@@ -17,38 +17,38 @@ public class InternetCheckingManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    //void Start()
-    //{
-    //     _connectionTester = ConnectionTester
-    //        .GetInstance(gameObject)
-    //        .ipToTest("www.google.com");
+    void Start()
+    {
+        _connectionTester = ConnectionTester
+           .GetInstance(gameObject)
+           .ipToTest("www.google.com");
 
 
-    //    InternetCheckInvoke();
-    //}
+        InternetCheckInvoke();
+    }
 
-    //public void InternetCheckInvoke() 
-    //{
+    public void InternetCheckInvoke()
+    {
 
-    //    _connectionTester.TestInternet((test) =>
-    //    {
-    //        if (test)
-    //        {
-    //            isinternetavailable = true;
-    //            Debug.LogError("disable popup");
-    //            Debug.LogError("Internet Availables");
-    //            NoInternetPopUp.SetActive(false);
-    //            Invoke("InternetCheckInvoke", 10);
+        _connectionTester.TestInternet((test) =>
+        {
+            if (test)
+            {
+                isinternetavailable = true;
+                Debug.Log("disable popup");
+                Debug.Log("Internet Availables");
+                NoInternetPopUp.SetActive(false);
+                Invoke("InternetCheckInvoke", 10);
 
-    //        }
-    //        else
-    //        {
-    //            isinternetavailable = false;
-    //            Debug.LogError("Show popup");
-    //            NoInternetPopUp.SetActive(true);
-    //            Invoke("InternetCheckInvoke", 5);
-    //        }
+            }
+            else
+            {
+                isinternetavailable = false;
+                Debug.Log("Show popup");
+                NoInternetPopUp.SetActive(true);
+                Invoke("InternetCheckInvoke", 5);
+            }
 
-    //    });
-    //}
+        });
+    }
 }

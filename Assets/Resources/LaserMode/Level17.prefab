@@ -2502,6 +2502,7 @@ MonoBehaviour:
   genDelay: 1
   beePrefabs: {fileID: 2295828488975202296, guid: dd6c8a5e2e9d02c4380f1fad13fcb94c,
     type: 3}
+  queenBee: {fileID: 0}
 --- !u!1 &2547093644907509665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,10 +2567,13 @@ MonoBehaviour:
   laserMode: 1
   BombMode: 0
   TeleportMode: 0
+  QueenMode: 0
+  PathFindMode: 0
   teleTargetObj: {fileID: 0}
   teleOutObj: {fileID: 0}
   monsters: []
-  laserLineObj: {fileID: 1922079788823894831}
+  laserLineObj:
+  - {fileID: 1922079788823894831}
   bombObj: {fileID: 0}
 --- !u!1 &5254756192304029841
 GameObject:
@@ -3920,6 +3924,7 @@ MonoBehaviour:
   genDelay: 1
   beePrefabs: {fileID: 2295828488975202296, guid: dd6c8a5e2e9d02c4380f1fad13fcb94c,
     type: 3}
+  queenBee: {fileID: 0}
 --- !u!1 &7391354003651418205
 GameObject:
   m_ObjectHideFlags: 0
