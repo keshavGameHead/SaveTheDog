@@ -65,9 +65,21 @@ namespace SuperStarSdk
             Debug.Log("unity-script: IronSource.Agent.init");
             IronSource.Agent.init(appKey);
             bannerImage.SetActive(false);
+
+            if (NoAds == 0)
+            {
+                Debug.Log("no ads is inactive");
+                ShowBannerAd();
+                LoadInterstitialAd(0);
+            }
+            else
+            {
+                Debug.Log("no ads is activated");
+
+                // ShowBannerAd();
+                //LoadInterstitialAd(0);
+            }
             lastInterstitial = -1000f;
-            ShowBannerAd();
-            LoadInterstitialAd(0);
 
         }
 
@@ -453,8 +465,20 @@ namespace SuperStarSdk
         public void ShowInterstitialTimer(Action<bool> onComplete)
         {
             Debug.Log("isIntrestitiallShowing => " + isIntrestitiallShowing);
-            if (isIntrestitiallShowing)
+            if (isIntrestitiallShowing )
             {
+                return;
+            }
+
+            if (NoAds==1)
+            {
+                isIntrestitiallShowing = false;
+                if (_callbackIntrestital == null)
+                {
+                    return;
+                }
+                _callbackIntrestital.Invoke(false);
+                _callbackIntrestital = null;
                 return;
             }
             isIntrestitiallShowing = true;
@@ -516,6 +540,17 @@ namespace SuperStarSdk
         {
             if (isIntrestitiallShowing)
             {
+                return;
+            }
+            if (NoAds == 1)
+            {
+                isIntrestitiallShowing = false;
+                if (_callbackIntrestital == null)
+                {
+                    return;
+                }
+                _callbackIntrestital.Invoke(false);
+                _callbackIntrestital = null;
                 return;
             }
             isIntrestitiallShowing = true;
@@ -621,6 +656,9 @@ namespace SuperStarSdk
             {
                 return;
             }
+           
+
+
             isRewardGiven = false;
             isRewardShowing = true;
             _callback = onComplete;

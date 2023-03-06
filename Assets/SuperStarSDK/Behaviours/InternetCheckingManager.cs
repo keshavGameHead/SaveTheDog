@@ -19,15 +19,15 @@ public class InternetCheckingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _connectionTester = ConnectionTester
-           .GetInstance(gameObject)
-           .ipToTest("www.google.com");
+         _connectionTester = ConnectionTester
+            .GetInstance(gameObject)
+            .ipToTest("www.google.com");
 
 
         InternetCheckInvoke();
     }
 
-    public void InternetCheckInvoke()
+    public void InternetCheckInvoke() 
     {
 
         _connectionTester.TestInternet((test) =>
@@ -35,8 +35,8 @@ public class InternetCheckingManager : MonoBehaviour
             if (test)
             {
                 isinternetavailable = true;
-                Debug.Log("disable popup");
-                Debug.Log("Internet Availables");
+                Debug.LogError("disable popup");
+                Debug.LogError("Internet Availables");
                 NoInternetPopUp.SetActive(false);
                 Invoke("InternetCheckInvoke", 10);
 
@@ -44,7 +44,7 @@ public class InternetCheckingManager : MonoBehaviour
             else
             {
                 isinternetavailable = false;
-                Debug.Log("Show popup");
+                Debug.LogError("Show popup");
                 NoInternetPopUp.SetActive(true);
                 Invoke("InternetCheckInvoke", 5);
             }
