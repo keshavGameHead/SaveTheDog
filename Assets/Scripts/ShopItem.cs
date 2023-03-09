@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
     public int index;
     public TextMeshProUGUI itemText;
+    public Image ItemImage;
 
     public void OnClickBtn()
     {
@@ -21,7 +23,7 @@ public class ShopItem : MonoBehaviour
                 return;
             }
             PlayerPrefs.SetInt("Coin", coin);
-            ShopPanel.Instance.coinText.text = coin.ToString();
+            //ShopPanel.Instance.coinText.text = coin.ToString();
             itemText.text = "Select";
             PlayerPrefs.SetInt(index + "_ShopItem", 1);
         }
@@ -31,18 +33,21 @@ public class ShopItem : MonoBehaviour
             {
                 if (i == (index - 1))
                 {
-                    itemText.text = "Selected";
+                    itemText.text = "";
+                    ShopPanel.Instance.shopItems[i].ItemImage.sprite = ShopPanel.Instance.SelectImage;
                     PlayerPrefs.SetInt("PlayerSkin", index - 1);
                 }
                 else
                 {
                     if (PlayerPrefs.GetInt(ShopPanel.Instance.shopItems[i].index+"_ShopItem") == 1)
                     {
-                        ShopPanel.Instance.shopItems[i].itemText.text = "Select";
+                        ShopPanel.Instance.shopItems[i].itemText.text = "";
+                        ShopPanel.Instance.shopItems[i].ItemImage.sprite = ShopPanel.Instance.SelectImage;
                     }
                     else
                     {
                         ShopPanel.Instance.shopItems[i].itemText.text = "100";
+                        ShopPanel.Instance.shopItems[i].ItemImage.sprite = ShopPanel.Instance.unSelectImage;
                     }
                 }
             }
