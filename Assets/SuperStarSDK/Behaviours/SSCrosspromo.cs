@@ -51,6 +51,12 @@ public class SSCrosspromo : MonoBehaviour
         _videoContent.gameObject.SetActive(false);
         SuperStarSdkManager.OnDataArrive += CrossPromoDataAarrived;
         Debug.LogError("on enable called");
+        LoadCrossPromo();
+    }
+
+    public void LoadCrossPromo() 
+    {
+ 
         //yield return new WaitForSeconds(5f);
         if (SuperStarSdkManager.Instance.isCrossPromoDataArrived)
         {
@@ -102,6 +108,7 @@ public class SSCrosspromo : MonoBehaviour
                 CurrentVideoIndex = x;
                 return x;
             }
+            
             else
             {
                 return GiveMeCrossPromoVideoIndex();
@@ -173,12 +180,16 @@ public class SSCrosspromo : MonoBehaviour
         _videoPlayer.targetTexture = _renderTexture;
         _videoPlayer.errorReceived += OnErrorReceived;
         _videoPlayer.prepareCompleted += OnVideoPrepared;
+        _videoPlayer.loopPointReached += EndReached;
         _videoPlayer.sendFrameReadyEvents = true;
         _renderTexture.Create();
 
         LoadVideo();
     }
-
+    void EndReached(UnityEngine.Video.VideoPlayer vp)
+    {
+       // LoadCrossPromo();
+    }
     private void OnErrorReceived(VideoPlayer source, string message)
     {
         StartCoroutine(PlayNextVideo());
