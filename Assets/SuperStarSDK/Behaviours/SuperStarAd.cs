@@ -481,6 +481,7 @@ namespace SuperStarSdk
                 _callbackIntrestital = null;
                 return;
             }
+
             isIntrestitiallShowing = true;
             _callbackIntrestital = onComplete;
 

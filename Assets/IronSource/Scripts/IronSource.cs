@@ -167,9 +167,10 @@ public class IronSource : IronSourceIAgent
 		_platformAgent.loadRewardedVideo();
 	}
 
-
+	
 	public void showRewardedVideo()
 	{
+		
 		_platformAgent.showRewardedVideo();
 	}
 
