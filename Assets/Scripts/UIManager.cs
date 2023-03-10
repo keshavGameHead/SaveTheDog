@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
     public GameObject cryingAnim;
     public GameObject monObj = null;
 
+    public GameObject[] gameWinStars;
+
     private void Awake()
     {
         if (Instance == null)
@@ -97,7 +99,7 @@ public class UIManager : MonoBehaviour
     {
         if (isRewardStart)
         {
-            gameWinRewardButtonTxt.text = "X" + SliderScript.Instance.sliderInt;
+            //gameWinRewardButtonTxt.text = "X" + SliderScript.Instance.sliderInt;
         }
         if (startClock)
         {
@@ -318,23 +320,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("LoveUnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "LoveStars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i==0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "LoveStars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "LoveStars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
         }
         else if (HomeManager.Instance.MonsterMode)
@@ -345,23 +380,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("MonsterUnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "MonsterStars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "MonsterStars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "MonsterStars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
         }
         else if (HomeManager.Instance.SpiderMode)
@@ -372,23 +440,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("SpiderUnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "SpiderStars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "SpiderStars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "SpiderStars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
         }
         else if (HomeManager.Instance.LaserMode)
@@ -399,23 +500,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("LaserUnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "LaserStars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "LaserStars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "LaserStars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
         }
         else if (HomeManager.Instance.TeleportMode)
@@ -426,23 +560,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("TeleUnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "TeleStars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "TeleStars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "TeleStars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
         }
         else
@@ -453,23 +620,56 @@ public class UIManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("UnlockLevel", level + 1);
             }
-            if (drawLimit <= 0.25f)
+            if (drawLimit <= 0.33f)
             {
                 rewardCoin = 10;
                 gameWinGameScore.text = "x10";
                 PlayerPrefs.SetInt((level) + "Stars", 1);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 0)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit <= 0.5f)
+            else if (drawLimit <= 0.66f)
             {
                 rewardCoin = 20;
                 gameWinGameScore.text = "x20";
                 PlayerPrefs.SetInt((level) + "Stars", 2);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 1)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
-            else if (drawLimit >= 0.5f)
+            else if (drawLimit >= 0.66f)
             {
                 rewardCoin = 30;
                 gameWinGameScore.text = "x30";
                 PlayerPrefs.SetInt((level) + "Stars", 3);
+                for (int i = 0; i < gameWinStars.Length; i++)
+                {
+                    if (i <= 2)
+                    {
+                        gameWinStars[i].SetActive(true);
+                    }
+                    else
+                    {
+                        gameWinStars[i].SetActive(false);
+                    }
+                }
             }
             if (maxLevel >= 20)
             {
@@ -567,19 +767,19 @@ public class UIManager : MonoBehaviour
     IEnumerator StopSlider()
     {
         StopCoroutine(gameWin);
-        sliderObj.GetComponent<Animator>().enabled = false;
+        //sliderObj.GetComponent<Animator>().enabled = false;
         int gameScore;
         if (drawLimit <= 0.25f)
         {
-            gameScore = 10 * SliderScript.Instance.sliderInt;
+            gameScore = 10 * 2;
         }
         else if (drawLimit <= 0.5f)
         {
-            gameScore = 20 * SliderScript.Instance.sliderInt;
+            gameScore = 20 * 2;
         }
-        else 
+        else
         {
-            gameScore = 30 * SliderScript.Instance.sliderInt;
+            gameScore = 30 * 2;
         }
 
         gameWinGameScore.text = gameScore.ToString();
@@ -607,6 +807,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         LoadNewLevel();
     }
+
+    
 
     public void LoadNewLevel()
     {
@@ -706,6 +908,11 @@ public class UIManager : MonoBehaviour
         isAdplaying = true;
         SuperStarAd.Instance.ShowRewardVideo(ExampleShowRewardAssign);
       //  guide.SetActive(true);
+    }
+    public GameObject shopPopup;
+    public void OnClickWinShop()
+    {
+        shopPopup.SetActive(true);
     }
 
     public Material Linemat;

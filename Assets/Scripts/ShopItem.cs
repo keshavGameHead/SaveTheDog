@@ -23,7 +23,7 @@ public class ShopItem : MonoBehaviour
                 return;
             }
             PlayerPrefs.SetInt("Coin", coin);
-            //ShopPanel.Instance.coinText.text = coin.ToString();
+            ShopPanel.Instance.coinTxt.text = coin.ToString();
             itemText.text = "Select";
             PlayerPrefs.SetInt(index + "_ShopItem", 1);
         }
@@ -41,8 +41,8 @@ public class ShopItem : MonoBehaviour
                 {
                     if (PlayerPrefs.GetInt(ShopPanel.Instance.shopItems[i].index+"_ShopItem") == 1)
                     {
-                        ShopPanel.Instance.shopItems[i].itemText.text = "";
-                        ShopPanel.Instance.shopItems[i].ItemImage.sprite = ShopPanel.Instance.SelectImage;
+                        ShopPanel.Instance.shopItems[i].itemText.text = "Select";
+                        ShopPanel.Instance.shopItems[i].ItemImage.sprite = ShopPanel.Instance.unSelectImage;
                     }
                     else
                     {

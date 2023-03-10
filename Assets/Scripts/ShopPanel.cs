@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShopPanel : MonoBehaviour
@@ -11,6 +12,7 @@ public class ShopPanel : MonoBehaviour
 
     public Sprite SelectImage;
     public Sprite unSelectImage;
+    public TextMeshProUGUI coinTxt;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
 
@@ -24,7 +26,8 @@ public class ShopPanel : MonoBehaviour
 
     private void Start()
     {
-       // coinImage = PlayerPrefs.GetInt("Coin",0).ToString();
+        coinTxt.text = PlayerPrefs.GetInt("Coin",0).ToString();
+        PlayerPrefs.SetInt(1 + "_ShopItem", 1);
         SetPanel();
     }
 
@@ -37,18 +40,37 @@ public class ShopPanel : MonoBehaviour
     {
         for (int i = 0; i < shopItems.Count; i++)
         {
-            if (i==0)
+            //if (i==0)
+            //{
+            //    shopItems[i].itemText.text = "";
+            //    shopItems[i].ItemImage.sprite = SelectImage;
+            //    PlayerPrefs.SetInt(shopItems[i].index + "_ShopItem", 1);
+            //}
+            //else 
+            //{
+            //    if (PlayerPrefs.GetInt(shopItems[i].index+"_ShopItem") == 1)
+            //    {
+            //        //shopItems[i].itemText.text = "Select";
+            //        shopItems[i].ItemImage.sprite = SelectImage;
+            //    }
+            //    else
+            //    {
+            //        shopItems[i].itemText.text = "100";
+            //        shopItems[i].ItemImage.sprite = unSelectImage;
+            //    }
+            //}
+
+            if (i == PlayerPrefs.GetInt("PlayerSkin",0))
             {
                 shopItems[i].itemText.text = "";
                 shopItems[i].ItemImage.sprite = SelectImage;
-                PlayerPrefs.SetInt(shopItems[i].index + "_ShopItem", 1);
             }
-            else 
+            else
             {
                 if (PlayerPrefs.GetInt(shopItems[i].index+"_ShopItem") == 1)
                 {
-                    //shopItems[i].itemText.text = "Select";
-                    shopItems[i].ItemImage.sprite = SelectImage;
+                    shopItems[i].itemText.text = "Select";
+                    shopItems[i].ItemImage.sprite = unSelectImage;
                 }
                 else
                 {
@@ -57,6 +79,11 @@ public class ShopPanel : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnClickCloseWin()
+    {
+        SceneManager.LoadScene("Home");
     }
 
 }

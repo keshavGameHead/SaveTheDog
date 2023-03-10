@@ -209,7 +209,7 @@ public class AdmobManager : MonoBehaviour
     }
     public void RequestAppOpenAds()
     {
-        if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_appopen == 0)
+        if (SuperStarSdkManager.Instance.crossPromoAssetsRoot.display_Admob_appopen == 0 || AppOpenAdsIds.Count<=0)
         {
             return;
         }

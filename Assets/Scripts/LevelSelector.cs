@@ -91,7 +91,7 @@ public class LevelSelector : MonoBehaviour
 
     public void GoToLevel(int index)
     {
-        int levelIndex = 8 * currentPage + index;
+        int levelIndex = 6 * currentPage + index;
         AudioManager.instance.buttonAudio.Play();
         SetCurrentLevel(levelIndex + 1);
         SceneManager.LoadScene("Level");

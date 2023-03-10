@@ -14,9 +14,9 @@ public class LevelItem : MonoBehaviour
     public Image bgImage;
     public List<Image> StarImgs = new List<Image>();
 
-    public Sprite doneSpr, unDoneSpr, starSPr;
+    public Sprite doneSpr, unDoneSpr, starSPr, unfillStar;
 
-    public GameObject lockObj, unlockObj;
+    public GameObject lockObj, unlockObj, lockBg;
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +32,12 @@ public class LevelItem : MonoBehaviour
 
     public void RefreshItem(int page, bool isDone)
     {
-        levelText.text = "LV " + (page * 8 + index + 1).ToString();
+        levelText.text = "LV " + (page * 6 + index + 1).ToString();
         int currentLevelNum = GetUnlockLevelIndex();
-        if (currentLevelNum == (page * 8 + index + 1))
+        if (currentLevelNum == (page * 6 + index + 1))
         {
             gameObject.GetComponent<Button>().interactable = true;
-            bgImage.sprite = doneSpr;
+            lockBg.SetActive(false);
             lockObj.SetActive(false);
             unlockObj.SetActive(false);
             for (int i = 0; i < StarImgs.Count; i++)
@@ -61,14 +61,14 @@ public class LevelItem : MonoBehaviour
                 }
                 else
                 {
-                    StarImgs[i].gameObject.SetActive(false);
+                    StarImgs[i].sprite = unfillStar;
                 }
             }
         }
         else
         {
             gameObject.GetComponent<Button>().interactable = false;
-            bgImage.sprite = unDoneSpr;
+            lockBg.SetActive(true);
             lockObj.SetActive(true);
             unlockObj.SetActive(false);
             for (int i = 0; i < StarImgs.Count; i++)
@@ -83,27 +83,27 @@ public class LevelItem : MonoBehaviour
     {
         if (HomeManager.Instance.LoveMode)
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "LoveStars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "LoveStars");
         }
         else if (HomeManager.Instance.MonsterMode)
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "MonsterStars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "MonsterStars");
         }
         else if (HomeManager.Instance.SpiderMode)
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "SpiderStars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "SpiderStars");
         }
         else if (HomeManager.Instance.LaserMode)
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "LaserStars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "LaserStars");
         }
         else if (HomeManager.Instance.TeleportMode)
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "TeleStars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "TeleStars");
         }
         else
         {
-            return PlayerPrefs.GetInt((page * 8 + index + 1) + "Stars");
+            return PlayerPrefs.GetInt((page * 6 + index + 1) + "Stars");
         }
     }
     public int GetUnlockLevelIndex()

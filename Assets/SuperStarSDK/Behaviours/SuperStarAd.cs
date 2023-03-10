@@ -465,7 +465,7 @@ namespace SuperStarSdk
         public void ShowInterstitialTimer(Action<bool> onComplete)
         {
             Debug.Log("isIntrestitiallShowing => " + isIntrestitiallShowing);
-            if (isIntrestitiallShowing )
+            if (isIntrestitiallShowing)
             {
                 return;
             }
