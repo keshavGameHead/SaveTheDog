@@ -253,11 +253,11 @@ public class DrawingManager : MonoBehaviour
                 else
                 {
 					UIManager.Instance.sliderImage.value = UIManager.Instance.drawLimit;
-                    if (UIManager.Instance.drawLimit <= 0.25f)
+                    if (UIManager.Instance.drawLimit <= 0.33f)
                     {
 						UIManager.Instance.starImage2.SetActive(false);
                     }
-                    else if(UIManager.Instance.drawLimit <= 0.5f)
+                    else if(UIManager.Instance.drawLimit <= 0.66f)
                     {
 						UIManager.Instance.starImage1.SetActive(false);
                     }

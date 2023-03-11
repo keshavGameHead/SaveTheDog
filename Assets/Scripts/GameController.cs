@@ -151,7 +151,7 @@ public class GameController : MonoBehaviour
             {
                 if (currentLevel.dogList[i].gameObject.tag == "Dog")
                 {
-                    GameObject obj = Instantiate(getSkin, currentLevel.dogList[i].position, Quaternion.identity);
+                    GameObject obj = Instantiate(getSkin, currentLevel.dogList[i].position + new Vector3(0,-0.75f,0), Quaternion.identity);
                     Destroy(currentLevel.dogList[i].gameObject);
                     currentLevel.dogList[i] = obj.transform;
                 }

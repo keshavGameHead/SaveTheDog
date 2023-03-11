@@ -42,6 +42,7 @@ public class HomeManager : MonoBehaviour
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = false;
+        AudioManager.instance.buttonAudio.Play();
         int unlockLevel = PlayerPrefs.GetInt("UnlockLevel", 1);
         PlayerPrefs.SetInt("CurrentLevel", unlockLevel);
         SceneManager.LoadScene("Level");
@@ -56,6 +57,7 @@ public class HomeManager : MonoBehaviour
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = false;
+        AudioManager.instance.buttonAudio.Play();
         if (PlayerPrefs.GetInt("LoveMode", 0) == 0)
         {
             ModsPanel.Instance.popupPanel.SetActive(true);
@@ -95,6 +97,7 @@ public class HomeManager : MonoBehaviour
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = false;
+        AudioManager.instance.buttonAudio.Play();
         if (PlayerPrefs.GetInt("MonsterMode", 0) == 0)
         {
             ModsPanel.Instance.popupPanel.SetActive(true);
@@ -149,6 +152,7 @@ public class HomeManager : MonoBehaviour
         SpiderMode = false;
         LaserMode = true;
         TeleportMode = false;
+        AudioManager.instance.buttonAudio.Play();
         if (PlayerPrefs.GetInt("LaserMode", 0) == 0)
         {
             ModsPanel.Instance.popupPanel.SetActive(true);
@@ -189,6 +193,7 @@ public class HomeManager : MonoBehaviour
         SpiderMode = false;
         LaserMode = false;
         TeleportMode = true;
+        AudioManager.instance.buttonAudio.Play();
         if (PlayerPrefs.GetInt("TeleportMode", 0) == 0)
         {
             ModsPanel.Instance.popupPanel.SetActive(true);
@@ -223,11 +228,13 @@ public class HomeManager : MonoBehaviour
 
     public void OnClickShop()
     {
+        AudioManager.instance.buttonAudio.Play();
         ShopPanel.Instance.popupPanel.SetActive(true);
         ShopPanel.Instance.SetPanel();
     }
     public void OnClickNoAds()
     {
+        AudioManager.instance.buttonAudio.Play();
         InaapManager.Instance.PurchaseNoAdsProuduct();
     }
     public void ShowMoreApps() 

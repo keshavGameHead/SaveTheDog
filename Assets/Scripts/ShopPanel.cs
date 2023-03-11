@@ -33,6 +33,7 @@ public class ShopPanel : MonoBehaviour
 
     public void OnClickClose()
     {
+        AudioManager.instance.buttonAudio.Play();
         popupPanel.SetActive(false);
     }
 
@@ -40,26 +41,6 @@ public class ShopPanel : MonoBehaviour
     {
         for (int i = 0; i < shopItems.Count; i++)
         {
-            //if (i==0)
-            //{
-            //    shopItems[i].itemText.text = "";
-            //    shopItems[i].ItemImage.sprite = SelectImage;
-            //    PlayerPrefs.SetInt(shopItems[i].index + "_ShopItem", 1);
-            //}
-            //else 
-            //{
-            //    if (PlayerPrefs.GetInt(shopItems[i].index+"_ShopItem") == 1)
-            //    {
-            //        //shopItems[i].itemText.text = "Select";
-            //        shopItems[i].ItemImage.sprite = SelectImage;
-            //    }
-            //    else
-            //    {
-            //        shopItems[i].itemText.text = "100";
-            //        shopItems[i].ItemImage.sprite = unSelectImage;
-            //    }
-            //}
-
             if (i == PlayerPrefs.GetInt("PlayerSkin",0))
             {
                 shopItems[i].itemText.text = "";
@@ -74,7 +55,7 @@ public class ShopPanel : MonoBehaviour
                 }
                 else
                 {
-                    shopItems[i].itemText.text = "100";
+                    shopItems[i].itemText.text = shopItems[i].prise.ToString();
                     shopItems[i].ItemImage.sprite = unSelectImage;
                 }
             }
@@ -83,7 +64,7 @@ public class ShopPanel : MonoBehaviour
 
     public void OnClickCloseWin()
     {
-        SceneManager.LoadScene("Home");
+        popupPanel.SetActive(false);
     }
 
 }

@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI clockText, levelText;
     public Animator coinAnimation;
     public GameObject tapToContinue;
+    public GameObject restartBtn;
     public Slider sliderImage;
     public float drawLimit;
     public GameObject starImage3,starImage2,starImage1;
@@ -38,7 +39,6 @@ public class UIManager : MonoBehaviour
     public bool startClock;
     public bool isClick = false;
     int rewardCoin;
-    public GameObject cryingAnim;
     public GameObject monObj = null;
 
     public GameObject[] gameWinStars;
@@ -56,7 +56,6 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cryingAnim.SetActive(false);
         levelPanel.SetActive(false);
         isRewardStart = false;
         if (GameController.instance.currentState == GameController.STATE.PLAYING)
@@ -259,9 +258,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         failPanel.SetActive(true);
         gamePlayScreen.SetActive(false);
-        cryingAnim.SetActive(true);
         yield return new WaitForSeconds(1f);
-        cryingAnim.GetComponent<Animator>().SetBool("Play", true);
         if (PlayerPrefs.GetInt("NoAds") == 0)
         {
             if (GameController.instance.levelIndex > 4)
@@ -282,6 +279,7 @@ public class UIManager : MonoBehaviour
         gameWinTotalScore.text = score.ToString();
         PlayerPrefs.SetInt("Coin", score);
         tapToContinue.SetActive(false);
+        restartBtn.SetActive(false);
         complete.SetActive(true);
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(1.0f);
@@ -289,10 +287,12 @@ public class UIManager : MonoBehaviour
         gamePlayScreen.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         isRewardStart = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         tapToContinue.SetActive(true);
+        restartBtn.SetActive(true);
         if (HomeManager.Instance.levelMode == null)
         {
+            Debug.LogError("Rate Popup Open");
             if (GameController.instance.levelIndex == 3 || GameController.instance.levelIndex == 5)
             {
                 SuperStarSdkManager.Instance.Rate();
@@ -300,6 +300,7 @@ public class UIManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("NoAds") == 0)
         {
+            Debug.LogError("Ad Shown");
             if (GameController.instance.levelIndex > 4)
             {
                 SuperStarAd.Instance.ShowInterstitialTimer((o) =>{});
@@ -726,6 +727,7 @@ public class UIManager : MonoBehaviour
 
     public void Replay()
     {
+        AudioManager.instance.buttonAudio.Play();
         if (GameController.instance.levelIndex > 4)
         {
             SuperStarAd.Instance.ShowInterstitialTimer(ReplayLEvel);
@@ -740,12 +742,14 @@ public class UIManager : MonoBehaviour
 
     public void ReplayLEvel(bool isdone) {
 
+        
         PlayerPrefs.SetInt("CurrentLevel", GameController.instance.levelIndex);
         SceneManager.LoadScene("Level");
     }
 
     public void NextLevel()
     {
+        AudioManager.instance.buttonAudio.Play();
         SuperStarAd.Instance.ShowRewardVideo(StartNextCoroutine);
     }
 
@@ -762,6 +766,7 @@ public class UIManager : MonoBehaviour
     }
     public void TapToContinue()
     {
+        AudioManager.instance.buttonAudio.Play();
         StartCoroutine(ContinueLoadLevel());
     }
     IEnumerator StopSlider()
@@ -795,7 +800,6 @@ public class UIManager : MonoBehaviour
 
     IEnumerator ContinueLoadLevel()
     {
-        sliderObj.gameObject.SetActive(false);
         int gameScore = rewardCoin;
         gameWinGameScore.text = gameScore.ToString();
         yield return new WaitForSeconds(1f);
@@ -857,6 +861,7 @@ public class UIManager : MonoBehaviour
 
     public void Home()
     {
+        AudioManager.instance.buttonAudio.Play();
         if (PlayerPrefs.GetInt("NoAds") == 0)
         {
             SuperStarAd.Instance.ShowInterstitialTimer((O) =>
@@ -905,6 +910,7 @@ public class UIManager : MonoBehaviour
 
     public void Hint()
     {
+        AudioManager.instance.buttonAudio.Play();
         isAdplaying = true;
         SuperStarAd.Instance.ShowRewardVideo(ExampleShowRewardAssign);
       //  guide.SetActive(true);
@@ -912,6 +918,7 @@ public class UIManager : MonoBehaviour
     public GameObject shopPopup;
     public void OnClickWinShop()
     {
+        AudioManager.instance.buttonAudio.Play();
         shopPopup.SetActive(true);
     }
 

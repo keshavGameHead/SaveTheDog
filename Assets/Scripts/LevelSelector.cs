@@ -10,6 +10,8 @@ public class LevelSelector : MonoBehaviour
 
     public int maxPage;
 
+    public int maxLevel;
+
     public List<LevelItem> itemList;
 
     // Start is called before the first frame update
@@ -37,10 +39,17 @@ public class LevelSelector : MonoBehaviour
         int unlockLevel = GetUnlockLevelIndex();
         for (int i = 0; i < itemList.Count; i++)
         {
-            if((8 * currentPage + i) < unlockLevel)
-               itemList[i].RefreshItem(currentPage, true);
+            if ((6 * currentPage + i) < maxLevel)
+            {
+                if ((6 * currentPage + i) < unlockLevel)
+                    itemList[i].RefreshItem(currentPage, true);
+                else
+                    itemList[i].RefreshItem(currentPage, false);
+            }
             else
-                itemList[i].RefreshItem(currentPage, false);
+            {
+                itemList[i].gameObject.SetActive(false);
+            }
         }
     }
 
