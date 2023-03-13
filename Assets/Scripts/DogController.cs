@@ -11,6 +11,7 @@ public class DogController : MonoBehaviour
     public static DogController Instance;
     public bool ishurt;
     public bool isMonster;
+    public Animator animator;
 
     private void Awake()
     {
@@ -28,14 +29,16 @@ public class DogController : MonoBehaviour
     {
         AudioManager.instance.dogAudio.Play();
         ishurt = true;
-        mAnimator.AnimationName = "4-sting";
+            mAnimator.AnimationName = "4-sting";
+        
         GameController.instance.currentState = GameController.STATE.GAMEOVER;
     }
     public void MonsterHurt()
     {
         AudioManager.instance.dogAudio.Play();
         ishurt = true;
-        mAnimator.AnimationName = "4-sting";
+        animator.SetBool("Hurt", true);
+        //mAnimator.AnimationName = "4-sting";
     }
 
     public void Hurtdestroy()
@@ -61,15 +64,7 @@ public class DogController : MonoBehaviour
                 Level.Instance.StartLoveAnim();
             }
         }
-        if (Level.Instance.laserMode)
-        {
-            if (collision.gameObject.tag == "Laser")
-            {
-                GameController.instance.currentState = GameController.STATE.GAMEOVER;
-                Instantiate(deathVfx, transform.position, Quaternion.identity);
-                Destroy(gameObject);
-            }
-        }
+        
 
     }
 
@@ -84,8 +79,17 @@ public class DogController : MonoBehaviour
                 gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
             }
         }
+        if (Level.Instance.laserMode)
+        {
+            if (col.gameObject.tag == "Laser")
+            {
+                GameController.instance.currentState = GameController.STATE.GAMEOVER;
+                Instantiate(deathVfx, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
 
-        
+
     }
 
 }
